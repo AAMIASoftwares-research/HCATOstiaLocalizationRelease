@@ -1,0 +1,4 @@
+Annotations/OstiumAnnotations_CAT08/OSTIAv2/JSON/CAT08__image00.ostium.json
+Annotations/OstiumAnnotations_CAT08/OSTIAv2/JSON/CAT08__image07.ostium.json
+Annotations/OstiumAnnotations_CAT08/OSTIAv2/JSON/CAT08__image08.ostium.json
+Annotations/OstiumAnnotations_CAT08/OSTIAv2/JSON/CAT08__image23.ostium.json

@@ -1,0 +1,61 @@
+case_id,mask_source,recommended,note
+501,ImageCAS,ImageCAS-X,The ImageCAS mask does not reach the right coronary ostium and extends far from it instead; the right coronary artery arises unusually close to the left one through a small orifice. No centerline could be traced on the ImageCAS mask: use the one traced on the ImageCAS-X mask.
+556,ImageCAS,,The right coronary artery is segmented only over its first few centimetres in the ImageCAS mask (segmentation error); the right tree is truncated accordingly. Not in ImageCAS-X (excluded there for image artefacts).
+865,ImageCAS,,A segment in the middle of the right coronary artery is missing from the ImageCAS mask; the distal part is too far to be bridged and is not part of the right tree. Not in ImageCAS-X (excluded there for image artefacts).
+66,ImageCAS,,A disconnected piece of the ImageCAS mask is an erroneous segmentation inside a cardiac cavity; it is correctly left out of the trees. Not in ImageCAS-X (excluded there for image artefacts).
+510,ImageCAS-X,,The ImageCAS-X mask contains a short arterial segment disconnected from both trees; it is left out by design (reattaching it would be a guess). The centerline traced on the ImageCAS mask is not affected.
+8,ImageCAS,ImageCAS-X,"The left and right trees touch in the ImageCAS mask. The two trees are separated correctly and the distance of the ostium from the mask is not a problem, but the graph is irregular; the ImageCAS-X graph is preferred."
+39,ImageCAS,ImageCAS-X,The left and right trees touch in the ImageCAS mask. No branch is missed and the graph separates the two trees well; the ImageCAS-X graph is preferred all the same.
+117,ImageCAS,ImageCAS-X,The left and right trees touch in the ImageCAS mask. No branch is missed and the graph separates the two trees well; the ImageCAS-X graph is preferred all the same.
+235,ImageCAS,ImageCAS-X,"The left and right trees touch in the ImageCAS mask, and a distal segment is claimed by both trees; the ImageCAS-X graph is preferred."
+241,ImageCAS,ImageCAS-X,"The left and right trees touch in the ImageCAS mask: they run very close together, and the left tree crosses over and takes a considerable distal section of the right coronary artery. No branch is missed; the ImageCAS-X graph is preferred."
+243,ImageCAS,,"The left and right trees touch in the ImageCAS mask, and the left mask is very irregular; the case is not in ImageCAS-X, so the ImageCAS graph remains the only one."
+316,ImageCAS,ImageCAS-X,"The left and right trees touch in the ImageCAS mask. No branch is missed, but the distal right tree is very irregular; the ImageCAS-X graph is preferred."
+330,ImageCAS,ImageCAS-X,"The left and right trees touch in the ImageCAS mask, only at their most distal ends, and one very small terminal branch is missed. Acceptable, but the ImageCAS-X graph is preferred."
+399,ImageCAS,ImageCAS-X,The left and right trees touch in the ImageCAS mask: the left tree takes a large distal part of the right coronary artery; the ImageCAS-X graph is preferred.
+418,ImageCAS,ImageCAS,"The left and right trees touch in the ImageCAS mask, but only where their terminal branches meet; the trees are correct and the ImageCAS graph can be used."
+470,ImageCAS,,"The left and right trees touch in the ImageCAS mask, with a large part of one tree claimed by the other; the case is not in ImageCAS-X, so the ImageCAS graph remains the only one."
+485,ImageCAS,ImageCAS-X,"The left and right trees touch in the ImageCAS mask: the right tree reaches the left one and the left tree takes part of the right; poor mask, the ImageCAS-X graph is preferred."
+500,ImageCAS,,"The left and right trees touch in the ImageCAS mask across a very small gap, over a very short stretch. Minor, but the case is not in ImageCAS-X, so the ImageCAS graph remains the only one."
+503,ImageCAS,ImageCAS-X,The left and right trees touch in the ImageCAS mask: a long distal part of the right coronary artery is taken by the left tree; the ImageCAS-X graph is preferred.
+517,ImageCAS,ImageCAS-X,The left and right trees touch in the ImageCAS mask: a long distal part of the left coronary artery is taken by the right tree; the ImageCAS-X graph is preferred.
+579,ImageCAS,ImageCAS-X,"The left and right trees touch in the ImageCAS mask. The trees are otherwise good and no relevant branch is missed, but the assignment of the shared part is uncertain; the ImageCAS-X graph is preferred."
+589,ImageCAS,,"The left and right trees touch in the ImageCAS mask, and the mask is anatomically implausible in that region; the case is not in ImageCAS-X, so the ImageCAS graph remains the only one."
+648,ImageCAS,ImageCAS,"The left and right trees touch in the ImageCAS mask, but only at their most distal points; the trees are correct and the ImageCAS graph can be used."
+727,ImageCAS,ImageCAS-X,"The left and right trees touch in the ImageCAS mask. The centerlines are correct, but the mask is very irregular in the inferior part of the heart; the ImageCAS-X graph is preferred."
+766,ImageCAS,ImageCAS-X,"The left and right trees touch in the ImageCAS mask: the right tree appears to take a long distal section of the left one, although the mask is too irregular to be sure; the ImageCAS-X graph is preferred."
+882,ImageCAS,ImageCAS-X,"The left and right trees touch in the ImageCAS mask, and it is unclear to which tree the shared part belongs; the ImageCAS-X graph is preferred."
+892,ImageCAS,ImageCAS-X,The left and right trees touch in the ImageCAS mask: the distal left tree takes two distal segments of the right one; the ImageCAS-X graph is preferred.
+894,ImageCAS,ImageCAS-X,"The left and right trees touch in the ImageCAS mask, but the division between the two trees looks correct. Acceptable, but the ImageCAS-X graph is preferred."
+965,ImageCAS,ImageCAS-X,"The left and right trees touch in the ImageCAS mask, and the assignment of the distal part to either tree is uncertain; the ImageCAS-X graph is preferred."
+978,ImageCAS,,"The left and right trees touch in the ImageCAS mask, and it is unclear where the division between them should be. Acceptable; the case is not in ImageCAS-X, so the ImageCAS graph remains the only one."
+493,ImageCAS,,"A gap in the ImageCAS mask was bridged and the mask is difficult to interpret around it; the case is not in ImageCAS-X, so the ImageCAS graph remains the only one."
+92,ImageCAS,,Visual review: a small branch present in the ImageCAS mask is missing from the tree (minor for the tree as a whole).
+97,ImageCAS,,Visual review: a small branch present in the ImageCAS mask is missing from the tree (minor for the tree as a whole).
+101,ImageCAS,,Visual review: a small branch present in the ImageCAS mask is missing from the tree (minor for the tree as a whole).
+134,ImageCAS,,Visual review: a small branch present in the ImageCAS mask is missing from the tree (minor for the tree as a whole).
+135,ImageCAS,,Visual review: a small branch present in the ImageCAS mask is missing from the tree (minor for the tree as a whole).
+144,ImageCAS,,Visual review: a small branch present in the ImageCAS mask is missing from the tree (minor for the tree as a whole).
+162,ImageCAS,,Visual review: a small branch present in the ImageCAS mask is missing from the tree (minor for the tree as a whole).
+176,ImageCAS,,Visual review: a small branch present in the ImageCAS mask is missing from the tree (minor for the tree as a whole).
+243,ImageCAS,,Visual review: a small branch present in the ImageCAS mask is missing from the tree (minor for the tree as a whole).
+245,ImageCAS,,Visual review: a small branch present in the ImageCAS mask is missing from the tree (minor for the tree as a whole).
+259,ImageCAS,,Visual review: a small branch present in the ImageCAS mask is missing from the tree (minor for the tree as a whole).
+263,ImageCAS,,Visual review: a small branch present in the ImageCAS mask is missing from the tree (minor for the tree as a whole).
+311,ImageCAS,,Visual review: a small branch present in the ImageCAS mask is missing from the tree (minor for the tree as a whole).
+325,ImageCAS,,Visual review: a small branch present in the ImageCAS mask is missing from the tree (minor for the tree as a whole).
+337,ImageCAS,,Visual review: a small branch present in the ImageCAS mask is missing from the tree (minor for the tree as a whole).
+348,ImageCAS,,Visual review: a small branch present in the ImageCAS mask is missing from the tree (minor for the tree as a whole).
+377,ImageCAS,,Visual review: a small branch present in the ImageCAS mask is missing from the tree (minor for the tree as a whole).
+389,ImageCAS,,Visual review: a small branch present in the ImageCAS mask is missing from the tree (minor for the tree as a whole).
+434,ImageCAS,,Visual review: a small branch present in the ImageCAS mask is missing from the tree (minor for the tree as a whole).
+479,ImageCAS,,Visual review: a small branch present in the ImageCAS mask is missing from the tree (minor for the tree as a whole).
+481,ImageCAS,,Visual review: a small branch present in the ImageCAS mask is missing from the tree (minor for the tree as a whole).
+496,ImageCAS,,Visual review: a small branch present in the ImageCAS mask is missing from the tree (minor for the tree as a whole).
+637,ImageCAS,,Visual review: a small branch present in the ImageCAS mask is missing from the tree (minor for the tree as a whole).
+694,ImageCAS,,Visual review: a small branch present in the ImageCAS mask is missing from the tree (minor for the tree as a whole).
+772,ImageCAS,,Visual review: a small branch present in the ImageCAS mask is missing from the tree (minor for the tree as a whole).
+834,ImageCAS,,Visual review: a small branch present in the ImageCAS mask is missing from the tree (minor for the tree as a whole).
+867,ImageCAS,,Visual review: a small branch present in the ImageCAS mask is missing from the tree (minor for the tree as a whole).
+962,ImageCAS,,Visual review: a small branch present in the ImageCAS mask is missing from the tree (minor for the tree as a whole).
+972,ImageCAS,,Visual review: a small branch present in the ImageCAS mask is missing from the tree (minor for the tree as a whole).

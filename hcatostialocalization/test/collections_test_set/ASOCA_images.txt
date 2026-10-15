@@ -1,0 +1,4 @@
+ASOCA/Normal/CTCA/Normal_5.nrrd
+ASOCA/Normal/CTCA/Normal_7.nrrd
+ASOCA/Normal/CTCA/Normal_10.nrrd
+ASOCA/Normal/CTCA/Normal_16.nrrd

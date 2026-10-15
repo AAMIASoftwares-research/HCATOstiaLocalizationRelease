@@ -1,0 +1,29 @@
+# Runtime dependencies of HCATOstiaLocalization (inference and training).
+#
+# PyTorch is NOT listed here on purpose: install the build that matches your hardware first
+# (https://pytorch.org/get-started/locally/), then run `pip install -r requirements.txt`.
+# See README.md, "Installation".
+numpy
+scipy
+pandas
+scikit-learn
+scikit-image
+networkx
+matplotlib
+pillow
+SimpleITK
+nibabel
+monai
+nnunetv2                 # brings dynamic_network_architectures (nnResUNet)
+omegaconf
+PyYAML
+termcolor
+inquirer
+tqdm
+psutil
+nvidia-ml-py
+torchinfo
+torchmetrics
+mlflow                   # required by the trainers (not by inference)
+sqlalchemy
+pytest                   # smoke tests

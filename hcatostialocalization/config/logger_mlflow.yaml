@@ -1,0 +1,4 @@
+# here logger db will be separate for every machine, so that
+# we will not mess up when using git to merge stuff
+
+# use mlflow to log everything

@@ -1,0 +1,95 @@
+# ASOCA — split definition, the ONLY place that decides which files a case uses.
+#
+# Every entry is one case: an explicit (image, label) pair.
+#   image: the CT volume
+#   label: the ostium annotation in the standard .ostium.json format
+# Paths are relative to `data_root` of the current machine (config/machine.yaml;
+# on cluster: /path/to/data). Absolute paths also work.
+# Loaded by data/dataset/ASOCA/Multi_Dataset_ASOCA.py via LabeledDataset._data_pool_from_split_yaml;
+# the file location is set in config/dataset.yaml -> dataset.ASOCA.yaml_path.
+
+ASOCA:
+  split:
+    train:
+    - image: ASOCA/Normal/CTCA/Normal_18.nrrd
+      label: Annotations/OstiumAnnotations_ASOCA/OSTIAv2/JSON/ASOCA__Normal_18.ostium.json
+    - image: ASOCA/Normal/CTCA/Normal_12.nrrd
+      label: Annotations/OstiumAnnotations_ASOCA/OSTIAv2/JSON/ASOCA__Normal_12.ostium.json
+    - image: ASOCA/Normal/CTCA/Normal_19.nrrd
+      label: Annotations/OstiumAnnotations_ASOCA/OSTIAv2/JSON/ASOCA__Normal_19.ostium.json
+    - image: ASOCA/Diseased/CTCA/Diseased_6.nrrd
+      label: Annotations/OstiumAnnotations_ASOCA/OSTIAv2/JSON/ASOCA__Diseased_6.ostium.json
+    - image: ASOCA/Diseased/CTCA/Diseased_14.nrrd
+      label: Annotations/OstiumAnnotations_ASOCA/OSTIAv2/JSON/ASOCA__Diseased_14.ostium.json
+    - image: ASOCA/Diseased/CTCA/Diseased_13.nrrd
+      label: Annotations/OstiumAnnotations_ASOCA/OSTIAv2/JSON/ASOCA__Diseased_13.ostium.json
+    - image: ASOCA/Diseased/CTCA/Diseased_19.nrrd
+      label: Annotations/OstiumAnnotations_ASOCA/OSTIAv2/JSON/ASOCA__Diseased_19.ostium.json
+    - image: ASOCA/Normal/CTCA/Normal_2.nrrd
+      label: Annotations/OstiumAnnotations_ASOCA/OSTIAv2/JSON/ASOCA__Normal_2.ostium.json
+    - image: ASOCA/Normal/CTCA/Normal_13.nrrd
+      label: Annotations/OstiumAnnotations_ASOCA/OSTIAv2/JSON/ASOCA__Normal_13.ostium.json
+    - image: ASOCA/Diseased/CTCA/Diseased_20.nrrd
+      label: Annotations/OstiumAnnotations_ASOCA/OSTIAv2/JSON/ASOCA__Diseased_20.ostium.json
+    - image: ASOCA/Diseased/CTCA/Diseased_10.nrrd
+      label: Annotations/OstiumAnnotations_ASOCA/OSTIAv2/JSON/ASOCA__Diseased_10.ostium.json
+    - image: ASOCA/Diseased/CTCA/Diseased_17.nrrd
+      label: Annotations/OstiumAnnotations_ASOCA/OSTIAv2/JSON/ASOCA__Diseased_17.ostium.json
+    - image: ASOCA/Diseased/CTCA/Diseased_12.nrrd
+      label: Annotations/OstiumAnnotations_ASOCA/OSTIAv2/JSON/ASOCA__Diseased_12.ostium.json
+    - image: ASOCA/Normal/CTCA/Normal_8.nrrd
+      label: Annotations/OstiumAnnotations_ASOCA/OSTIAv2/JSON/ASOCA__Normal_8.ostium.json
+    - image: ASOCA/Normal/CTCA/Normal_20.nrrd
+      label: Annotations/OstiumAnnotations_ASOCA/OSTIAv2/JSON/ASOCA__Normal_20.ostium.json
+    - image: ASOCA/Diseased/CTCA/Diseased_4.nrrd
+      label: Annotations/OstiumAnnotations_ASOCA/OSTIAv2/JSON/ASOCA__Diseased_4.ostium.json
+    - image: ASOCA/Diseased/CTCA/Diseased_5.nrrd
+      label: Annotations/OstiumAnnotations_ASOCA/OSTIAv2/JSON/ASOCA__Diseased_5.ostium.json
+    - image: ASOCA/Diseased/CTCA/Diseased_15.nrrd
+      label: Annotations/OstiumAnnotations_ASOCA/OSTIAv2/JSON/ASOCA__Diseased_15.ostium.json
+    - image: ASOCA/Normal/CTCA/Normal_3.nrrd
+      label: Annotations/OstiumAnnotations_ASOCA/OSTIAv2/JSON/ASOCA__Normal_3.ostium.json
+    - image: ASOCA/Diseased/CTCA/Diseased_11.nrrd
+      label: Annotations/OstiumAnnotations_ASOCA/OSTIAv2/JSON/ASOCA__Diseased_11.ostium.json
+    - image: ASOCA/Diseased/CTCA/Diseased_1.nrrd
+      label: Annotations/OstiumAnnotations_ASOCA/OSTIAv2/JSON/ASOCA__Diseased_1.ostium.json
+    - image: ASOCA/Diseased/CTCA/Diseased_2.nrrd
+      label: Annotations/OstiumAnnotations_ASOCA/OSTIAv2/JSON/ASOCA__Diseased_2.ostium.json
+    - image: ASOCA/Diseased/CTCA/Diseased_7.nrrd
+      label: Annotations/OstiumAnnotations_ASOCA/OSTIAv2/JSON/ASOCA__Diseased_7.ostium.json
+    - image: ASOCA/Diseased/CTCA/Diseased_18.nrrd
+      label: Annotations/OstiumAnnotations_ASOCA/OSTIAv2/JSON/ASOCA__Diseased_18.ostium.json
+    - image: ASOCA/Normal/CTCA/Normal_9.nrrd
+      label: Annotations/OstiumAnnotations_ASOCA/OSTIAv2/JSON/ASOCA__Normal_9.ostium.json
+    - image: ASOCA/Normal/CTCA/Normal_6.nrrd
+      label: Annotations/OstiumAnnotations_ASOCA/OSTIAv2/JSON/ASOCA__Normal_6.ostium.json
+    - image: ASOCA/Diseased/CTCA/Diseased_9.nrrd
+      label: Annotations/OstiumAnnotations_ASOCA/OSTIAv2/JSON/ASOCA__Diseased_9.ostium.json
+    - image: ASOCA/Diseased/CTCA/Diseased_3.nrrd
+      label: Annotations/OstiumAnnotations_ASOCA/OSTIAv2/JSON/ASOCA__Diseased_3.ostium.json
+    - image: ASOCA/Normal/CTCA/Normal_11.nrrd
+      label: Annotations/OstiumAnnotations_ASOCA/OSTIAv2/JSON/ASOCA__Normal_11.ostium.json
+    - image: ASOCA/Normal/CTCA/Normal_1.nrrd
+      label: Annotations/OstiumAnnotations_ASOCA/OSTIAv2/JSON/ASOCA__Normal_1.ostium.json
+    - image: ASOCA/Diseased/CTCA/Diseased_8.nrrd
+      label: Annotations/OstiumAnnotations_ASOCA/OSTIAv2/JSON/ASOCA__Diseased_8.ostium.json
+    - image: ASOCA/Diseased/CTCA/Diseased_16.nrrd
+      label: Annotations/OstiumAnnotations_ASOCA/OSTIAv2/JSON/ASOCA__Diseased_16.ostium.json
+    val:
+    - image: ASOCA/Normal/CTCA/Normal_14.nrrd
+      label: Annotations/OstiumAnnotations_ASOCA/OSTIAv2/JSON/ASOCA__Normal_14.ostium.json
+    - image: ASOCA/Normal/CTCA/Normal_15.nrrd
+      label: Annotations/OstiumAnnotations_ASOCA/OSTIAv2/JSON/ASOCA__Normal_15.ostium.json
+    - image: ASOCA/Normal/CTCA/Normal_17.nrrd
+      label: Annotations/OstiumAnnotations_ASOCA/OSTIAv2/JSON/ASOCA__Normal_17.ostium.json
+    - image: ASOCA/Normal/CTCA/Normal_4.nrrd
+      label: Annotations/OstiumAnnotations_ASOCA/OSTIAv2/JSON/ASOCA__Normal_4.ostium.json
+    test:
+    - image: ASOCA/Normal/CTCA/Normal_5.nrrd
+      label: Annotations/OstiumAnnotations_ASOCA/OSTIAv2/JSON/ASOCA__Normal_5.ostium.json
+    - image: ASOCA/Normal/CTCA/Normal_7.nrrd
+      label: Annotations/OstiumAnnotations_ASOCA/OSTIAv2/JSON/ASOCA__Normal_7.ostium.json
+    - image: ASOCA/Normal/CTCA/Normal_10.nrrd
+      label: Annotations/OstiumAnnotations_ASOCA/OSTIAv2/JSON/ASOCA__Normal_10.ostium.json
+    - image: ASOCA/Normal/CTCA/Normal_16.nrrd
+      label: Annotations/OstiumAnnotations_ASOCA/OSTIAv2/JSON/ASOCA__Normal_16.ostium.json

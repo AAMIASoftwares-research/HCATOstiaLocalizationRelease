@@ -1,0 +1,12 @@
+dataset:
+  # Each split YAML is the single place that defines a dataset's cases: for every
+  # train/val/test case it lists an explicit (image, label) pair, with paths relative to
+  # active_paths.data_root (config/machine.yaml). See the header of each file.
+  ImageCAS:
+    yaml_path: "${active_paths.output_dir}/hcatostialocalization/data/dataset/ImageCAS/imagecas_config.yaml"
+
+  ASOCA:
+    yaml_path: "${active_paths.output_dir}/hcatostialocalization/data/dataset/ASOCA/asoca_config.yaml"
+
+  CAT08:
+    yaml_path: "${active_paths.output_dir}/hcatostialocalization/data/dataset/CAT08/cat08_config.yaml"

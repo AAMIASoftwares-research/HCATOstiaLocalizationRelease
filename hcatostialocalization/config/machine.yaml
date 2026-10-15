@@ -1,0 +1,37 @@
+# ==============================================================================
+# PATHS OF YOUR MACHINE
+# ==============================================================================
+# Everything that depends on where things live on disk is defined here, and the other
+# YAML files refer to it through `${active_paths.xxx}`.
+#
+# For inference you usually do NOT need to edit anything: run every command from the
+# repository root (the folder that contains `hcatostialocalization/`).
+#
+# For training, point these environment variables to your folders (or edit the
+# `default_user` block below):
+#
+#   HCAT_REPO_ROOT   this repository (default: the current folder, ".")
+#                    -> default weights are looked up in  <HCAT_REPO_ROOT>/checkpoints/
+#                    -> training writes checkpoints and MLflow runs there
+#   HCAT_DATA_ROOT   folder with the datasets (default: "./data"). The split files in
+#                    hcatostialocalization/data/dataset/*/*_config.yaml list the cases
+#                    with paths relative to this folder (see TRAINING.md for the layout)
+#   HCAT_CACHE_DIR   optional: folder where the training data loader caches the
+#                    resampled CT volumes (large). Leave unset to disable the cache.
+#
+# To keep several machines in one file, add a block under `paths_by_host` and select it
+# with `export HCAT_HOST=<block name>`.
+# ==============================================================================
+
+host_settings:
+  current_host: ${oc.env:HCAT_HOST, "default_user"}
+
+paths_by_host:
+  default_user:
+    root_repo: ${oc.env:HCAT_REPO_ROOT, "."}
+    output_dir: ${oc.env:HCAT_REPO_ROOT, "."}
+    data_root: ${oc.env:HCAT_DATA_ROOT, "./data"}
+    # cache_dir: "/path/to/cache"   # optional, training only
+
+# Global alias used by the other YAML files: ${active_paths.data_root}, ...
+active_paths: ${paths_by_host.${host_settings.current_host}}

@@ -1,0 +1,79 @@
+# CAT08 — split definition, the ONLY place that decides which files a case uses.
+#
+# Every entry is one case: an explicit (image, label) pair.
+#   image: the CT volume
+#   label: the ostium annotation in the standard .ostium.json format
+# Paths are relative to `data_root` of the current machine (config/machine.yaml;
+# on cluster: /path/to/data). Absolute paths also work.
+# Loaded by data/dataset/CAT08/Multi_Dataset_CAT08.py via LabeledDataset._data_pool_from_split_yaml;
+# the file location is set in config/dataset.yaml -> dataset.CAT08.yaml_path.
+
+CAT08:
+  split:
+    train:
+    - image: CAT08/dataset01_volume.nii.gz
+      label: Annotations/OstiumAnnotations_CAT08/OSTIAv2/JSON/CAT08__image01.ostium.json
+    - image: CAT08/dataset02_volume.nii.gz
+      label: Annotations/OstiumAnnotations_CAT08/OSTIAv2/JSON/CAT08__image02.ostium.json
+    - image: CAT08/dataset03_volume.nii.gz
+      label: Annotations/OstiumAnnotations_CAT08/OSTIAv2/JSON/CAT08__image03.ostium.json
+    - image: CAT08/dataset05_volume.nii.gz
+      label: Annotations/OstiumAnnotations_CAT08/OSTIAv2/JSON/CAT08__image05.ostium.json
+    - image: CAT08/dataset06_volume.nii.gz
+      label: Annotations/OstiumAnnotations_CAT08/OSTIAv2/JSON/CAT08__image06.ostium.json
+    - image: CAT08/dataset09_volume.nii.gz
+      label: Annotations/OstiumAnnotations_CAT08/OSTIAv2/JSON/CAT08__image09.ostium.json
+    - image: CAT08/dataset10_volume.nii.gz
+      label: Annotations/OstiumAnnotations_CAT08/OSTIAv2/JSON/CAT08__image10.ostium.json
+    - image: CAT08/dataset11_volume.nii.gz
+      label: Annotations/OstiumAnnotations_CAT08/OSTIAv2/JSON/CAT08__image11.ostium.json
+    - image: CAT08/dataset12_volume.nii.gz
+      label: Annotations/OstiumAnnotations_CAT08/OSTIAv2/JSON/CAT08__image12.ostium.json
+    - image: CAT08/dataset13_volume.nii.gz
+      label: Annotations/OstiumAnnotations_CAT08/OSTIAv2/JSON/CAT08__image13.ostium.json
+    - image: CAT08/dataset14_volume.nii.gz
+      label: Annotations/OstiumAnnotations_CAT08/OSTIAv2/JSON/CAT08__image14.ostium.json
+    - image: CAT08/dataset15_volume.nii.gz
+      label: Annotations/OstiumAnnotations_CAT08/OSTIAv2/JSON/CAT08__image15.ostium.json
+    - image: CAT08/dataset16_volume.nii.gz
+      label: Annotations/OstiumAnnotations_CAT08/OSTIAv2/JSON/CAT08__image16.ostium.json
+    - image: CAT08/dataset17_volume.nii.gz
+      label: Annotations/OstiumAnnotations_CAT08/OSTIAv2/JSON/CAT08__image17.ostium.json
+    - image: CAT08/dataset18_volume.nii.gz
+      label: Annotations/OstiumAnnotations_CAT08/OSTIAv2/JSON/CAT08__image18.ostium.json
+    - image: CAT08/dataset19_volume.nii.gz
+      label: Annotations/OstiumAnnotations_CAT08/OSTIAv2/JSON/CAT08__image19.ostium.json
+    - image: CAT08/dataset20_volume.nii.gz
+      label: Annotations/OstiumAnnotations_CAT08/OSTIAv2/JSON/CAT08__image20.ostium.json
+    - image: CAT08/dataset21_volume.nii.gz
+      label: Annotations/OstiumAnnotations_CAT08/OSTIAv2/JSON/CAT08__image21.ostium.json
+    - image: CAT08/dataset22_volume.nii.gz
+      label: Annotations/OstiumAnnotations_CAT08/OSTIAv2/JSON/CAT08__image22.ostium.json
+    - image: CAT08/dataset24_volume.nii.gz
+      label: Annotations/OstiumAnnotations_CAT08/OSTIAv2/JSON/CAT08__image24.ostium.json
+    - image: CAT08/dataset25_volume.nii.gz
+      label: Annotations/OstiumAnnotations_CAT08/OSTIAv2/JSON/CAT08__image25.ostium.json
+    - image: CAT08/dataset26_volume.nii.gz
+      label: Annotations/OstiumAnnotations_CAT08/OSTIAv2/JSON/CAT08__image26.ostium.json
+    - image: CAT08/dataset28_volume.nii.gz
+      label: Annotations/OstiumAnnotations_CAT08/OSTIAv2/JSON/CAT08__image28.ostium.json
+    - image: CAT08/dataset29_volume.nii.gz
+      label: Annotations/OstiumAnnotations_CAT08/OSTIAv2/JSON/CAT08__image29.ostium.json
+    - image: CAT08/dataset30_volume.nii.gz
+      label: Annotations/OstiumAnnotations_CAT08/OSTIAv2/JSON/CAT08__image30.ostium.json
+    val:
+    - image: CAT08/dataset04_volume.nii.gz
+      label: Annotations/OstiumAnnotations_CAT08/OSTIAv2/JSON/CAT08__image04.ostium.json
+    - image: CAT08/dataset27_volume.nii.gz
+      label: Annotations/OstiumAnnotations_CAT08/OSTIAv2/JSON/CAT08__image27.ostium.json
+    - image: CAT08/dataset31_volume.nii.gz
+      label: Annotations/OstiumAnnotations_CAT08/OSTIAv2/JSON/CAT08__image31.ostium.json
+    test:
+    - image: CAT08/dataset00_volume.nii.gz
+      label: Annotations/OstiumAnnotations_CAT08/OSTIAv2/JSON/CAT08__image00.ostium.json
+    - image: CAT08/dataset07_volume.nii.gz
+      label: Annotations/OstiumAnnotations_CAT08/OSTIAv2/JSON/CAT08__image07.ostium.json
+    - image: CAT08/dataset08_volume.nii.gz
+      label: Annotations/OstiumAnnotations_CAT08/OSTIAv2/JSON/CAT08__image08.ostium.json
+    - image: CAT08/dataset23_volume.nii.gz
+      label: Annotations/OstiumAnnotations_CAT08/OSTIAv2/JSON/CAT08__image23.ostium.json

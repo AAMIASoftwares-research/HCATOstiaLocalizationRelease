@@ -1,0 +1,20 @@
+plotting:
+  dpi: 350
+  figsize: [32, 18]
+  formats: [png, pdf]
+  ct:
+    min: -1000
+    max:  1500
+  seg:
+    colors:
+      target: "#00cc55ff"
+      prediction: "#ff5555ff"
+
+logging:
+  colors:
+    log:   [ 42, 214, 239]
+    debug: [239, 186,  42]
+    error: [201,   0,  38]
+
+random:
+  seed: 20181003

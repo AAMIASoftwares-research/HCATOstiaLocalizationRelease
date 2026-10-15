@@ -1,0 +1,9 @@
+# Optional: only for the centerline tools (hcatostialocalization/data/makecenterlines), the figures and the 3D viewers.
+trimesh
+fast-simplification
+pyvista
+pydicom
+# Graph format of the centerline dataset and its helpers (our group's packages):
+hcatnetwork @ git+https://github.com/AAMIASoftwares-research/HCATNetwork.git
+# MedNeXt (only to train/evaluate MedNeXt; its weights are not released):
+# mednextv1 @ git+https://github.com/MIC-DKFZ/MedNeXt.git

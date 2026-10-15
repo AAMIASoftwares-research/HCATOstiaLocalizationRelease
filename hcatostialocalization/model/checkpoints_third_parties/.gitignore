@@ -1,0 +1,3 @@
+# do not track any model checkpoint with git and github
+*.pt
+*.pth

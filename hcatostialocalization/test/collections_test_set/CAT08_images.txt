@@ -1,0 +1,4 @@
+CAT08/dataset00/image00.mhd
+CAT08/dataset07/image07.mhd
+CAT08/dataset08/image08.mhd
+CAT08/dataset23/image23.mhd

@@ -1,0 +1,2017 @@
+# ImageCAS — split definition, the ONLY place that decides which files a case uses.
+#
+# Every entry is one case: an explicit (image, label) pair.
+#   image: the CT volume
+#   label: the ostium annotation in the standard .ostium.json format
+# Paths are relative to `data_root` of the current machine (config/machine.yaml;
+# on cluster: /path/to/data). Absolute paths also work.
+# Loaded by data/dataset/ImageCAS/Multi_Dataset_ImageCAS.py via LabeledDataset._data_pool_from_split_yaml;
+# the file location is set in config/dataset.yaml -> dataset.ImageCAS.yaml_path.
+
+ImageCAS:
+  split:
+    train:
+    - image: ImageCAS/Data/247.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__247.ostium.json
+    - image: ImageCAS/Data/457.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__457.ostium.json
+    - image: ImageCAS/Data/119.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__119.ostium.json
+    - image: ImageCAS/Data/24.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__24.ostium.json
+    - image: ImageCAS/Data/126.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__126.ostium.json
+    - image: ImageCAS/Data/163.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__163.ostium.json
+    - image: ImageCAS/Data/400.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__400.ostium.json
+    - image: ImageCAS/Data/288.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__288.ostium.json
+    - image: ImageCAS/Data/165.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__165.ostium.json
+    - image: ImageCAS/Data/409.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__409.ostium.json
+    - image: ImageCAS/Data/466.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__466.ostium.json
+    - image: ImageCAS/Data/497.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__497.ostium.json
+    - image: ImageCAS/Data/181.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__181.ostium.json
+    - image: ImageCAS/Data/293.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__293.ostium.json
+    - image: ImageCAS/Data/81.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__81.ostium.json
+    - image: ImageCAS/Data/151.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__151.ostium.json
+    - image: ImageCAS/Data/425.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__425.ostium.json
+    - image: ImageCAS/Data/246.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__246.ostium.json
+    - image: ImageCAS/Data/289.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__289.ostium.json
+    - image: ImageCAS/Data/347.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__347.ostium.json
+    - image: ImageCAS/Data/491.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__491.ostium.json
+    - image: ImageCAS/Data/379.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__379.ostium.json
+    - image: ImageCAS/Data/364.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__364.ostium.json
+    - image: ImageCAS/Data/46.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__46.ostium.json
+    - image: ImageCAS/Data/101.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__101.ostium.json
+    - image: ImageCAS/Data/66.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__66.ostium.json
+    - image: ImageCAS/Data/346.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__346.ostium.json
+    - image: ImageCAS/Data/304.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__304.ostium.json
+    - image: ImageCAS/Data/32.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__32.ostium.json
+    - image: ImageCAS/Data/29.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__29.ostium.json
+    - image: ImageCAS/Data/215.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__215.ostium.json
+    - image: ImageCAS/Data/245.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__245.ostium.json
+    - image: ImageCAS/Data/30.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__30.ostium.json
+    - image: ImageCAS/Data/117.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__117.ostium.json
+    - image: ImageCAS/Data/336.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__336.ostium.json
+    - image: ImageCAS/Data/108.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__108.ostium.json
+    - image: ImageCAS/Data/484.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__484.ostium.json
+    - image: ImageCAS/Data/16.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__16.ostium.json
+    - image: ImageCAS/Data/303.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__303.ostium.json
+    - image: ImageCAS/Data/235.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__235.ostium.json
+    - image: ImageCAS/Data/450.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__450.ostium.json
+    - image: ImageCAS/Data/295.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__295.ostium.json
+    - image: ImageCAS/Data/238.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__238.ostium.json
+    - image: ImageCAS/Data/259.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__259.ostium.json
+    - image: ImageCAS/Data/463.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__463.ostium.json
+    - image: ImageCAS/Data/224.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__224.ostium.json
+    - image: ImageCAS/Data/226.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__226.ostium.json
+    - image: ImageCAS/Data/381.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__381.ostium.json
+    - image: ImageCAS/Data/257.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__257.ostium.json
+    - image: ImageCAS/Data/252.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__252.ostium.json
+    - image: ImageCAS/Data/178.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__178.ostium.json
+    - image: ImageCAS/Data/185.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__185.ostium.json
+    - image: ImageCAS/Data/488.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__488.ostium.json
+    - image: ImageCAS/Data/396.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__396.ostium.json
+    - image: ImageCAS/Data/146.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__146.ostium.json
+    - image: ImageCAS/Data/279.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__279.ostium.json
+    - image: ImageCAS/Data/368.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__368.ostium.json
+    - image: ImageCAS/Data/217.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__217.ostium.json
+    - image: ImageCAS/Data/207.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__207.ostium.json
+    - image: ImageCAS/Data/420.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__420.ostium.json
+    - image: ImageCAS/Data/261.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__261.ostium.json
+    - image: ImageCAS/Data/426.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__426.ostium.json
+    - image: ImageCAS/Data/115.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__115.ostium.json
+    - image: ImageCAS/Data/243.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__243.ostium.json
+    - image: ImageCAS/Data/121.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__121.ostium.json
+    - image: ImageCAS/Data/182.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__182.ostium.json
+    - image: ImageCAS/Data/371.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__371.ostium.json
+    - image: ImageCAS/Data/269.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__269.ostium.json
+    - image: ImageCAS/Data/428.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__428.ostium.json
+    - image: ImageCAS/Data/57.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__57.ostium.json
+    - image: ImageCAS/Data/183.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__183.ostium.json
+    - image: ImageCAS/Data/71.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__71.ostium.json
+    - image: ImageCAS/Data/342.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__342.ostium.json
+    - image: ImageCAS/Data/388.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__388.ostium.json
+    - image: ImageCAS/Data/468.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__468.ostium.json
+    - image: ImageCAS/Data/443.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__443.ostium.json
+    - image: ImageCAS/Data/268.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__268.ostium.json
+    - image: ImageCAS/Data/385.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__385.ostium.json
+    - image: ImageCAS/Data/291.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__291.ostium.json
+    - image: ImageCAS/Data/213.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__213.ostium.json
+    - image: ImageCAS/Data/103.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__103.ostium.json
+    - image: ImageCAS/Data/123.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__123.ostium.json
+    - image: ImageCAS/Data/490.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__490.ostium.json
+    - image: ImageCAS/Data/320.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__320.ostium.json
+    - image: ImageCAS/Data/438.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__438.ostium.json
+    - image: ImageCAS/Data/500.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__500.ostium.json
+    - image: ImageCAS/Data/414.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__414.ostium.json
+    - image: ImageCAS/Data/179.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__179.ostium.json
+    - image: ImageCAS/Data/477.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__477.ostium.json
+    - image: ImageCAS/Data/135.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__135.ostium.json
+    - image: ImageCAS/Data/168.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__168.ostium.json
+    - image: ImageCAS/Data/265.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__265.ostium.json
+    - image: ImageCAS/Data/329.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__329.ostium.json
+    - image: ImageCAS/Data/286.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__286.ostium.json
+    - image: ImageCAS/Data/263.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__263.ostium.json
+    - image: ImageCAS/Data/184.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__184.ostium.json
+    - image: ImageCAS/Data/189.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__189.ostium.json
+    - image: ImageCAS/Data/499.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__499.ostium.json
+    - image: ImageCAS/Data/437.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__437.ostium.json
+    - image: ImageCAS/Data/239.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__239.ostium.json
+    - image: ImageCAS/Data/306.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__306.ostium.json
+    - image: ImageCAS/Data/422.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__422.ostium.json
+    - image: ImageCAS/Data/312.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__312.ostium.json
+    - image: ImageCAS/Data/418.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__418.ostium.json
+    - image: ImageCAS/Data/175.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__175.ostium.json
+    - image: ImageCAS/Data/404.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__404.ostium.json
+    - image: ImageCAS/Data/253.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__253.ostium.json
+    - image: ImageCAS/Data/461.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__461.ostium.json
+    - image: ImageCAS/Data/237.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__237.ostium.json
+    - image: ImageCAS/Data/40.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__40.ostium.json
+    - image: ImageCAS/Data/140.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__140.ostium.json
+    - image: ImageCAS/Data/436.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__436.ostium.json
+    - image: ImageCAS/Data/160.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__160.ostium.json
+    - image: ImageCAS/Data/194.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__194.ostium.json
+    - image: ImageCAS/Data/391.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__391.ostium.json
+    - image: ImageCAS/Data/88.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__88.ostium.json
+    - image: ImageCAS/Data/479.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__479.ostium.json
+    - image: ImageCAS/Data/241.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__241.ostium.json
+    - image: ImageCAS/Data/112.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__112.ostium.json
+    - image: ImageCAS/Data/319.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__319.ostium.json
+    - image: ImageCAS/Data/127.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__127.ostium.json
+    - image: ImageCAS/Data/354.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__354.ostium.json
+    - image: ImageCAS/Data/84.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__84.ostium.json
+    - image: ImageCAS/Data/309.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__309.ostium.json
+    - image: ImageCAS/Data/351.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__351.ostium.json
+    - image: ImageCAS/Data/465.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__465.ostium.json
+    - image: ImageCAS/Data/365.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__365.ostium.json
+    - image: ImageCAS/Data/278.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__278.ostium.json
+    - image: ImageCAS/Data/218.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__218.ostium.json
+    - image: ImageCAS/Data/380.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__380.ostium.json
+    - image: ImageCAS/Data/38.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__38.ostium.json
+    - image: ImageCAS/Data/10.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__10.ostium.json
+    - image: ImageCAS/Data/131.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__131.ostium.json
+    - image: ImageCAS/Data/90.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__90.ostium.json
+    - image: ImageCAS/Data/352.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__352.ostium.json
+    - image: ImageCAS/Data/167.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__167.ostium.json
+    - image: ImageCAS/Data/348.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__348.ostium.json
+    - image: ImageCAS/Data/376.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__376.ostium.json
+    - image: ImageCAS/Data/417.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__417.ostium.json
+    - image: ImageCAS/Data/75.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__75.ostium.json
+    - image: ImageCAS/Data/228.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__228.ostium.json
+    - image: ImageCAS/Data/55.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__55.ostium.json
+    - image: ImageCAS/Data/158.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__158.ostium.json
+    - image: ImageCAS/Data/260.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__260.ostium.json
+    - image: ImageCAS/Data/219.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__219.ostium.json
+    - image: ImageCAS/Data/229.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__229.ostium.json
+    - image: ImageCAS/Data/442.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__442.ostium.json
+    - image: ImageCAS/Data/337.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__337.ostium.json
+    - image: ImageCAS/Data/355.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__355.ostium.json
+    - image: ImageCAS/Data/70.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__70.ostium.json
+    - image: ImageCAS/Data/287.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__287.ostium.json
+    - image: ImageCAS/Data/23.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__23.ostium.json
+    - image: ImageCAS/Data/482.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__482.ostium.json
+    - image: ImageCAS/Data/359.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__359.ostium.json
+    - image: ImageCAS/Data/412.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__412.ostium.json
+    - image: ImageCAS/Data/7.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__7.ostium.json
+    - image: ImageCAS/Data/401.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__401.ostium.json
+    - image: ImageCAS/Data/106.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__106.ostium.json
+    - image: ImageCAS/Data/52.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__52.ostium.json
+    - image: ImageCAS/Data/132.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__132.ostium.json
+    - image: ImageCAS/Data/216.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__216.ostium.json
+    - image: ImageCAS/Data/313.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__313.ostium.json
+    - image: ImageCAS/Data/344.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__344.ostium.json
+    - image: ImageCAS/Data/34.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__34.ostium.json
+    - image: ImageCAS/Data/386.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__386.ostium.json
+    - image: ImageCAS/Data/37.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__37.ostium.json
+    - image: ImageCAS/Data/233.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__233.ostium.json
+    - image: ImageCAS/Data/282.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__282.ostium.json
+    - image: ImageCAS/Data/459.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__459.ostium.json
+    - image: ImageCAS/Data/439.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__439.ostium.json
+    - image: ImageCAS/Data/270.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__270.ostium.json
+    - image: ImageCAS/Data/280.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__280.ostium.json
+    - image: ImageCAS/Data/473.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__473.ostium.json
+    - image: ImageCAS/Data/13.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__13.ostium.json
+    - image: ImageCAS/Data/148.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__148.ostium.json
+    - image: ImageCAS/Data/166.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__166.ostium.json
+    - image: ImageCAS/Data/339.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__339.ostium.json
+    - image: ImageCAS/Data/116.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__116.ostium.json
+    - image: ImageCAS/Data/460.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__460.ostium.json
+    - image: ImageCAS/Data/65.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__65.ostium.json
+    - image: ImageCAS/Data/35.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__35.ostium.json
+    - image: ImageCAS/Data/26.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__26.ostium.json
+    - image: ImageCAS/Data/290.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__290.ostium.json
+    - image: ImageCAS/Data/73.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__73.ostium.json
+    - image: ImageCAS/Data/474.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__474.ostium.json
+    - image: ImageCAS/Data/159.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__159.ostium.json
+    - image: ImageCAS/Data/188.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__188.ostium.json
+    - image: ImageCAS/Data/8.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__8.ostium.json
+    - image: ImageCAS/Data/186.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__186.ostium.json
+    - image: ImageCAS/Data/276.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__276.ostium.json
+    - image: ImageCAS/Data/411.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__411.ostium.json
+    - image: ImageCAS/Data/340.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__340.ostium.json
+    - image: ImageCAS/Data/378.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__378.ostium.json
+    - image: ImageCAS/Data/61.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__61.ostium.json
+    - image: ImageCAS/Data/210.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__210.ostium.json
+    - image: ImageCAS/Data/317.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__317.ostium.json
+    - image: ImageCAS/Data/142.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__142.ostium.json
+    - image: ImageCAS/Data/152.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__152.ostium.json
+    - image: ImageCAS/Data/272.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__272.ostium.json
+    - image: ImageCAS/Data/475.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__475.ostium.json
+    - image: ImageCAS/Data/330.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__330.ostium.json
+    - image: ImageCAS/Data/325.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__325.ostium.json
+    - image: ImageCAS/Data/432.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__432.ostium.json
+    - image: ImageCAS/Data/97.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__97.ostium.json
+    - image: ImageCAS/Data/302.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__302.ostium.json
+    - image: ImageCAS/Data/96.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__96.ostium.json
+    - image: ImageCAS/Data/200.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__200.ostium.json
+    - image: ImageCAS/Data/107.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__107.ostium.json
+    - image: ImageCAS/Data/296.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__296.ostium.json
+    - image: ImageCAS/Data/205.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__205.ostium.json
+    - image: ImageCAS/Data/423.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__423.ostium.json
+    - image: ImageCAS/Data/458.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__458.ostium.json
+    - image: ImageCAS/Data/486.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__486.ostium.json
+    - image: ImageCAS/Data/366.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__366.ostium.json
+    - image: ImageCAS/Data/95.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__95.ostium.json
+    - image: ImageCAS/Data/43.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__43.ostium.json
+    - image: ImageCAS/Data/316.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__316.ostium.json
+    - image: ImageCAS/Data/494.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__494.ostium.json
+    - image: ImageCAS/Data/485.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__485.ostium.json
+    - image: ImageCAS/Data/110.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__110.ostium.json
+    - image: ImageCAS/Data/298.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__298.ostium.json
+    - image: ImageCAS/Data/69.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__69.ostium.json
+    - image: ImageCAS/Data/176.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__176.ostium.json
+    - image: ImageCAS/Data/447.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__447.ostium.json
+    - image: ImageCAS/Data/191.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__191.ostium.json
+    - image: ImageCAS/Data/82.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__82.ostium.json
+    - image: ImageCAS/Data/11.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__11.ostium.json
+    - image: ImageCAS/Data/398.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__398.ostium.json
+    - image: ImageCAS/Data/25.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__25.ostium.json
+    - image: ImageCAS/Data/53.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__53.ostium.json
+    - image: ImageCAS/Data/77.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__77.ostium.json
+    - image: ImageCAS/Data/444.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__444.ostium.json
+    - image: ImageCAS/Data/299.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__299.ostium.json
+    - image: ImageCAS/Data/472.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__472.ostium.json
+    - image: ImageCAS/Data/193.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__193.ostium.json
+    - image: ImageCAS/Data/451.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__451.ostium.json
+    - image: ImageCAS/Data/18.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__18.ostium.json
+    - image: ImageCAS/Data/54.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__54.ostium.json
+    - image: ImageCAS/Data/250.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__250.ostium.json
+    - image: ImageCAS/Data/315.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__315.ostium.json
+    - image: ImageCAS/Data/440.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__440.ostium.json
+    - image: ImageCAS/Data/145.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__145.ostium.json
+    - image: ImageCAS/Data/192.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__192.ostium.json
+    - image: ImageCAS/Data/285.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__285.ostium.json
+    - image: ImageCAS/Data/321.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__321.ostium.json
+    - image: ImageCAS/Data/28.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__28.ostium.json
+    - image: ImageCAS/Data/154.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__154.ostium.json
+    - image: ImageCAS/Data/80.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__80.ostium.json
+    - image: ImageCAS/Data/231.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__231.ostium.json
+    - image: ImageCAS/Data/230.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__230.ostium.json
+    - image: ImageCAS/Data/301.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__301.ostium.json
+    - image: ImageCAS/Data/5.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__5.ostium.json
+    - image: ImageCAS/Data/86.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__86.ostium.json
+    - image: ImageCAS/Data/89.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__89.ostium.json
+    - image: ImageCAS/Data/56.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__56.ostium.json
+    - image: ImageCAS/Data/197.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__197.ostium.json
+    - image: ImageCAS/Data/343.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__343.ostium.json
+    - image: ImageCAS/Data/489.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__489.ostium.json
+    - image: ImageCAS/Data/208.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__208.ostium.json
+    - image: ImageCAS/Data/353.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__353.ostium.json
+    - image: ImageCAS/Data/251.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__251.ostium.json
+    - image: ImageCAS/Data/456.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__456.ostium.json
+    - image: ImageCAS/Data/139.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__139.ostium.json
+    - image: ImageCAS/Data/331.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__331.ostium.json
+    - image: ImageCAS/Data/137.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__137.ostium.json
+    - image: ImageCAS/Data/44.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__44.ostium.json
+    - image: ImageCAS/Data/63.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__63.ostium.json
+    - image: ImageCAS/Data/394.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__394.ostium.json
+    - image: ImageCAS/Data/431.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__431.ostium.json
+    - image: ImageCAS/Data/128.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__128.ostium.json
+    - image: ImageCAS/Data/255.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__255.ostium.json
+    - image: ImageCAS/Data/389.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__389.ostium.json
+    - image: ImageCAS/Data/202.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__202.ostium.json
+    - image: ImageCAS/Data/448.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__448.ostium.json
+    - image: ImageCAS/Data/153.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__153.ostium.json
+    - image: ImageCAS/Data/307.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__307.ostium.json
+    - image: ImageCAS/Data/33.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__33.ostium.json
+    - image: ImageCAS/Data/300.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__300.ostium.json
+    - image: ImageCAS/Data/375.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__375.ostium.json
+    - image: ImageCAS/Data/42.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__42.ostium.json
+    - image: ImageCAS/Data/242.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__242.ostium.json
+    - image: ImageCAS/Data/190.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__190.ostium.json
+    - image: ImageCAS/Data/374.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__374.ostium.json
+    - image: ImageCAS/Data/427.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__427.ostium.json
+    - image: ImageCAS/Data/39.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__39.ostium.json
+    - image: ImageCAS/Data/410.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__410.ostium.json
+    - image: ImageCAS/Data/449.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__449.ostium.json
+    - image: ImageCAS/Data/174.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__174.ostium.json
+    - image: ImageCAS/Data/360.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__360.ostium.json
+    - image: ImageCAS/Data/318.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__318.ostium.json
+    - image: ImageCAS/Data/157.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__157.ostium.json
+    - image: ImageCAS/Data/156.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__156.ostium.json
+    - image: ImageCAS/Data/333.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__333.ostium.json
+    - image: ImageCAS/Data/50.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__50.ostium.json
+    - image: ImageCAS/Data/322.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__322.ostium.json
+    - image: ImageCAS/Data/118.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__118.ostium.json
+    - image: ImageCAS/Data/498.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__498.ostium.json
+    - image: ImageCAS/Data/453.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__453.ostium.json
+    - image: ImageCAS/Data/21.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__21.ostium.json
+    - image: ImageCAS/Data/111.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__111.ostium.json
+    - image: ImageCAS/Data/209.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__209.ostium.json
+    - image: ImageCAS/Data/240.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__240.ostium.json
+    - image: ImageCAS/Data/419.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__419.ostium.json
+    - image: ImageCAS/Data/383.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__383.ostium.json
+    - image: ImageCAS/Data/102.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__102.ostium.json
+    - image: ImageCAS/Data/323.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__323.ostium.json
+    - image: ImageCAS/Data/248.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__248.ostium.json
+    - image: ImageCAS/Data/372.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__372.ostium.json
+    - image: ImageCAS/Data/1.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__1.ostium.json
+    - image: ImageCAS/Data/356.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__356.ostium.json
+    - image: ImageCAS/Data/335.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__335.ostium.json
+    - image: ImageCAS/Data/172.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__172.ostium.json
+    - image: ImageCAS/Data/271.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__271.ostium.json
+    - image: ImageCAS/Data/415.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__415.ostium.json
+    - image: ImageCAS/Data/76.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__76.ostium.json
+    - image: ImageCAS/Data/464.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__464.ostium.json
+    - image: ImageCAS/Data/402.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__402.ostium.json
+    - image: ImageCAS/Data/236.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__236.ostium.json
+    - image: ImageCAS/Data/2.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__2.ostium.json
+    - image: ImageCAS/Data/350.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__350.ostium.json
+    - image: ImageCAS/Data/180.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__180.ostium.json
+    - image: ImageCAS/Data/326.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__326.ostium.json
+    - image: ImageCAS/Data/480.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__480.ostium.json
+    - image: ImageCAS/Data/120.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__120.ostium.json
+    - image: ImageCAS/Data/62.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__62.ostium.json
+    - image: ImageCAS/Data/170.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__170.ostium.json
+    - image: ImageCAS/Data/3.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__3.ostium.json
+    - image: ImageCAS/Data/481.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__481.ostium.json
+    - image: ImageCAS/Data/98.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__98.ostium.json
+    - image: ImageCAS/Data/60.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__60.ostium.json
+    - image: ImageCAS/Data/382.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__382.ostium.json
+    - image: ImageCAS/Data/441.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__441.ostium.json
+    - image: ImageCAS/Data/51.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__51.ostium.json
+    - image: ImageCAS/Data/150.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__150.ostium.json
+    - image: ImageCAS/Data/122.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__122.ostium.json
+    - image: ImageCAS/Data/361.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__361.ostium.json
+    - image: ImageCAS/Data/214.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__214.ostium.json
+    - image: ImageCAS/Data/332.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__332.ostium.json
+    - image: ImageCAS/Data/314.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__314.ostium.json
+    - image: ImageCAS/Data/467.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__467.ostium.json
+    - image: ImageCAS/Data/275.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__275.ostium.json
+    - image: ImageCAS/Data/277.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__277.ostium.json
+    - image: ImageCAS/Data/138.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__138.ostium.json
+    - image: ImageCAS/Data/397.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__397.ostium.json
+    - image: ImageCAS/Data/9.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__9.ostium.json
+    - image: ImageCAS/Data/59.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__59.ostium.json
+    - image: ImageCAS/Data/48.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__48.ostium.json
+    - image: ImageCAS/Data/169.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__169.ostium.json
+    - image: ImageCAS/Data/149.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__149.ostium.json
+    - image: ImageCAS/Data/134.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__134.ostium.json
+    - image: ImageCAS/Data/144.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__144.ostium.json
+    - image: ImageCAS/Data/324.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__324.ostium.json
+    - image: ImageCAS/Data/328.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__328.ostium.json
+    - image: ImageCAS/Data/161.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__161.ostium.json
+    - image: ImageCAS/Data/433.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__433.ostium.json
+    - image: ImageCAS/Data/478.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__478.ostium.json
+    - image: ImageCAS/Data/283.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__283.ostium.json
+    - image: ImageCAS/Data/345.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__345.ostium.json
+    - image: ImageCAS/Data/297.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__297.ostium.json
+    - image: ImageCAS/Data/369.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__369.ostium.json
+    - image: ImageCAS/Data/22.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__22.ostium.json
+    - image: ImageCAS/Data/358.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__358.ostium.json
+    - image: ImageCAS/Data/74.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__74.ostium.json
+    - image: ImageCAS/Data/212.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__212.ostium.json
+    - image: ImageCAS/Data/92.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__92.ostium.json
+    - image: ImageCAS/Data/49.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__49.ostium.json
+    - image: ImageCAS/Data/164.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__164.ostium.json
+    - image: ImageCAS/Data/31.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__31.ostium.json
+    - image: ImageCAS/Data/407.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__407.ostium.json
+    - image: ImageCAS/Data/281.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__281.ostium.json
+    - image: ImageCAS/Data/349.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__349.ostium.json
+    - image: ImageCAS/Data/41.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__41.ostium.json
+    - image: ImageCAS/Data/429.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__429.ostium.json
+    - image: ImageCAS/Data/430.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__430.ostium.json
+    - image: ImageCAS/Data/45.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__45.ostium.json
+    - image: ImageCAS/Data/341.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__341.ostium.json
+    - image: ImageCAS/Data/196.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__196.ostium.json
+    - image: ImageCAS/Data/113.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__113.ostium.json
+    - image: ImageCAS/Data/222.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__222.ostium.json
+    - image: ImageCAS/Data/284.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__284.ostium.json
+    - image: ImageCAS/Data/244.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__244.ostium.json
+    - image: ImageCAS/Data/85.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__85.ostium.json
+    - image: ImageCAS/Data/204.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__204.ostium.json
+    - image: ImageCAS/Data/136.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__136.ostium.json
+    - image: ImageCAS/Data/249.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__249.ostium.json
+    - image: ImageCAS/Data/392.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__392.ostium.json
+    - image: ImageCAS/Data/68.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__68.ostium.json
+    - image: ImageCAS/Data/362.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__362.ostium.json
+    - image: ImageCAS/Data/393.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__393.ostium.json
+    - image: ImageCAS/Data/99.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__99.ostium.json
+    - image: ImageCAS/Data/223.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__223.ostium.json
+    - image: ImageCAS/Data/64.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__64.ostium.json
+    - image: ImageCAS/Data/311.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__311.ostium.json
+    - image: ImageCAS/Data/469.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__469.ostium.json
+    - image: ImageCAS/Data/93.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__93.ostium.json
+    - image: ImageCAS/Data/487.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__487.ostium.json
+    - image: ImageCAS/Data/357.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__357.ostium.json
+    - image: ImageCAS/Data/177.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__177.ostium.json
+    - image: ImageCAS/Data/47.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__47.ostium.json
+    - image: ImageCAS/Data/4.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__4.ostium.json
+    - image: ImageCAS/Data/501.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__501.ostium.json
+    - image: ImageCAS/Data/502.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__502.ostium.json
+    - image: ImageCAS/Data/503.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__503.ostium.json
+    - image: ImageCAS/Data/504.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__504.ostium.json
+    - image: ImageCAS/Data/505.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__505.ostium.json
+    - image: ImageCAS/Data/506.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__506.ostium.json
+    - image: ImageCAS/Data/507.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__507.ostium.json
+    - image: ImageCAS/Data/508.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__508.ostium.json
+    - image: ImageCAS/Data/509.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__509.ostium.json
+    - image: ImageCAS/Data/510.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__510.ostium.json
+    - image: ImageCAS/Data/511.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__511.ostium.json
+    - image: ImageCAS/Data/512.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__512.ostium.json
+    - image: ImageCAS/Data/513.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__513.ostium.json
+    - image: ImageCAS/Data/514.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__514.ostium.json
+    - image: ImageCAS/Data/515.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__515.ostium.json
+    - image: ImageCAS/Data/516.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__516.ostium.json
+    - image: ImageCAS/Data/517.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__517.ostium.json
+    - image: ImageCAS/Data/518.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__518.ostium.json
+    - image: ImageCAS/Data/519.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__519.ostium.json
+    - image: ImageCAS/Data/520.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__520.ostium.json
+    - image: ImageCAS/Data/521.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__521.ostium.json
+    - image: ImageCAS/Data/522.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__522.ostium.json
+    - image: ImageCAS/Data/523.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__523.ostium.json
+    - image: ImageCAS/Data/524.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__524.ostium.json
+    - image: ImageCAS/Data/525.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__525.ostium.json
+    - image: ImageCAS/Data/526.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__526.ostium.json
+    - image: ImageCAS/Data/527.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__527.ostium.json
+    - image: ImageCAS/Data/528.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__528.ostium.json
+    - image: ImageCAS/Data/529.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__529.ostium.json
+    - image: ImageCAS/Data/530.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__530.ostium.json
+    - image: ImageCAS/Data/531.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__531.ostium.json
+    - image: ImageCAS/Data/532.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__532.ostium.json
+    - image: ImageCAS/Data/533.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__533.ostium.json
+    - image: ImageCAS/Data/534.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__534.ostium.json
+    - image: ImageCAS/Data/535.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__535.ostium.json
+    - image: ImageCAS/Data/536.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__536.ostium.json
+    - image: ImageCAS/Data/537.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__537.ostium.json
+    - image: ImageCAS/Data/538.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__538.ostium.json
+    - image: ImageCAS/Data/539.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__539.ostium.json
+    - image: ImageCAS/Data/540.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__540.ostium.json
+    - image: ImageCAS/Data/541.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__541.ostium.json
+    - image: ImageCAS/Data/542.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__542.ostium.json
+    - image: ImageCAS/Data/543.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__543.ostium.json
+    - image: ImageCAS/Data/544.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__544.ostium.json
+    - image: ImageCAS/Data/545.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__545.ostium.json
+    - image: ImageCAS/Data/546.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__546.ostium.json
+    - image: ImageCAS/Data/547.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__547.ostium.json
+    - image: ImageCAS/Data/548.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__548.ostium.json
+    - image: ImageCAS/Data/549.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__549.ostium.json
+    - image: ImageCAS/Data/550.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__550.ostium.json
+    - image: ImageCAS/Data/551.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__551.ostium.json
+    - image: ImageCAS/Data/552.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__552.ostium.json
+    - image: ImageCAS/Data/553.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__553.ostium.json
+    - image: ImageCAS/Data/554.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__554.ostium.json
+    - image: ImageCAS/Data/555.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__555.ostium.json
+    - image: ImageCAS/Data/556.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__556.ostium.json
+    - image: ImageCAS/Data/557.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__557.ostium.json
+    - image: ImageCAS/Data/558.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__558.ostium.json
+    - image: ImageCAS/Data/559.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__559.ostium.json
+    - image: ImageCAS/Data/560.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__560.ostium.json
+    - image: ImageCAS/Data/561.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__561.ostium.json
+    - image: ImageCAS/Data/562.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__562.ostium.json
+    - image: ImageCAS/Data/563.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__563.ostium.json
+    - image: ImageCAS/Data/564.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__564.ostium.json
+    - image: ImageCAS/Data/565.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__565.ostium.json
+    - image: ImageCAS/Data/566.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__566.ostium.json
+    - image: ImageCAS/Data/567.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__567.ostium.json
+    - image: ImageCAS/Data/568.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__568.ostium.json
+    - image: ImageCAS/Data/569.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__569.ostium.json
+    - image: ImageCAS/Data/570.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__570.ostium.json
+    - image: ImageCAS/Data/571.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__571.ostium.json
+    - image: ImageCAS/Data/572.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__572.ostium.json
+    - image: ImageCAS/Data/573.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__573.ostium.json
+    - image: ImageCAS/Data/574.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__574.ostium.json
+    - image: ImageCAS/Data/575.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__575.ostium.json
+    - image: ImageCAS/Data/576.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__576.ostium.json
+    - image: ImageCAS/Data/577.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__577.ostium.json
+    - image: ImageCAS/Data/578.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__578.ostium.json
+    - image: ImageCAS/Data/579.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__579.ostium.json
+    - image: ImageCAS/Data/580.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__580.ostium.json
+    - image: ImageCAS/Data/581.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__581.ostium.json
+    - image: ImageCAS/Data/582.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__582.ostium.json
+    - image: ImageCAS/Data/583.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__583.ostium.json
+    - image: ImageCAS/Data/584.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__584.ostium.json
+    - image: ImageCAS/Data/585.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__585.ostium.json
+    - image: ImageCAS/Data/586.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__586.ostium.json
+    - image: ImageCAS/Data/587.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__587.ostium.json
+    - image: ImageCAS/Data/588.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__588.ostium.json
+    - image: ImageCAS/Data/589.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__589.ostium.json
+    - image: ImageCAS/Data/590.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__590.ostium.json
+    - image: ImageCAS/Data/591.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__591.ostium.json
+    - image: ImageCAS/Data/592.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__592.ostium.json
+    - image: ImageCAS/Data/593.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__593.ostium.json
+    - image: ImageCAS/Data/594.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__594.ostium.json
+    - image: ImageCAS/Data/595.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__595.ostium.json
+    - image: ImageCAS/Data/596.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__596.ostium.json
+    - image: ImageCAS/Data/597.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__597.ostium.json
+    - image: ImageCAS/Data/598.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__598.ostium.json
+    - image: ImageCAS/Data/599.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__599.ostium.json
+    - image: ImageCAS/Data/600.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__600.ostium.json
+    - image: ImageCAS/Data/601.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__601.ostium.json
+    - image: ImageCAS/Data/602.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__602.ostium.json
+    - image: ImageCAS/Data/603.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__603.ostium.json
+    - image: ImageCAS/Data/604.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__604.ostium.json
+    - image: ImageCAS/Data/605.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__605.ostium.json
+    - image: ImageCAS/Data/606.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__606.ostium.json
+    - image: ImageCAS/Data/607.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__607.ostium.json
+    - image: ImageCAS/Data/608.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__608.ostium.json
+    - image: ImageCAS/Data/609.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__609.ostium.json
+    - image: ImageCAS/Data/610.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__610.ostium.json
+    - image: ImageCAS/Data/611.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__611.ostium.json
+    - image: ImageCAS/Data/612.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__612.ostium.json
+    - image: ImageCAS/Data/613.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__613.ostium.json
+    - image: ImageCAS/Data/614.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__614.ostium.json
+    - image: ImageCAS/Data/615.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__615.ostium.json
+    - image: ImageCAS/Data/616.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__616.ostium.json
+    - image: ImageCAS/Data/617.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__617.ostium.json
+    - image: ImageCAS/Data/618.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__618.ostium.json
+    - image: ImageCAS/Data/619.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__619.ostium.json
+    - image: ImageCAS/Data/620.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__620.ostium.json
+    - image: ImageCAS/Data/621.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__621.ostium.json
+    - image: ImageCAS/Data/622.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__622.ostium.json
+    - image: ImageCAS/Data/623.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__623.ostium.json
+    - image: ImageCAS/Data/624.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__624.ostium.json
+    - image: ImageCAS/Data/625.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__625.ostium.json
+    - image: ImageCAS/Data/626.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__626.ostium.json
+    - image: ImageCAS/Data/627.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__627.ostium.json
+    - image: ImageCAS/Data/628.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__628.ostium.json
+    - image: ImageCAS/Data/629.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__629.ostium.json
+    - image: ImageCAS/Data/630.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__630.ostium.json
+    - image: ImageCAS/Data/631.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__631.ostium.json
+    - image: ImageCAS/Data/632.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__632.ostium.json
+    - image: ImageCAS/Data/633.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__633.ostium.json
+    - image: ImageCAS/Data/634.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__634.ostium.json
+    - image: ImageCAS/Data/635.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__635.ostium.json
+    - image: ImageCAS/Data/636.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__636.ostium.json
+    - image: ImageCAS/Data/637.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__637.ostium.json
+    - image: ImageCAS/Data/638.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__638.ostium.json
+    - image: ImageCAS/Data/639.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__639.ostium.json
+    - image: ImageCAS/Data/640.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__640.ostium.json
+    - image: ImageCAS/Data/641.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__641.ostium.json
+    - image: ImageCAS/Data/642.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__642.ostium.json
+    - image: ImageCAS/Data/643.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__643.ostium.json
+    - image: ImageCAS/Data/644.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__644.ostium.json
+    - image: ImageCAS/Data/645.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__645.ostium.json
+    - image: ImageCAS/Data/646.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__646.ostium.json
+    - image: ImageCAS/Data/647.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__647.ostium.json
+    - image: ImageCAS/Data/648.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__648.ostium.json
+    - image: ImageCAS/Data/649.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__649.ostium.json
+    - image: ImageCAS/Data/650.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__650.ostium.json
+    - image: ImageCAS/Data/651.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__651.ostium.json
+    - image: ImageCAS/Data/652.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__652.ostium.json
+    - image: ImageCAS/Data/653.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__653.ostium.json
+    - image: ImageCAS/Data/654.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__654.ostium.json
+    - image: ImageCAS/Data/655.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__655.ostium.json
+    - image: ImageCAS/Data/656.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__656.ostium.json
+    - image: ImageCAS/Data/657.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__657.ostium.json
+    - image: ImageCAS/Data/658.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__658.ostium.json
+    - image: ImageCAS/Data/659.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__659.ostium.json
+    - image: ImageCAS/Data/660.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__660.ostium.json
+    - image: ImageCAS/Data/661.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__661.ostium.json
+    - image: ImageCAS/Data/662.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__662.ostium.json
+    - image: ImageCAS/Data/663.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__663.ostium.json
+    - image: ImageCAS/Data/664.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__664.ostium.json
+    - image: ImageCAS/Data/665.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__665.ostium.json
+    - image: ImageCAS/Data/666.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__666.ostium.json
+    - image: ImageCAS/Data/667.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__667.ostium.json
+    - image: ImageCAS/Data/668.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__668.ostium.json
+    - image: ImageCAS/Data/669.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__669.ostium.json
+    - image: ImageCAS/Data/670.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__670.ostium.json
+    - image: ImageCAS/Data/671.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__671.ostium.json
+    - image: ImageCAS/Data/672.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__672.ostium.json
+    - image: ImageCAS/Data/673.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__673.ostium.json
+    - image: ImageCAS/Data/674.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__674.ostium.json
+    - image: ImageCAS/Data/675.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__675.ostium.json
+    - image: ImageCAS/Data/676.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__676.ostium.json
+    - image: ImageCAS/Data/677.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__677.ostium.json
+    - image: ImageCAS/Data/678.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__678.ostium.json
+    - image: ImageCAS/Data/679.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__679.ostium.json
+    - image: ImageCAS/Data/700.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__700.ostium.json
+    - image: ImageCAS/Data/701.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__701.ostium.json
+    - image: ImageCAS/Data/702.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__702.ostium.json
+    - image: ImageCAS/Data/703.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__703.ostium.json
+    - image: ImageCAS/Data/704.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__704.ostium.json
+    - image: ImageCAS/Data/705.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__705.ostium.json
+    - image: ImageCAS/Data/706.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__706.ostium.json
+    - image: ImageCAS/Data/707.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__707.ostium.json
+    - image: ImageCAS/Data/708.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__708.ostium.json
+    - image: ImageCAS/Data/709.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__709.ostium.json
+    - image: ImageCAS/Data/710.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__710.ostium.json
+    - image: ImageCAS/Data/711.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__711.ostium.json
+    - image: ImageCAS/Data/712.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__712.ostium.json
+    - image: ImageCAS/Data/713.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__713.ostium.json
+    - image: ImageCAS/Data/714.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__714.ostium.json
+    - image: ImageCAS/Data/715.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__715.ostium.json
+    - image: ImageCAS/Data/716.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__716.ostium.json
+    - image: ImageCAS/Data/717.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__717.ostium.json
+    - image: ImageCAS/Data/718.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__718.ostium.json
+    - image: ImageCAS/Data/719.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__719.ostium.json
+    - image: ImageCAS/Data/720.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__720.ostium.json
+    - image: ImageCAS/Data/721.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__721.ostium.json
+    - image: ImageCAS/Data/722.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__722.ostium.json
+    - image: ImageCAS/Data/723.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__723.ostium.json
+    - image: ImageCAS/Data/724.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__724.ostium.json
+    - image: ImageCAS/Data/725.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__725.ostium.json
+    - image: ImageCAS/Data/726.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__726.ostium.json
+    - image: ImageCAS/Data/727.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__727.ostium.json
+    - image: ImageCAS/Data/728.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__728.ostium.json
+    - image: ImageCAS/Data/729.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__729.ostium.json
+    - image: ImageCAS/Data/730.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__730.ostium.json
+    - image: ImageCAS/Data/731.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__731.ostium.json
+    - image: ImageCAS/Data/732.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__732.ostium.json
+    - image: ImageCAS/Data/733.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__733.ostium.json
+    - image: ImageCAS/Data/734.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__734.ostium.json
+    - image: ImageCAS/Data/735.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__735.ostium.json
+    - image: ImageCAS/Data/736.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__736.ostium.json
+    - image: ImageCAS/Data/737.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__737.ostium.json
+    - image: ImageCAS/Data/738.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__738.ostium.json
+    - image: ImageCAS/Data/739.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__739.ostium.json
+    - image: ImageCAS/Data/740.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__740.ostium.json
+    - image: ImageCAS/Data/741.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__741.ostium.json
+    - image: ImageCAS/Data/742.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__742.ostium.json
+    - image: ImageCAS/Data/743.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__743.ostium.json
+    - image: ImageCAS/Data/744.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__744.ostium.json
+    - image: ImageCAS/Data/745.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__745.ostium.json
+    - image: ImageCAS/Data/746.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__746.ostium.json
+    - image: ImageCAS/Data/747.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__747.ostium.json
+    - image: ImageCAS/Data/748.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__748.ostium.json
+    - image: ImageCAS/Data/749.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__749.ostium.json
+    - image: ImageCAS/Data/750.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__750.ostium.json
+    - image: ImageCAS/Data/751.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__751.ostium.json
+    - image: ImageCAS/Data/752.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__752.ostium.json
+    - image: ImageCAS/Data/753.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__753.ostium.json
+    - image: ImageCAS/Data/754.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__754.ostium.json
+    - image: ImageCAS/Data/755.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__755.ostium.json
+    - image: ImageCAS/Data/756.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__756.ostium.json
+    - image: ImageCAS/Data/757.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__757.ostium.json
+    - image: ImageCAS/Data/758.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__758.ostium.json
+    - image: ImageCAS/Data/759.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__759.ostium.json
+    - image: ImageCAS/Data/760.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__760.ostium.json
+    - image: ImageCAS/Data/761.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__761.ostium.json
+    - image: ImageCAS/Data/762.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__762.ostium.json
+    - image: ImageCAS/Data/763.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__763.ostium.json
+    - image: ImageCAS/Data/764.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__764.ostium.json
+    - image: ImageCAS/Data/765.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__765.ostium.json
+    - image: ImageCAS/Data/766.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__766.ostium.json
+    - image: ImageCAS/Data/767.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__767.ostium.json
+    - image: ImageCAS/Data/768.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__768.ostium.json
+    - image: ImageCAS/Data/769.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__769.ostium.json
+    - image: ImageCAS/Data/770.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__770.ostium.json
+    - image: ImageCAS/Data/771.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__771.ostium.json
+    - image: ImageCAS/Data/772.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__772.ostium.json
+    - image: ImageCAS/Data/773.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__773.ostium.json
+    - image: ImageCAS/Data/774.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__774.ostium.json
+    - image: ImageCAS/Data/775.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__775.ostium.json
+    - image: ImageCAS/Data/776.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__776.ostium.json
+    - image: ImageCAS/Data/777.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__777.ostium.json
+    - image: ImageCAS/Data/778.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__778.ostium.json
+    - image: ImageCAS/Data/779.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__779.ostium.json
+    - image: ImageCAS/Data/780.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__780.ostium.json
+    - image: ImageCAS/Data/781.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__781.ostium.json
+    - image: ImageCAS/Data/782.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__782.ostium.json
+    - image: ImageCAS/Data/783.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__783.ostium.json
+    - image: ImageCAS/Data/784.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__784.ostium.json
+    - image: ImageCAS/Data/785.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__785.ostium.json
+    - image: ImageCAS/Data/786.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__786.ostium.json
+    - image: ImageCAS/Data/787.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__787.ostium.json
+    - image: ImageCAS/Data/788.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__788.ostium.json
+    - image: ImageCAS/Data/789.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__789.ostium.json
+    - image: ImageCAS/Data/790.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__790.ostium.json
+    - image: ImageCAS/Data/791.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__791.ostium.json
+    - image: ImageCAS/Data/792.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__792.ostium.json
+    - image: ImageCAS/Data/793.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__793.ostium.json
+    - image: ImageCAS/Data/794.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__794.ostium.json
+    - image: ImageCAS/Data/795.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__795.ostium.json
+    - image: ImageCAS/Data/796.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__796.ostium.json
+    - image: ImageCAS/Data/797.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__797.ostium.json
+    - image: ImageCAS/Data/798.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__798.ostium.json
+    - image: ImageCAS/Data/799.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__799.ostium.json
+    - image: ImageCAS/Data/800.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__800.ostium.json
+    - image: ImageCAS/Data/801.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__801.ostium.json
+    - image: ImageCAS/Data/802.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__802.ostium.json
+    - image: ImageCAS/Data/803.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__803.ostium.json
+    - image: ImageCAS/Data/804.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__804.ostium.json
+    - image: ImageCAS/Data/805.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__805.ostium.json
+    - image: ImageCAS/Data/806.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__806.ostium.json
+    - image: ImageCAS/Data/807.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__807.ostium.json
+    - image: ImageCAS/Data/808.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__808.ostium.json
+    - image: ImageCAS/Data/809.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__809.ostium.json
+    - image: ImageCAS/Data/810.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__810.ostium.json
+    - image: ImageCAS/Data/811.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__811.ostium.json
+    - image: ImageCAS/Data/812.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__812.ostium.json
+    - image: ImageCAS/Data/813.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__813.ostium.json
+    - image: ImageCAS/Data/814.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__814.ostium.json
+    - image: ImageCAS/Data/815.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__815.ostium.json
+    - image: ImageCAS/Data/816.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__816.ostium.json
+    - image: ImageCAS/Data/817.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__817.ostium.json
+    - image: ImageCAS/Data/818.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__818.ostium.json
+    - image: ImageCAS/Data/819.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__819.ostium.json
+    - image: ImageCAS/Data/820.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__820.ostium.json
+    - image: ImageCAS/Data/821.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__821.ostium.json
+    - image: ImageCAS/Data/822.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__822.ostium.json
+    - image: ImageCAS/Data/823.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__823.ostium.json
+    - image: ImageCAS/Data/824.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__824.ostium.json
+    - image: ImageCAS/Data/825.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__825.ostium.json
+    - image: ImageCAS/Data/826.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__826.ostium.json
+    - image: ImageCAS/Data/827.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__827.ostium.json
+    - image: ImageCAS/Data/828.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__828.ostium.json
+    - image: ImageCAS/Data/829.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__829.ostium.json
+    - image: ImageCAS/Data/830.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__830.ostium.json
+    - image: ImageCAS/Data/831.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__831.ostium.json
+    - image: ImageCAS/Data/832.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__832.ostium.json
+    - image: ImageCAS/Data/833.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__833.ostium.json
+    - image: ImageCAS/Data/834.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__834.ostium.json
+    - image: ImageCAS/Data/835.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__835.ostium.json
+    - image: ImageCAS/Data/836.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__836.ostium.json
+    - image: ImageCAS/Data/837.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__837.ostium.json
+    - image: ImageCAS/Data/838.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__838.ostium.json
+    - image: ImageCAS/Data/839.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__839.ostium.json
+    - image: ImageCAS/Data/840.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__840.ostium.json
+    - image: ImageCAS/Data/841.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__841.ostium.json
+    - image: ImageCAS/Data/842.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__842.ostium.json
+    - image: ImageCAS/Data/843.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__843.ostium.json
+    - image: ImageCAS/Data/844.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__844.ostium.json
+    - image: ImageCAS/Data/845.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__845.ostium.json
+    - image: ImageCAS/Data/846.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__846.ostium.json
+    - image: ImageCAS/Data/847.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__847.ostium.json
+    - image: ImageCAS/Data/848.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__848.ostium.json
+    - image: ImageCAS/Data/849.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__849.ostium.json
+    - image: ImageCAS/Data/850.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__850.ostium.json
+    - image: ImageCAS/Data/851.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__851.ostium.json
+    - image: ImageCAS/Data/852.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__852.ostium.json
+    - image: ImageCAS/Data/853.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__853.ostium.json
+    - image: ImageCAS/Data/854.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__854.ostium.json
+    - image: ImageCAS/Data/855.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__855.ostium.json
+    - image: ImageCAS/Data/856.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__856.ostium.json
+    - image: ImageCAS/Data/857.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__857.ostium.json
+    - image: ImageCAS/Data/858.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__858.ostium.json
+    - image: ImageCAS/Data/859.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__859.ostium.json
+    - image: ImageCAS/Data/860.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__860.ostium.json
+    - image: ImageCAS/Data/861.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__861.ostium.json
+    - image: ImageCAS/Data/862.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__862.ostium.json
+    - image: ImageCAS/Data/863.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__863.ostium.json
+    - image: ImageCAS/Data/864.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__864.ostium.json
+    - image: ImageCAS/Data/865.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__865.ostium.json
+    - image: ImageCAS/Data/866.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__866.ostium.json
+    - image: ImageCAS/Data/867.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__867.ostium.json
+    - image: ImageCAS/Data/868.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__868.ostium.json
+    - image: ImageCAS/Data/869.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__869.ostium.json
+    - image: ImageCAS/Data/870.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__870.ostium.json
+    - image: ImageCAS/Data/871.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__871.ostium.json
+    - image: ImageCAS/Data/872.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__872.ostium.json
+    - image: ImageCAS/Data/873.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__873.ostium.json
+    - image: ImageCAS/Data/874.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__874.ostium.json
+    - image: ImageCAS/Data/875.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__875.ostium.json
+    - image: ImageCAS/Data/876.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__876.ostium.json
+    - image: ImageCAS/Data/877.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__877.ostium.json
+    - image: ImageCAS/Data/878.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__878.ostium.json
+    - image: ImageCAS/Data/879.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__879.ostium.json
+    - image: ImageCAS/Data/880.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__880.ostium.json
+    - image: ImageCAS/Data/881.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__881.ostium.json
+    - image: ImageCAS/Data/882.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__882.ostium.json
+    - image: ImageCAS/Data/883.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__883.ostium.json
+    - image: ImageCAS/Data/884.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__884.ostium.json
+    - image: ImageCAS/Data/885.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__885.ostium.json
+    - image: ImageCAS/Data/886.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__886.ostium.json
+    - image: ImageCAS/Data/887.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__887.ostium.json
+    - image: ImageCAS/Data/888.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__888.ostium.json
+    - image: ImageCAS/Data/889.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__889.ostium.json
+    - image: ImageCAS/Data/890.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__890.ostium.json
+    - image: ImageCAS/Data/891.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__891.ostium.json
+    - image: ImageCAS/Data/892.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__892.ostium.json
+    - image: ImageCAS/Data/893.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__893.ostium.json
+    - image: ImageCAS/Data/894.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__894.ostium.json
+    - image: ImageCAS/Data/895.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__895.ostium.json
+    - image: ImageCAS/Data/896.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__896.ostium.json
+    - image: ImageCAS/Data/897.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__897.ostium.json
+    - image: ImageCAS/Data/898.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__898.ostium.json
+    - image: ImageCAS/Data/899.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__899.ostium.json
+    - image: ImageCAS/Data/900.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__900.ostium.json
+    - image: ImageCAS/Data/901.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__901.ostium.json
+    - image: ImageCAS/Data/902.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__902.ostium.json
+    - image: ImageCAS/Data/903.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__903.ostium.json
+    - image: ImageCAS/Data/904.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__904.ostium.json
+    - image: ImageCAS/Data/905.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__905.ostium.json
+    - image: ImageCAS/Data/906.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__906.ostium.json
+    - image: ImageCAS/Data/907.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__907.ostium.json
+    - image: ImageCAS/Data/908.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__908.ostium.json
+    - image: ImageCAS/Data/909.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__909.ostium.json
+    - image: ImageCAS/Data/910.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__910.ostium.json
+    - image: ImageCAS/Data/911.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__911.ostium.json
+    - image: ImageCAS/Data/912.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__912.ostium.json
+    - image: ImageCAS/Data/913.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__913.ostium.json
+    - image: ImageCAS/Data/914.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__914.ostium.json
+    - image: ImageCAS/Data/915.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__915.ostium.json
+    - image: ImageCAS/Data/916.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__916.ostium.json
+    - image: ImageCAS/Data/917.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__917.ostium.json
+    - image: ImageCAS/Data/918.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__918.ostium.json
+    - image: ImageCAS/Data/919.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__919.ostium.json
+    - image: ImageCAS/Data/920.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__920.ostium.json
+    - image: ImageCAS/Data/921.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__921.ostium.json
+    - image: ImageCAS/Data/922.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__922.ostium.json
+    - image: ImageCAS/Data/923.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__923.ostium.json
+    - image: ImageCAS/Data/924.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__924.ostium.json
+    - image: ImageCAS/Data/925.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__925.ostium.json
+    - image: ImageCAS/Data/926.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__926.ostium.json
+    - image: ImageCAS/Data/927.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__927.ostium.json
+    - image: ImageCAS/Data/928.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__928.ostium.json
+    - image: ImageCAS/Data/929.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__929.ostium.json
+    - image: ImageCAS/Data/930.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__930.ostium.json
+    - image: ImageCAS/Data/931.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__931.ostium.json
+    - image: ImageCAS/Data/932.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__932.ostium.json
+    - image: ImageCAS/Data/933.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__933.ostium.json
+    - image: ImageCAS/Data/934.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__934.ostium.json
+    - image: ImageCAS/Data/935.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__935.ostium.json
+    - image: ImageCAS/Data/936.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__936.ostium.json
+    - image: ImageCAS/Data/937.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__937.ostium.json
+    - image: ImageCAS/Data/938.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__938.ostium.json
+    - image: ImageCAS/Data/939.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__939.ostium.json
+    - image: ImageCAS/Data/940.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__940.ostium.json
+    - image: ImageCAS/Data/941.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__941.ostium.json
+    - image: ImageCAS/Data/942.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__942.ostium.json
+    - image: ImageCAS/Data/943.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__943.ostium.json
+    - image: ImageCAS/Data/944.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__944.ostium.json
+    - image: ImageCAS/Data/945.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__945.ostium.json
+    - image: ImageCAS/Data/946.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__946.ostium.json
+    - image: ImageCAS/Data/947.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__947.ostium.json
+    - image: ImageCAS/Data/948.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__948.ostium.json
+    - image: ImageCAS/Data/949.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__949.ostium.json
+    - image: ImageCAS/Data/950.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__950.ostium.json
+    - image: ImageCAS/Data/951.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__951.ostium.json
+    - image: ImageCAS/Data/952.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__952.ostium.json
+    - image: ImageCAS/Data/953.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__953.ostium.json
+    - image: ImageCAS/Data/954.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__954.ostium.json
+    - image: ImageCAS/Data/955.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__955.ostium.json
+    - image: ImageCAS/Data/956.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__956.ostium.json
+    - image: ImageCAS/Data/957.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__957.ostium.json
+    - image: ImageCAS/Data/958.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__958.ostium.json
+    - image: ImageCAS/Data/959.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__959.ostium.json
+    - image: ImageCAS/Data/960.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__960.ostium.json
+    - image: ImageCAS/Data/961.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__961.ostium.json
+    - image: ImageCAS/Data/962.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__962.ostium.json
+    - image: ImageCAS/Data/963.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__963.ostium.json
+    - image: ImageCAS/Data/964.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__964.ostium.json
+    - image: ImageCAS/Data/965.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__965.ostium.json
+    - image: ImageCAS/Data/966.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__966.ostium.json
+    - image: ImageCAS/Data/967.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__967.ostium.json
+    - image: ImageCAS/Data/968.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__968.ostium.json
+    - image: ImageCAS/Data/969.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__969.ostium.json
+    - image: ImageCAS/Data/970.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__970.ostium.json
+    - image: ImageCAS/Data/971.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__971.ostium.json
+    - image: ImageCAS/Data/972.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__972.ostium.json
+    - image: ImageCAS/Data/973.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__973.ostium.json
+    - image: ImageCAS/Data/974.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__974.ostium.json
+    - image: ImageCAS/Data/975.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__975.ostium.json
+    - image: ImageCAS/Data/976.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__976.ostium.json
+    - image: ImageCAS/Data/977.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__977.ostium.json
+    - image: ImageCAS/Data/978.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__978.ostium.json
+    - image: ImageCAS/Data/979.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__979.ostium.json
+    - image: ImageCAS/Data/980.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__980.ostium.json
+    - image: ImageCAS/Data/981.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__981.ostium.json
+    - image: ImageCAS/Data/982.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__982.ostium.json
+    - image: ImageCAS/Data/983.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__983.ostium.json
+    - image: ImageCAS/Data/984.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__984.ostium.json
+    - image: ImageCAS/Data/985.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__985.ostium.json
+    - image: ImageCAS/Data/986.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__986.ostium.json
+    - image: ImageCAS/Data/987.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__987.ostium.json
+    - image: ImageCAS/Data/988.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__988.ostium.json
+    - image: ImageCAS/Data/989.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__989.ostium.json
+    - image: ImageCAS/Data/990.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__990.ostium.json
+    - image: ImageCAS/Data/991.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__991.ostium.json
+    - image: ImageCAS/Data/992.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__992.ostium.json
+    - image: ImageCAS/Data/993.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__993.ostium.json
+    - image: ImageCAS/Data/994.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__994.ostium.json
+    - image: ImageCAS/Data/995.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__995.ostium.json
+    - image: ImageCAS/Data/996.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__996.ostium.json
+    - image: ImageCAS/Data/997.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__997.ostium.json
+    - image: ImageCAS/Data/998.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__998.ostium.json
+    - image: ImageCAS/Data/999.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__999.ostium.json
+    - image: ImageCAS/Data/1000.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__1000.ostium.json
+    val:
+    - image: ImageCAS/Data/14.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__14.ostium.json
+    - image: ImageCAS/Data/408.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__408.ostium.json
+    - image: ImageCAS/Data/416.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__416.ostium.json
+    - image: ImageCAS/Data/72.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__72.ostium.json
+    - image: ImageCAS/Data/221.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__221.ostium.json
+    - image: ImageCAS/Data/413.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__413.ostium.json
+    - image: ImageCAS/Data/195.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__195.ostium.json
+    - image: ImageCAS/Data/262.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__262.ostium.json
+    - image: ImageCAS/Data/27.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__27.ostium.json
+    - image: ImageCAS/Data/173.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__173.ostium.json
+    - image: ImageCAS/Data/267.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__267.ostium.json
+    - image: ImageCAS/Data/405.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__405.ostium.json
+    - image: ImageCAS/Data/308.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__308.ostium.json
+    - image: ImageCAS/Data/6.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__6.ostium.json
+    - image: ImageCAS/Data/495.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__495.ostium.json
+    - image: ImageCAS/Data/125.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__125.ostium.json
+    - image: ImageCAS/Data/78.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__78.ostium.json
+    - image: ImageCAS/Data/492.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__492.ostium.json
+    - image: ImageCAS/Data/232.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__232.ostium.json
+    - image: ImageCAS/Data/462.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__462.ostium.json
+    - image: ImageCAS/Data/203.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__203.ostium.json
+    - image: ImageCAS/Data/387.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__387.ostium.json
+    - image: ImageCAS/Data/109.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__109.ostium.json
+    - image: ImageCAS/Data/114.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__114.ostium.json
+    - image: ImageCAS/Data/421.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__421.ostium.json
+    - image: ImageCAS/Data/187.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__187.ostium.json
+    - image: ImageCAS/Data/367.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__367.ostium.json
+    - image: ImageCAS/Data/266.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__266.ostium.json
+    - image: ImageCAS/Data/377.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__377.ostium.json
+    - image: ImageCAS/Data/403.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__403.ostium.json
+    - image: ImageCAS/Data/476.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__476.ostium.json
+    - image: ImageCAS/Data/234.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__234.ostium.json
+    - image: ImageCAS/Data/338.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__338.ostium.json
+    - image: ImageCAS/Data/141.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__141.ostium.json
+    - image: ImageCAS/Data/273.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__273.ostium.json
+    - image: ImageCAS/Data/155.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__155.ostium.json
+    - image: ImageCAS/Data/334.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__334.ostium.json
+    - image: ImageCAS/Data/310.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__310.ostium.json
+    - image: ImageCAS/Data/452.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__452.ostium.json
+    - image: ImageCAS/Data/133.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__133.ostium.json
+    - image: ImageCAS/Data/496.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__496.ostium.json
+    - image: ImageCAS/Data/220.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__220.ostium.json
+    - image: ImageCAS/Data/399.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__399.ostium.json
+    - image: ImageCAS/Data/258.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__258.ostium.json
+    - image: ImageCAS/Data/483.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__483.ostium.json
+    - image: ImageCAS/Data/264.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__264.ostium.json
+    - image: ImageCAS/Data/124.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__124.ostium.json
+    - image: ImageCAS/Data/274.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__274.ostium.json
+    - image: ImageCAS/Data/79.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__79.ostium.json
+    - image: ImageCAS/Data/91.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__91.ostium.json
+    - image: ImageCAS/Data/680.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__680.ostium.json
+    - image: ImageCAS/Data/681.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__681.ostium.json
+    - image: ImageCAS/Data/682.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__682.ostium.json
+    - image: ImageCAS/Data/683.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__683.ostium.json
+    - image: ImageCAS/Data/684.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__684.ostium.json
+    - image: ImageCAS/Data/685.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__685.ostium.json
+    - image: ImageCAS/Data/686.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__686.ostium.json
+    - image: ImageCAS/Data/687.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__687.ostium.json
+    - image: ImageCAS/Data/688.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__688.ostium.json
+    - image: ImageCAS/Data/689.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__689.ostium.json
+    - image: ImageCAS/Data/690.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__690.ostium.json
+    - image: ImageCAS/Data/691.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__691.ostium.json
+    - image: ImageCAS/Data/692.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__692.ostium.json
+    - image: ImageCAS/Data/693.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__693.ostium.json
+    - image: ImageCAS/Data/694.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__694.ostium.json
+    - image: ImageCAS/Data/695.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__695.ostium.json
+    - image: ImageCAS/Data/696.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__696.ostium.json
+    - image: ImageCAS/Data/697.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__697.ostium.json
+    - image: ImageCAS/Data/698.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__698.ostium.json
+    - image: ImageCAS/Data/699.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__699.ostium.json
+    test:
+    - image: ImageCAS/Data/254.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__254.ostium.json
+    - image: ImageCAS/Data/435.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__435.ostium.json
+    - image: ImageCAS/Data/198.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__198.ostium.json
+    - image: ImageCAS/Data/17.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__17.ostium.json
+    - image: ImageCAS/Data/67.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__67.ostium.json
+    - image: ImageCAS/Data/256.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__256.ostium.json
+    - image: ImageCAS/Data/83.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__83.ostium.json
+    - image: ImageCAS/Data/445.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__445.ostium.json
+    - image: ImageCAS/Data/171.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__171.ostium.json
+    - image: ImageCAS/Data/470.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__470.ostium.json
+    - image: ImageCAS/Data/434.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__434.ostium.json
+    - image: ImageCAS/Data/100.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__100.ostium.json
+    - image: ImageCAS/Data/493.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__493.ostium.json
+    - image: ImageCAS/Data/471.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__471.ostium.json
+    - image: ImageCAS/Data/227.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__227.ostium.json
+    - image: ImageCAS/Data/395.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__395.ostium.json
+    - image: ImageCAS/Data/305.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__305.ostium.json
+    - image: ImageCAS/Data/20.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__20.ostium.json
+    - image: ImageCAS/Data/292.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__292.ostium.json
+    - image: ImageCAS/Data/87.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__87.ostium.json
+    - image: ImageCAS/Data/446.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__446.ostium.json
+    - image: ImageCAS/Data/384.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__384.ostium.json
+    - image: ImageCAS/Data/424.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__424.ostium.json
+    - image: ImageCAS/Data/19.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__19.ostium.json
+    - image: ImageCAS/Data/363.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__363.ostium.json
+    - image: ImageCAS/Data/104.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__104.ostium.json
+    - image: ImageCAS/Data/373.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__373.ostium.json
+    - image: ImageCAS/Data/327.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__327.ostium.json
+    - image: ImageCAS/Data/206.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__206.ostium.json
+    - image: ImageCAS/Data/199.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__199.ostium.json
+    - image: ImageCAS/Data/12.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__12.ostium.json
+    - image: ImageCAS/Data/105.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__105.ostium.json
+    - image: ImageCAS/Data/130.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__130.ostium.json
+    - image: ImageCAS/Data/294.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__294.ostium.json
+    - image: ImageCAS/Data/370.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__370.ostium.json
+    - image: ImageCAS/Data/143.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__143.ostium.json
+    - image: ImageCAS/Data/36.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__36.ostium.json
+    - image: ImageCAS/Data/58.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__58.ostium.json
+    - image: ImageCAS/Data/94.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__94.ostium.json
+    - image: ImageCAS/Data/390.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__390.ostium.json
+    - image: ImageCAS/Data/147.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__147.ostium.json
+    - image: ImageCAS/Data/454.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__454.ostium.json
+    - image: ImageCAS/Data/162.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__162.ostium.json
+    - image: ImageCAS/Data/201.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__201.ostium.json
+    - image: ImageCAS/Data/211.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__211.ostium.json
+    - image: ImageCAS/Data/225.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__225.ostium.json
+    - image: ImageCAS/Data/455.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__455.ostium.json
+    - image: ImageCAS/Data/129.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__129.ostium.json
+    - image: ImageCAS/Data/15.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__15.ostium.json
+    - image: ImageCAS/Data/406.img.nii.gz
+      label: Annotations/OstiumAnnotations_ImageCAS/OSTIAv2/JSON/ImageCAS__406.ostium.json
+
+

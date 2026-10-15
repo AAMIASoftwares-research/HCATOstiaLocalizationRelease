@@ -1,0 +1,31 @@
+{
+    "version": "1.0",
+    "image_id": "str",
+    "image_filename": "str",
+    "pos": {
+        "L": {
+            "ras": [1.000, 2.000, 3.000],
+            "ijk": {
+                "sitk": [1.000, 2.000, 3.000],
+                "monai-ras": [1.000, 2.000, 3.000]
+            }
+        },
+        "R": {
+            "ras": [1.000, 2.000, 3.000],
+            "ijk": {
+                "sitk": [1.000, 2.000, 3.000],
+                "monai-ras": [1.000, 2.000, 3.000]
+            }
+        }
+    },
+    "affine_from_ijk_to_ras": {
+        "sitk": [["4x4 matrix list of floats 0.000 to be ported to numpy"]],
+        "monai-ras": [["4x4 matrix list of floats 0.000 to be ported to numpy"]]
+    },
+    "affine_from_ras_to_ijk": {
+        "sitk": [["4x4 matrix list of floats 0.000 to be ported to numpy"]],
+        "monai-ras": [["4x4 matrix list of floats 0.000 to be ported to numpy"]]
+    },
+    "comment": "str",
+    "other": {}
+}

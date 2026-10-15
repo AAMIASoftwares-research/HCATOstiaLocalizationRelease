@@ -1,0 +1,22 @@
+cff-version: 1.2.0
+message: "If you use this code, the ostium annotations or the released models, please cite the paper and the dataset."
+title: "Awakening ImageCAS: Automated Coronary Ostia Localization Framework and Centerlines Open Dataset"
+type: software
+license: MIT
+repository-code: "https://github.com/AAMIASoftwares-research/HCATOstiaLocalizationRelease"
+url: "https://hal9000-lab.github.io/Awakening-ImageCAS/"
+authors:
+  - {family-names: Leccardi, given-names: Matteo}
+  - {family-names: Moglia, given-names: Andrea}
+  - {family-names: Morandini, given-names: Marco}
+  - {family-names: Brembilla, given-names: Michele}
+  - {family-names: Nicosia, given-names: Alessandro}
+  - {family-names: Penserini, given-names: Andrea}
+  - {family-names: Brandini, given-names: Christian}
+  - {family-names: Marcon, given-names: Marco}
+  - {family-names: Mainardi, given-names: Luca}
+  - {family-names: Cerveri, given-names: Pietro}
+identifiers:
+  - {type: doi, value: "10.5281/zenodo.23243093", description: "Dataset (Zenodo, all versions)"}
+  - {type: url, value: "https://hal9000-lab.github.io/Awakening-ImageCAS/", description: "Project website"}
+  - {type: doi, value: "10.5281/zenodo.23399623", description: "Model weights (Zenodo, all versions)"}
