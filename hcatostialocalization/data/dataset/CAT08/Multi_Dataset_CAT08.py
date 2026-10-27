@@ -20,7 +20,7 @@ while current_dir != os.path.dirname(current_dir):
     current_dir = os.path.dirname(current_dir)
 
 from hcatostialocalization.config.config import config
-from hcatostialocalization.data.dataset.Base_Classes_ProvaMarco import LabeledDataset
+from hcatostialocalization.data.dataset.Base_Classes_Dataset import LabeledDataset
 from hcatostialocalization.data.dataset.Heatmap_Config import HeatmapParams
 
 # ==============================================================================

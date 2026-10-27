@@ -25,7 +25,7 @@ from hcatostialocalization.data.dataset.CAT08.Multi_Dataset_CAT08 import Dataset
 from hcatostialocalization.data.dataset.ImageCAS.Multi_Dataset_ImageCAS import Dataset_ImageCAS_Ostia_Multi
 
 # ---> IMPORTIAMO LA TUA CLASSE DALLE BASE CLASSES! <---
-from hcatostialocalization.data.dataset.Base_Classes_ProvaMarco import LabeledDatasetsCollection
+from hcatostialocalization.data.dataset.Base_Classes_Dataset import LabeledDatasetsCollection
 
 # ==============================================================================
 # 1. PATCH METODO GETITEM DEI SINGOLI DATASET

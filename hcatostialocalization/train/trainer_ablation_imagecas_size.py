@@ -55,7 +55,7 @@ from hcatostialocalization.model.model_factory import get_model
 from hcatostialocalization.loss.loss_factory import get_loss
 from hcatostialocalization.logger.logger import ExperimentLogger
 from hcatostialocalization.data.dataset.General_Class_Dataset_Multi import UnifiedOstiaDatasetMulti
-from hcatostialocalization.data.dataset.Base_Classes_ProvaMarco import LabeledDatasetsCollection
+from hcatostialocalization.data.dataset.Base_Classes_Dataset import LabeledDatasetsCollection
 from hcatostialocalization.data.transform.augment_3d_ostia import augment_3d_ostia
 
 try:
