@@ -1,9 +1,9 @@
-# <-- Cambia qui per switchare esperimento
+# <-- Change here to switch experiment
 active_experiment: "swin_unetr_v2_dsnt"
 # Available choices from the paper:
 # - swin_unetr_v2_dsnt
-# - swin_unetr_v2_dsnt_ablation_training_spacing      (ablation spacing di training, 100 epoche; spacing via --spacing-iso, vedi sbatch-train-ablation-training-spacing.sh)
-# - swin_unetr_v2_dsnt_ablation_fixed_weights          (ablation pesi loss fissi 0.5/0.5, 200 epoche)
+# - swin_unetr_v2_dsnt_ablation_training_spacing      (training spacing ablation, 100 epochs; spacing via --spacing-iso, see sbatch-train-ablation-training-spacing.sh)
+# - swin_unetr_v2_dsnt_ablation_fixed_weights          (loss weight ablation: fixed 0.5/0.5, 200 epochs)
 # - dynunet_dsnt               (actually unused)
 # - nnunet_residualunet_dsnt
 # - resnet50_dsnt
@@ -14,7 +14,7 @@ active_experiment: "swin_unetr_v2_dsnt"
 
 resume:
   enabled: false
-  checkpoint_path: null         # Specifica un percorso se vuoi riprendere da un file esatto, altrimenti auto_latest cercherà l'ultimo last_model.pth
+  checkpoint_path: null         # Specify a path to resume from a specific file, otherwise auto_latest will look for the latest last_model.pth
   auto_latest: false
 
 
@@ -40,7 +40,7 @@ experiments:
       name: "hybrid_ce_bce"
       ce_weight: 0.33
       bce_weight: 0.33
-      dice_weight: 0.34            # <-- Mantenuta come da originale
+      dice_weight: 0.34            # <-- Kept as per original
       foreground_weight: 100.0
 
     train:
@@ -63,15 +63,15 @@ experiments:
       sigma_min_improvement: 0.05
       sigma_patience: 2
       sigma_warmup_epochs: 5
-      augmentation:                  # data/transform/augment_3d_ostia.py — applicata alle patch dopo il crop
+      augmentation:                  # data/transform/augment_3d_ostia.py — applied to patches after cropping
         enabled: true
-        max_rotation_deg: 15.0       # rotazione casuale per asse in [-15°, +15°] (niente flip / rot90: RAS informativo per R vs L)
+        max_rotation_deg: 15.0       # random per-axis rotation in [-15°, +15°] (no flip / rot90: RAS is informative for R vs L)
         zoom_range: [0.9, 1.1]
-        elastic_max_voxels: 2.0      # spostamento elastico massimo (voxel; 2 vox = 1 mm a 0.5 mm)
-        elastic_grid_points: 5       # nodi per asse del campo elastico grossolano (più nodi = deformazione meno liscia)
-        noise_std_hu: 40.0           # std del rumore ~ |N(0, 40)| HU
-        shift_std_hu: 5.0            # shift globale ~ N(0, 5) HU
-        p_affine: 0.8                # probabilità per campione: rotazione + zoom
+        elastic_max_voxels: 2.0      # maximum elastic displacement (voxels; 2 vox = 1 mm at 0.5 mm spacing)
+        elastic_grid_points: 5       # nodes per axis of the coarse elastic field (more nodes = less smooth deformation)
+        noise_std_hu: 40.0           # noise std ~ |N(0, 40)| HU
+        shift_std_hu: 5.0            # global shift ~ N(0, 5) HU
+        p_affine: 0.8                # per-sample probability: rotation + zoom
         p_elastic: 0.3
         p_noise: 0.5
         p_shift: 0.5
@@ -79,7 +79,7 @@ experiments:
     optimizer:
       name: "adamw"
       learning_rate: 0.00005
-      weight_decay: 0.00001          # <-- FIX: allineato a swin_unetr_v2 (era 0.05)
+      weight_decay: 0.00001          # <-- FIX: aligned with swin_unetr_v2 (was 0.05)
 
     scheduler:
       name: "custom_warmup"
@@ -103,25 +103,25 @@ experiments:
 
     loss:
       name: "dsnt_jsd"
-      lambda_jsd: 1.0                # peso del termine JSD
-      sigma_jsd_R: 2.0               # sigma canale R (voxel) — deve coincidere con sigma_start
-      sigma_jsd_L: 2.0               # sigma canale L (voxel) — più grande per variabilità LMCA
-      lambda_bg: 0.8                 # peso BCE background (soppressione rumore di fondo)
-      temperature: 0.3               # temperatura spatial softmax (< 1.0 = più nitida)
-      weight_R: 0.5                  # peso canale R nella loss totale
-      weight_L: 0.5                  # peso canale L (anatomicamente più difficile)
-      weight_switch_epoch: null      # Disattivato: subentra sinh_plateau in modo dinamico
-      min_heatmap_sum: 0.001         # soglia abbassata per includere gaussiane troncate ai bordi
+      lambda_jsd: 1.0                # JSD term weight
+      sigma_jsd_R: 2.0               # R channel sigma (voxels) — must match sigma_start
+      sigma_jsd_L: 2.0               # L channel sigma (voxels) — larger for LMCA variability
+      lambda_bg: 0.8                 # background BCE weight (background noise suppression)
+      temperature: 0.3               # spatial softmax temperature (< 1.0 = sharper)
+      weight_R: 0.5                  # R channel weight in total loss
+      weight_L: 0.5                  # L channel weight (anatomically harder)
+      weight_switch_epoch: null      # Disabled: replaced by sinh_plateau dynamically
+      min_heatmap_sum: 0.001         # lowered threshold to include Gaussians truncated at borders
       sinh_plateau:
         enabled: true
-        patience: 3                  # Epoche di stallo prima di confermare il plateau
-        min_delta_mm: 0.1            # Miglioramento minimo globale
-        warmup_epochs: 15            # Attende 15 epoche di convergenza prima di monitorare
-        activation_delay_epochs: 3   # Attende 3 epoche dalla rilevazione prima di iniziare a muovere i pesi
+        patience: 3                  # Stall epochs before confirming the plateau
+        min_delta_mm: 0.1            # Minimum global improvement
+        warmup_epochs: 15            # Waits 15 convergence epochs before monitoring
+        activation_delay_epochs: 3   # Waits 3 epochs from detection before starting to move weights
         a_min: 0.1
         a_max: 1.5
-        max_weight: 0.75             # Limiti rigidi: pesi confinati in [0.25, 0.75]
-        smoothing: 0.5               # Step intermedio: (w_corrente + w_target) / 2
+        max_weight: 0.75             # Hard limits: weights confined in [0.25, 0.75]
+        smoothing: 0.5               # Intermediate step: (w_current + w_target) / 2
 
     train:
       epochs: 200
@@ -143,15 +143,15 @@ experiments:
       sigma_min_improvement: 0.05
       sigma_patience: 2
       sigma_warmup_epochs: 5
-      augmentation:                  # data/transform/augment_3d_ostia.py — applicata alle patch dopo il crop
+      augmentation:                  # data/transform/augment_3d_ostia.py — applied to patches after cropping
         enabled: true
-        max_rotation_deg: 15.0       # rotazione casuale per asse in [-15°, +15°] (niente flip / rot90: RAS informativo per R vs L)
+        max_rotation_deg: 15.0       # random per-axis rotation in [-15°, +15°] (no flip / rot90: RAS is informative for R vs L)
         zoom_range: [0.9, 1.1]
-        elastic_max_voxels: 2.0      # spostamento elastico massimo (voxel; 2 vox = 1 mm a 0.5 mm)
-        elastic_grid_points: 5       # nodi per asse del campo elastico grossolano (più nodi = deformazione meno liscia)
-        noise_std_hu: 40.0           # std del rumore ~ |N(0, 40)| HU
-        shift_std_hu: 5.0            # shift globale ~ N(0, 5) HU
-        p_affine: 0.8                # probabilità per campione: rotazione + zoom
+        elastic_max_voxels: 2.0      # maximum elastic displacement (voxels; 2 vox = 1 mm at 0.5 mm spacing)
+        elastic_grid_points: 5       # nodes per axis of the coarse elastic field (more nodes = less smooth deformation)
+        noise_std_hu: 40.0           # noise std ~ |N(0, 40)| HU
+        shift_std_hu: 5.0            # global shift ~ N(0, 5) HU
+        p_affine: 0.8                # per-sample probability: rotation + zoom
         p_elastic: 0.3
         p_noise: 0.5
         p_shift: 0.5
@@ -178,7 +178,7 @@ experiments:
       use_v2: false
 
     loss:
-      name: "weighted_mse"         # <-- Questa loss non usa dice_weight, quindi non lo aggiungiamo per non sporcare
+      name: "weighted_mse"         # <-- This loss does not use dice_weight, so we do not add it to avoid cluttering
       foreground_weight: 100.0
 
     train:
@@ -193,15 +193,15 @@ experiments:
       sigma_min_improvement: 0.05
       sigma_patience: 2
       sigma_warmup_epochs: 5
-      augmentation:                  # data/transform/augment_3d_ostia.py — applicata alle patch dopo il crop
+      augmentation:                  # data/transform/augment_3d_ostia.py — applied to patches after cropping
         enabled: true
-        max_rotation_deg: 15.0       # rotazione casuale per asse in [-15°, +15°] (niente flip / rot90: RAS informativo per R vs L)
+        max_rotation_deg: 15.0       # random per-axis rotation in [-15°, +15°] (no flip / rot90: RAS is informative for R vs L)
         zoom_range: [0.9, 1.1]
-        elastic_max_voxels: 2.0      # spostamento elastico massimo (voxel; 2 vox = 1 mm a 0.5 mm)
-        elastic_grid_points: 5       # nodi per asse del campo elastico grossolano (più nodi = deformazione meno liscia)
-        noise_std_hu: 40.0           # std del rumore ~ |N(0, 40)| HU
-        shift_std_hu: 5.0            # shift globale ~ N(0, 5) HU
-        p_affine: 0.8                # probabilità per campione: rotazione + zoom
+        elastic_max_voxels: 2.0      # maximum elastic displacement (voxels; 2 vox = 1 mm at 0.5 mm spacing)
+        elastic_grid_points: 5       # nodes per axis of the coarse elastic field (more nodes = less smooth deformation)
+        noise_std_hu: 40.0           # noise std ~ |N(0, 40)| HU
+        shift_std_hu: 5.0            # global shift ~ N(0, 5) HU
+        p_affine: 0.8                # per-sample probability: rotation + zoom
         p_elastic: 0.3
         p_noise: 0.5
         p_shift: 0.5
@@ -258,15 +258,15 @@ experiments:
       sigma_min_improvement: 0.05
       sigma_patience: 2
       sigma_warmup_epochs: 5
-      augmentation:                  # data/transform/augment_3d_ostia.py — applicata alle patch dopo il crop
+      augmentation:                  # data/transform/augment_3d_ostia.py — applied to patches after cropping
         enabled: true
-        max_rotation_deg: 15.0       # rotazione casuale per asse in [-15°, +15°] (niente flip / rot90: RAS informativo per R vs L)
+        max_rotation_deg: 15.0       # random per-axis rotation in [-15°, +15°] (no flip / rot90: RAS is informative for R vs L)
         zoom_range: [0.9, 1.1]
-        elastic_max_voxels: 2.0      # spostamento elastico massimo (voxel; 2 vox = 1 mm a 0.5 mm)
-        elastic_grid_points: 5       # nodi per asse del campo elastico grossolano (più nodi = deformazione meno liscia)
-        noise_std_hu: 40.0           # std del rumore ~ |N(0, 40)| HU
-        shift_std_hu: 5.0            # shift globale ~ N(0, 5) HU
-        p_affine: 0.8                # probabilità per campione: rotazione + zoom
+        elastic_max_voxels: 2.0      # maximum elastic displacement (voxels; 2 vox = 1 mm at 0.5 mm spacing)
+        elastic_grid_points: 5       # nodes per axis of the coarse elastic field (more nodes = less smooth deformation)
+        noise_std_hu: 40.0           # noise std ~ |N(0, 40)| HU
+        shift_std_hu: 5.0            # global shift ~ N(0, 5) HU
+        p_affine: 0.8                # per-sample probability: rotation + zoom
         p_elastic: 0.3
         p_noise: 0.5
         p_shift: 0.5
@@ -320,15 +320,15 @@ experiments:
       sigma_min_improvement: 0.05
       sigma_patience: 2
       sigma_warmup_epochs: 5
-      augmentation:                  # data/transform/augment_3d_ostia.py — applicata alle patch dopo il crop
+      augmentation:                  # data/transform/augment_3d_ostia.py — applied to patches after cropping
         enabled: true
-        max_rotation_deg: 15.0       # rotazione casuale per asse in [-15°, +15°] (niente flip / rot90: RAS informativo per R vs L)
+        max_rotation_deg: 15.0       # random per-axis rotation in [-15°, +15°] (no flip / rot90: RAS is informative for R vs L)
         zoom_range: [0.9, 1.1]
-        elastic_max_voxels: 2.0      # spostamento elastico massimo (voxel; 2 vox = 1 mm a 0.5 mm)
-        elastic_grid_points: 5       # nodi per asse del campo elastico grossolano (più nodi = deformazione meno liscia)
-        noise_std_hu: 40.0           # std del rumore ~ |N(0, 40)| HU
-        shift_std_hu: 5.0            # shift globale ~ N(0, 5) HU
-        p_affine: 0.8                # probabilità per campione: rotazione + zoom
+        elastic_max_voxels: 2.0      # maximum elastic displacement (voxels; 2 vox = 1 mm at 0.5 mm spacing)
+        elastic_grid_points: 5       # nodes per axis of the coarse elastic field (more nodes = less smooth deformation)
+        noise_std_hu: 40.0           # noise std ~ |N(0, 40)| HU
+        shift_std_hu: 5.0            # global shift ~ N(0, 5) HU
+        p_affine: 0.8                # per-sample probability: rotation + zoom
         p_elastic: 0.3
         p_noise: 0.5
         p_shift: 0.5
@@ -336,7 +336,7 @@ experiments:
     optimizer:
       name: "adamw"
       learning_rate: 0.00005
-      weight_decay: 0.00001          # <-- FIX: ripristinato da 0.05 a 0.00001
+      weight_decay: 0.00001          # <-- FIX: restored from 0.05 to 0.00001
 
     scheduler:
       name: "custom_warmup"
@@ -351,7 +351,7 @@ experiments:
       in_channels: 1
       out_channels: 3
       feature_size: 24
-      final_activation: "none"       # obbligatorio: DSNTJSDLoss lavora sui logit raw
+      final_activation: "none"       # mandatory: DSNTJSDLoss works on raw logits
       use_v2: true
 
     loss:
@@ -361,20 +361,20 @@ experiments:
       sigma_jsd_L: 2.0
       lambda_bg: 0.8
       temperature: 0.3
-      weight_R: 0.5                  # Partenza bilanciata 0.5 / 0.5
+      weight_R: 0.5                  # Balanced start 0.5 / 0.5
       weight_L: 0.5
-      weight_switch_epoch: null      # Disattivato: subentra sinh_plateau in modo dinamico
+      weight_switch_epoch: null      # Disabled: replaced by sinh_plateau dynamically
       min_heatmap_sum: 0.001
       sinh_plateau:
         enabled: true
-        patience: 3                  # Epoche di stallo prima di confermare il plateau
-        min_delta_mm: 0.1            # Miglioramento minimo globale
-        warmup_epochs: 15            # Attende 15 epoche di convergenza prima di monitorare
-        activation_delay_epochs: 3   # Attende 3 epoche dalla rilevazione prima di iniziare a muovere i pesi
+        patience: 3                  # Stall epochs before confirming the plateau
+        min_delta_mm: 0.1            # Minimum global improvement
+        warmup_epochs: 15            # Waits 15 convergence epochs before monitoring
+        activation_delay_epochs: 3   # Waits 3 epochs from detection before starting to move weights
         a_min: 0.1
         a_max: 1.5
-        max_weight: 0.75             # Limiti rigidi: pesi confinati in [0.25, 0.75]
-        smoothing: 0.5               # Step intermedio: (w_corrente + w_target) / 2
+        max_weight: 0.75             # Hard limits: weights confined in [0.25, 0.75]
+        smoothing: 0.5               # Intermediate step: (w_current + w_target) / 2
 
     train:
       epochs: 200
@@ -396,15 +396,15 @@ experiments:
       sigma_min_improvement: 0.05
       sigma_patience: 2
       sigma_warmup_epochs: 5
-      augmentation:                  # data/transform/augment_3d_ostia.py — applicata alle patch dopo il crop
+      augmentation:                  # data/transform/augment_3d_ostia.py — applied to patches after cropping
         enabled: true
-        max_rotation_deg: 15.0       # rotazione casuale per asse in [-15°, +15°] (niente flip / rot90: RAS informativo per R vs L)
+        max_rotation_deg: 15.0       # random per-axis rotation in [-15°, +15°] (no flip / rot90: RAS is informative for R vs L)
         zoom_range: [0.9, 1.1]
-        elastic_max_voxels: 2.0      # spostamento elastico massimo (voxel; 2 vox = 1 mm a 0.5 mm)
-        elastic_grid_points: 5       # nodi per asse del campo elastico grossolano (più nodi = deformazione meno liscia)
-        noise_std_hu: 40.0           # std del rumore ~ |N(0, 40)| HU
-        shift_std_hu: 5.0            # shift globale ~ N(0, 5) HU
-        p_affine: 0.8                # probabilità per campione: rotazione + zoom
+        elastic_max_voxels: 2.0      # maximum elastic displacement (voxels; 2 vox = 1 mm at 0.5 mm spacing)
+        elastic_grid_points: 5       # nodes per axis of the coarse elastic field (more nodes = less smooth deformation)
+        noise_std_hu: 40.0           # noise std ~ |N(0, 40)| HU
+        shift_std_hu: 5.0            # global shift ~ N(0, 5) HU
+        p_affine: 0.8                # per-sample probability: rotation + zoom
         p_elastic: 0.3
         p_noise: 0.5
         p_shift: 0.5
@@ -419,22 +419,22 @@ experiments:
       warmup_steps: 8000
 
 
-# Swin UNETR V2 + DSNTJSDLoss — ablation sullo spacing di training (isotropo, 100 epoche).
-# `extends: <nome>` = eredita TUTTO dall'esperimento padre (merge profondo, vedi config/config.py);
-# qui si scrivono solo i campi che cambiano. Le liste (es. crop_probs) vengono sostituite per intero.
-# Di proposito NON riscalati rispetto al padre: sigma (2.0 vox), elastic_max_voxels (2.0 vox), finestra del
-# centroide (11 vox), patch 128³ — restano in voxel, quindi in mm cambiano con lo spacing.
-# Lo spacing NON sta qui: si passa da CLI al trainer dedicato (trainer_ablation_training_spacing, --spacing-iso <mm>);
-# nome del run e cartella checkpoint: <esperimento>_ablation_training_spacing_<S>mm.
+# Swin UNETR V2 + DSNTJSDLoss — training spacing ablation (isotropic, 100 epochs).
+# `extends: <name>` = inherits EVERYTHING from the parent experiment (deep merge, see config/config.py);
+# only fields that change are written here. Lists (e.g. crop_probs) are fully replaced.
+# Intentionally NOT rescaled relative to the parent: sigma (2.0 vox), elastic_max_voxels (2.0 vox), centroid
+# window (11 vox), patch 128³ — remain in voxels, so in mm they change with spacing.
+# Spacing is NOT here: it is passed via CLI to the dedicated trainer (trainer_ablation_training_spacing, --spacing-iso <mm>);
+# run name and checkpoint folder: <experiment>_ablation_training_spacing_<S>mm.
   swin_unetr_v2_dsnt_ablation_training_spacing:
     extends: swin_unetr_v2_dsnt
     train:
-      epochs: 100                    # ablation più corta (il baseline usa 200)
+      epochs: 100                    # shorter ablation (baseline uses 200)
 
 
-# Swin UNETR V2 + DSNTJSDLoss — ablation pesi della loss: FISSI (w_R = w_L = 0.5 per tutte le 200 epoche,
-# nessun riequilibrio sinh_plateau). Il padre swin_unetr_v2_dsnt è la variante DINAMICA. Stesse epoche del padre
-# (200), perché la riga "Dynamic" di weight_comparison.tex è il run finale da 200 epoche.
+# Swin UNETR V2 + DSNTJSDLoss — loss weight ablation: FIXED (w_R = w_L = 0.5 for all 200 epochs,
+# no sinh_plateau rebalancing). The parent swin_unetr_v2_dsnt is the DYNAMIC variant. Same epochs as parent
+# (200), because the "Dynamic" row of weight_comparison.tex is the final 200-epoch run.
   swin_unetr_v2_dsnt_ablation_fixed_weights:
     extends: swin_unetr_v2_dsnt
     loss:
@@ -475,15 +475,15 @@ experiments:
       sigma_min_improvement: 0.05
       sigma_patience: 2
       sigma_warmup_epochs: 5
-      augmentation:                  # data/transform/augment_3d_ostia.py — applicata alle patch dopo il crop
+      augmentation:                  # data/transform/augment_3d_ostia.py — applied to patches after cropping
         enabled: true
-        max_rotation_deg: 15.0       # rotazione casuale per asse in [-15°, +15°] (niente flip / rot90: RAS informativo per R vs L)
+        max_rotation_deg: 15.0       # random per-axis rotation in [-15°, +15°] (no flip / rot90: RAS is informative for R vs L)
         zoom_range: [0.9, 1.1]
-        elastic_max_voxels: 2.0      # spostamento elastico massimo (voxel; 2 vox = 1 mm a 0.5 mm)
-        elastic_grid_points: 5       # nodi per asse del campo elastico grossolano (più nodi = deformazione meno liscia)
-        noise_std_hu: 40.0           # std del rumore ~ |N(0, 40)| HU
-        shift_std_hu: 5.0            # shift globale ~ N(0, 5) HU
-        p_affine: 0.8                # probabilità per campione: rotazione + zoom
+        elastic_max_voxels: 2.0      # maximum elastic displacement (voxels; 2 vox = 1 mm at 0.5 mm spacing)
+        elastic_grid_points: 5       # nodes per axis of the coarse elastic field (more nodes = less smooth deformation)
+        noise_std_hu: 40.0           # noise std ~ |N(0, 40)| HU
+        shift_std_hu: 5.0            # global shift ~ N(0, 5) HU
+        p_affine: 0.8                # per-sample probability: rotation + zoom
         p_elastic: 0.3
         p_noise: 0.5
         p_shift: 0.5
@@ -499,7 +499,7 @@ experiments:
       warmup_steps: 1
 
 
-# Configurazione Ibrida ResNet50 Hybrid
+# Hybrid ResNet50 Configuration
   resnet50_hybrid:
     model:
       name: "resnet50"
@@ -537,15 +537,15 @@ experiments:
       sigma_min_improvement: 0.05
       sigma_patience: 2
       sigma_warmup_epochs: 5
-      augmentation:                  # data/transform/augment_3d_ostia.py — applicata alle patch dopo il crop
+      augmentation:                  # data/transform/augment_3d_ostia.py — applied to patches after cropping
         enabled: true
-        max_rotation_deg: 15.0       # rotazione casuale per asse in [-15°, +15°] (niente flip / rot90: RAS informativo per R vs L)
+        max_rotation_deg: 15.0       # random per-axis rotation in [-15°, +15°] (no flip / rot90: RAS is informative for R vs L)
         zoom_range: [0.9, 1.1]
-        elastic_max_voxels: 2.0      # spostamento elastico massimo (voxel; 2 vox = 1 mm a 0.5 mm)
-        elastic_grid_points: 5       # nodi per asse del campo elastico grossolano (più nodi = deformazione meno liscia)
-        noise_std_hu: 40.0           # std del rumore ~ |N(0, 40)| HU
-        shift_std_hu: 5.0            # shift globale ~ N(0, 5) HU
-        p_affine: 0.8                # probabilità per campione: rotazione + zoom
+        elastic_max_voxels: 2.0      # maximum elastic displacement (voxels; 2 vox = 1 mm at 0.5 mm spacing)
+        elastic_grid_points: 5       # nodes per axis of the coarse elastic field (more nodes = less smooth deformation)
+        noise_std_hu: 40.0           # noise std ~ |N(0, 40)| HU
+        shift_std_hu: 5.0            # global shift ~ N(0, 5) HU
+        p_affine: 0.8                # per-sample probability: rotation + zoom
         p_elastic: 0.3
         p_noise: 0.5
         p_shift: 0.5
@@ -561,7 +561,7 @@ experiments:
       warmup_steps: 8000
 
 
-# Configurazione Ibrida con ResNet101 3D
+# Hybrid ResNet101 3D Configuration
   resnet101_hybrid:
     model:
       name: "resnet101"
@@ -598,15 +598,15 @@ experiments:
       sigma_min_improvement: 0.05
       sigma_patience: 2
       sigma_warmup_epochs: 5
-      augmentation:                  # data/transform/augment_3d_ostia.py — applicata alle patch dopo il crop
+      augmentation:                  # data/transform/augment_3d_ostia.py — applied to patches after cropping
         enabled: true
-        max_rotation_deg: 15.0       # rotazione casuale per asse in [-15°, +15°] (niente flip / rot90: RAS informativo per R vs L)
+        max_rotation_deg: 15.0       # random per-axis rotation in [-15°, +15°] (no flip / rot90: RAS is informative for R vs L)
         zoom_range: [0.9, 1.1]
-        elastic_max_voxels: 2.0      # spostamento elastico massimo (voxel; 2 vox = 1 mm a 0.5 mm)
-        elastic_grid_points: 5       # nodi per asse del campo elastico grossolano (più nodi = deformazione meno liscia)
-        noise_std_hu: 40.0           # std del rumore ~ |N(0, 40)| HU
-        shift_std_hu: 5.0            # shift globale ~ N(0, 5) HU
-        p_affine: 0.8                # probabilità per campione: rotazione + zoom
+        elastic_max_voxels: 2.0      # maximum elastic displacement (voxels; 2 vox = 1 mm at 0.5 mm spacing)
+        elastic_grid_points: 5       # nodes per axis of the coarse elastic field (more nodes = less smooth deformation)
+        noise_std_hu: 40.0           # noise std ~ |N(0, 40)| HU
+        shift_std_hu: 5.0            # global shift ~ N(0, 5) HU
+        p_affine: 0.8                # per-sample probability: rotation + zoom
         p_elastic: 0.3
         p_noise: 0.5
         p_shift: 0.5
@@ -614,14 +614,14 @@ experiments:
     optimizer:
       name: "adamw"
       learning_rate: 0.00005
-      weight_decay: 0.00001          # <-- FIX: allineato a swin_unetr_v2 (era 0.05)
+      weight_decay: 0.00001          # <-- FIX: aligned with swin_unetr_v2 (was 0.05)
 
     scheduler:
       name: "custom_warmup"
       warmup_steps: 8000
 
 
-# Configurazione Ibrida con MedNeXt 3D
+# Hybrid MedNeXt 3D Configuration
   mednext_hybrid:
     model:
       name: "mednext"
@@ -659,15 +659,15 @@ experiments:
       sigma_min_improvement: 0.05
       sigma_patience: 2
       sigma_warmup_epochs: 5
-      augmentation:                  # data/transform/augment_3d_ostia.py — applicata alle patch dopo il crop
+      augmentation:                  # data/transform/augment_3d_ostia.py — applied to patches after cropping
         enabled: true
-        max_rotation_deg: 15.0       # rotazione casuale per asse in [-15°, +15°] (niente flip / rot90: RAS informativo per R vs L)
+        max_rotation_deg: 15.0       # random per-axis rotation in [-15°, +15°] (no flip / rot90: RAS is informative for R vs L)
         zoom_range: [0.9, 1.1]
-        elastic_max_voxels: 2.0      # spostamento elastico massimo (voxel; 2 vox = 1 mm a 0.5 mm)
-        elastic_grid_points: 5       # nodi per asse del campo elastico grossolano (più nodi = deformazione meno liscia)
-        noise_std_hu: 40.0           # std del rumore ~ |N(0, 40)| HU
-        shift_std_hu: 5.0            # shift globale ~ N(0, 5) HU
-        p_affine: 0.8                # probabilità per campione: rotazione + zoom
+        elastic_max_voxels: 2.0      # maximum elastic displacement (voxels; 2 vox = 1 mm at 0.5 mm spacing)
+        elastic_grid_points: 5       # nodes per axis of the coarse elastic field (more nodes = less smooth deformation)
+        noise_std_hu: 40.0           # noise std ~ |N(0, 40)| HU
+        shift_std_hu: 5.0            # global shift ~ N(0, 5) HU
+        p_affine: 0.8                # per-sample probability: rotation + zoom
         p_elastic: 0.3
         p_noise: 0.5
         p_shift: 0.5
@@ -675,15 +675,15 @@ experiments:
     optimizer:
       name: "adamw"
       learning_rate: 0.00005
-      weight_decay: 0.00001          # <-- FIX: allineato a swin_unetr_v2 (era 0.05)
+      weight_decay: 0.00001          # <-- FIX: aligned with swin_unetr_v2 (was 0.05)
 
     scheduler:
       name: "custom_warmup"
       warmup_steps: 8000
 
 # ==============================================================================
-# VARIANTI CON DSNTJSDLoss — non attive, pronti per active_experiment: "<name>"
-# Requisito obbligatorio per tutte: final_activation: none
+# VARIANTS WITH DSNTJSDLoss — inactive, ready for active_experiment: "<name>"
+# Mandatory requirement for all: final_activation: none
 # ==============================================================================
 
 # nnU-Net (DynUNet) + DSNTJSDLoss
@@ -694,29 +694,29 @@ experiments:
       in_channels: 1
       out_channels: 3
       # filters: [16, 32, 64, 128, 256]   # optional, last value = bottleneck channels; default shown
-      final_activation: "none"       # obbligatorio per DSNTJSDLoss
+      final_activation: "none"       # mandatory for DSNTJSDLoss
 
     loss:
       name: "dsnt_jsd"
-      lambda_jsd: 1.0                # peso del termine JSD
-      sigma_jsd_R: 2.0               # sigma canale R (voxel) — deve coincidere con sigma_start
-      sigma_jsd_L: 2.0               # sigma canale L (voxel) — più grande per variabilità LMCA
-      lambda_bg: 0.8                 # peso BCE background (soppressione rumore di fondo)
-      temperature: 0.3               # temperatura spatial softmax (< 1.0 = più nitida)
-      weight_R: 0.5                  # peso canale R nella loss totale
-      weight_L: 0.5                  # peso canale L (anatomicamente più difficile)
-      weight_switch_epoch: null      # Disattivato: subentra sinh_plateau in modo dinamico
-      min_heatmap_sum: 0.001         # soglia abbassata per includere gaussiane troncate ai bordi
+      lambda_jsd: 1.0                # JSD term weight
+      sigma_jsd_R: 2.0               # R channel sigma (voxels) — must match sigma_start
+      sigma_jsd_L: 2.0               # L channel sigma (voxels) — larger for LMCA variability
+      lambda_bg: 0.8                 # background BCE weight (background noise suppression)
+      temperature: 0.3               # spatial softmax temperature (< 1.0 = sharper)
+      weight_R: 0.5                  # R channel weight in total loss
+      weight_L: 0.5                  # L channel weight (anatomically harder)
+      weight_switch_epoch: null      # Disabled: replaced by sinh_plateau dynamically
+      min_heatmap_sum: 0.001         # lowered threshold to include Gaussians truncated at borders
       sinh_plateau:
         enabled: true
-        patience: 3                  # Epoche di stallo prima di confermare il plateau
-        min_delta_mm: 0.1            # Miglioramento minimo globale
-        warmup_epochs: 15            # Attende 15 epoche di convergenza prima di monitorare
-        activation_delay_epochs: 3   # Attende 3 epoche dalla rilevazione prima di iniziare a muovere i pesi
+        patience: 3                  # Stall epochs before confirming the plateau
+        min_delta_mm: 0.1            # Minimum global improvement
+        warmup_epochs: 15            # Waits 15 convergence epochs before monitoring
+        activation_delay_epochs: 3   # Waits 3 epochs from detection before starting to move weights
         a_min: 0.1
         a_max: 1.5
-        max_weight: 0.75             # Limiti rigidi: pesi confinati in [0.25, 0.75]
-        smoothing: 0.5               # Step intermedio: (w_corrente + w_target) / 2
+        max_weight: 0.75             # Hard limits: weights confined in [0.25, 0.75]
+        smoothing: 0.5               # Intermediate step: (w_current + w_target) / 2
 
     train:
       epochs: 200
@@ -738,15 +738,15 @@ experiments:
       sigma_min_improvement: 0.05
       sigma_patience: 2
       sigma_warmup_epochs: 5
-      augmentation:                  # data/transform/augment_3d_ostia.py — applicata alle patch dopo il crop
+      augmentation:                  # data/transform/augment_3d_ostia.py — applied to patches after cropping
         enabled: true
-        max_rotation_deg: 15.0       # rotazione casuale per asse in [-15°, +15°] (niente flip / rot90: RAS informativo per R vs L)
+        max_rotation_deg: 15.0       # random per-axis rotation in [-15°, +15°] (no flip / rot90: RAS is informative for R vs L)
         zoom_range: [0.9, 1.1]
-        elastic_max_voxels: 2.0      # spostamento elastico massimo (voxel; 2 vox = 1 mm a 0.5 mm)
-        elastic_grid_points: 5       # nodi per asse del campo elastico grossolano (più nodi = deformazione meno liscia)
-        noise_std_hu: 40.0           # std del rumore ~ |N(0, 40)| HU
-        shift_std_hu: 5.0            # shift globale ~ N(0, 5) HU
-        p_affine: 0.8                # probabilità per campione: rotazione + zoom
+        elastic_max_voxels: 2.0      # maximum elastic displacement (voxels; 2 vox = 1 mm at 0.5 mm spacing)
+        elastic_grid_points: 5       # nodes per axis of the coarse elastic field (more nodes = less smooth deformation)
+        noise_std_hu: 40.0           # noise std ~ |N(0, 40)| HU
+        shift_std_hu: 5.0            # global shift ~ N(0, 5) HU
+        p_affine: 0.8                # per-sample probability: rotation + zoom
         p_elastic: 0.3
         p_noise: 0.5
         p_shift: 0.5
@@ -769,29 +769,29 @@ experiments:
       in_channels: 1
       out_channels: 3
       decoder_channels: 64
-      final_activation: "none"       # obbligatorio per DSNTJSDLoss
+      final_activation: "none"       # mandatory for DSNTJSDLoss
 
     loss:
       name: "dsnt_jsd"
-      lambda_jsd: 1.0                # peso del termine JSD
-      sigma_jsd_R: 2.0               # sigma canale R (voxel) — deve coincidere con sigma_start
-      sigma_jsd_L: 2.0               # sigma canale L (voxel) — più grande per variabilità LMCA
-      lambda_bg: 0.8                 # peso BCE background (soppressione rumore di fondo)
-      temperature: 0.3               # temperatura spatial softmax (< 1.0 = più nitida)
-      weight_R: 0.5                  # peso canale R nella loss totale
-      weight_L: 0.5                  # peso canale L (anatomicamente più difficile)
-      weight_switch_epoch: null      # Disattivato: subentra sinh_plateau in modo dinamico
-      min_heatmap_sum: 0.001         # soglia abbassata per includere gaussiane troncate ai bordi
+      lambda_jsd: 1.0                # JSD term weight
+      sigma_jsd_R: 2.0               # R channel sigma (voxels) — must match sigma_start
+      sigma_jsd_L: 2.0               # L channel sigma (voxels) — larger for LMCA variability
+      lambda_bg: 0.8                 # background BCE weight (background noise suppression)
+      temperature: 0.3               # spatial softmax temperature (< 1.0 = sharper)
+      weight_R: 0.5                  # R channel weight in total loss
+      weight_L: 0.5                  # L channel weight (anatomically harder)
+      weight_switch_epoch: null      # Disabled: replaced by sinh_plateau dynamically
+      min_heatmap_sum: 0.001         # lowered threshold to include Gaussians truncated at borders
       sinh_plateau:
         enabled: true
-        patience: 3                  # Epoche di stallo prima di confermare il plateau
-        min_delta_mm: 0.1            # Miglioramento minimo globale
-        warmup_epochs: 15            # Attende 15 epoche di convergenza prima di monitorare
-        activation_delay_epochs: 3   # Attende 3 epoche dalla rilevazione prima di iniziare a muovere i pesi
+        patience: 3                  # Stall epochs before confirming the plateau
+        min_delta_mm: 0.1            # Minimum global improvement
+        warmup_epochs: 15            # Waits 15 convergence epochs before monitoring
+        activation_delay_epochs: 3   # Waits 3 epochs from detection before starting to move weights
         a_min: 0.1
         a_max: 1.5
-        max_weight: 0.75             # Limiti rigidi: pesi confinati in [0.25, 0.75]
-        smoothing: 0.5               # Step intermedio: (w_corrente + w_target) / 2
+        max_weight: 0.75             # Hard limits: weights confined in [0.25, 0.75]
+        smoothing: 0.5               # Intermediate step: (w_current + w_target) / 2
 
     train:
       epochs: 200
@@ -813,15 +813,15 @@ experiments:
       sigma_min_improvement: 0.05
       sigma_patience: 2
       sigma_warmup_epochs: 5
-      augmentation:                  # data/transform/augment_3d_ostia.py — applicata alle patch dopo il crop
+      augmentation:                  # data/transform/augment_3d_ostia.py — applied to patches after cropping
         enabled: true
-        max_rotation_deg: 15.0       # rotazione casuale per asse in [-15°, +15°] (niente flip / rot90: RAS informativo per R vs L)
+        max_rotation_deg: 15.0       # random per-axis rotation in [-15°, +15°] (no flip / rot90: RAS is informative for R vs L)
         zoom_range: [0.9, 1.1]
-        elastic_max_voxels: 2.0      # spostamento elastico massimo (voxel; 2 vox = 1 mm a 0.5 mm)
-        elastic_grid_points: 5       # nodi per asse del campo elastico grossolano (più nodi = deformazione meno liscia)
-        noise_std_hu: 40.0           # std del rumore ~ |N(0, 40)| HU
-        shift_std_hu: 5.0            # shift globale ~ N(0, 5) HU
-        p_affine: 0.8                # probabilità per campione: rotazione + zoom
+        elastic_max_voxels: 2.0      # maximum elastic displacement (voxels; 2 vox = 1 mm at 0.5 mm spacing)
+        elastic_grid_points: 5       # nodes per axis of the coarse elastic field (more nodes = less smooth deformation)
+        noise_std_hu: 40.0           # noise std ~ |N(0, 40)| HU
+        shift_std_hu: 5.0            # global shift ~ N(0, 5) HU
+        p_affine: 0.8                # per-sample probability: rotation + zoom
         p_elastic: 0.3
         p_noise: 0.5
         p_shift: 0.5
@@ -844,29 +844,29 @@ experiments:
       in_channels: 1
       out_channels: 3
       decoder_channels: 128
-      final_activation: "none"       # obbligatorio per DSNTJSDLoss
+      final_activation: "none"       # mandatory for DSNTJSDLoss
 
     loss:
       name: "dsnt_jsd"
-      lambda_jsd: 1.0                # peso del termine JSD
-      sigma_jsd_R: 2.0               # sigma canale R (voxel) — deve coincidere con sigma_start
-      sigma_jsd_L: 2.0               # sigma canale L (voxel) — più grande per variabilità LMCA
-      lambda_bg: 0.8                 # peso BCE background (soppressione rumore di fondo)
-      temperature: 0.3               # temperatura spatial softmax (< 1.0 = più nitida)
-      weight_R: 0.5                  # peso canale R nella loss totale
-      weight_L: 0.5                  # peso canale L (anatomicamente più difficile)
-      weight_switch_epoch: null      # Disattivato: subentra sinh_plateau in modo dinamico
-      min_heatmap_sum: 0.001         # soglia abbassata per includere gaussiane troncate ai bordi
+      lambda_jsd: 1.0                # JSD term weight
+      sigma_jsd_R: 2.0               # R channel sigma (voxels) — must match sigma_start
+      sigma_jsd_L: 2.0               # L channel sigma (voxels) — larger for LMCA variability
+      lambda_bg: 0.8                 # background BCE weight (background noise suppression)
+      temperature: 0.3               # spatial softmax temperature (< 1.0 = sharper)
+      weight_R: 0.5                  # R channel weight in total loss
+      weight_L: 0.5                  # L channel weight (anatomically harder)
+      weight_switch_epoch: null      # Disabled: replaced by sinh_plateau dynamically
+      min_heatmap_sum: 0.001         # lowered threshold to include Gaussians truncated at borders
       sinh_plateau:
         enabled: true
-        patience: 3                  # Epoche di stallo prima di confermare il plateau
-        min_delta_mm: 0.1            # Miglioramento minimo globale
-        warmup_epochs: 15            # Attende 15 epoche di convergenza prima di monitorare
-        activation_delay_epochs: 3   # Attende 3 epoche dalla rilevazione prima di iniziare a muovere i pesi
+        patience: 3                  # Stall epochs before confirming the plateau
+        min_delta_mm: 0.1            # Minimum global improvement
+        warmup_epochs: 15            # Waits 15 convergence epochs before monitoring
+        activation_delay_epochs: 3   # Waits 3 epochs from detection before starting to move weights
         a_min: 0.1
         a_max: 1.5
-        max_weight: 0.75             # Limiti rigidi: pesi confinati in [0.25, 0.75]
-        smoothing: 0.5               # Step intermedio: (w_corrente + w_target) / 2
+        max_weight: 0.75             # Hard limits: weights confined in [0.25, 0.75]
+        smoothing: 0.5               # Intermediate step: (w_current + w_target) / 2
 
     train:
       epochs: 200
@@ -888,15 +888,15 @@ experiments:
       sigma_min_improvement: 0.05
       sigma_patience: 2
       sigma_warmup_epochs: 5
-      augmentation:                  # data/transform/augment_3d_ostia.py — applicata alle patch dopo il crop
+      augmentation:                  # data/transform/augment_3d_ostia.py — applied to patches after cropping
         enabled: true
-        max_rotation_deg: 15.0       # rotazione casuale per asse in [-15°, +15°] (niente flip / rot90: RAS informativo per R vs L)
+        max_rotation_deg: 15.0       # random per-axis rotation in [-15°, +15°] (no flip / rot90: RAS is informative for R vs L)
         zoom_range: [0.9, 1.1]
-        elastic_max_voxels: 2.0      # spostamento elastico massimo (voxel; 2 vox = 1 mm a 0.5 mm)
-        elastic_grid_points: 5       # nodi per asse del campo elastico grossolano (più nodi = deformazione meno liscia)
-        noise_std_hu: 40.0           # std del rumore ~ |N(0, 40)| HU
-        shift_std_hu: 5.0            # shift globale ~ N(0, 5) HU
-        p_affine: 0.8                # probabilità per campione: rotazione + zoom
+        elastic_max_voxels: 2.0      # maximum elastic displacement (voxels; 2 vox = 1 mm at 0.5 mm spacing)
+        elastic_grid_points: 5       # nodes per axis of the coarse elastic field (more nodes = less smooth deformation)
+        noise_std_hu: 40.0           # noise std ~ |N(0, 40)| HU
+        shift_std_hu: 5.0            # global shift ~ N(0, 5) HU
+        p_affine: 0.8                # per-sample probability: rotation + zoom
         p_elastic: 0.3
         p_noise: 0.5
         p_shift: 0.5
@@ -920,29 +920,29 @@ experiments:
       out_channels: 3
       architecture_type: "s"
       kernel_size: 3
-      final_activation: "none"       # obbligatorio per DSNTJSDLoss
+      final_activation: "none"       # mandatory for DSNTJSDLoss
 
     loss:
       name: "dsnt_jsd"
-      lambda_jsd: 1.0                # peso del termine JSD
-      sigma_jsd_R: 2.0               # sigma canale R (voxel) — deve coincidere con sigma_start
-      sigma_jsd_L: 2.0               # sigma canale L (voxel) — più grande per variabilità LMCA
-      lambda_bg: 0.8                 # peso BCE background (soppressione rumore di fondo)
-      temperature: 0.3               # temperatura spatial softmax (< 1.0 = più nitida)
-      weight_R: 0.5                  # peso canale R nella loss totale
-      weight_L: 0.5                  # peso canale L (anatomicamente più difficile)
-      weight_switch_epoch: null      # Disattivato: subentra sinh_plateau in modo dinamico
-      min_heatmap_sum: 0.001         # soglia abbassata per includere gaussiane troncate ai bordi
+      lambda_jsd: 1.0                # JSD term weight
+      sigma_jsd_R: 2.0               # R channel sigma (voxels) — must match sigma_start
+      sigma_jsd_L: 2.0               # L channel sigma (voxels) — larger for LMCA variability
+      lambda_bg: 0.8                 # background BCE weight (background noise suppression)
+      temperature: 0.3               # spatial softmax temperature (< 1.0 = sharper)
+      weight_R: 0.5                  # R channel weight in total loss
+      weight_L: 0.5                  # L channel weight (anatomically harder)
+      weight_switch_epoch: null      # Disabled: replaced by sinh_plateau dynamically
+      min_heatmap_sum: 0.001         # lowered threshold to include Gaussians truncated at borders
       sinh_plateau:
         enabled: true
-        patience: 3                  # Epoche di stallo prima di confermare il plateau
-        min_delta_mm: 0.1            # Miglioramento minimo globale
-        warmup_epochs: 15            # Attende 15 epoche di convergenza prima di monitorare
-        activation_delay_epochs: 3   # Attende 3 epoche dalla rilevazione prima di iniziare a muovere i pesi
+        patience: 3                  # Stall epochs before confirming the plateau
+        min_delta_mm: 0.1            # Minimum global improvement
+        warmup_epochs: 15            # Waits 15 convergence epochs before monitoring
+        activation_delay_epochs: 3   # Waits 3 epochs from detection before starting to move weights
         a_min: 0.1
         a_max: 1.5
-        max_weight: 0.75             # Limiti rigidi: pesi confinati in [0.25, 0.75]
-        smoothing: 0.5               # Step intermedio: (w_corrente + w_target) / 2
+        max_weight: 0.75             # Hard limits: weights confined in [0.25, 0.75]
+        smoothing: 0.5               # Intermediate step: (w_current + w_target) / 2
 
     train:
       epochs: 200
@@ -964,15 +964,15 @@ experiments:
       sigma_min_improvement: 0.05
       sigma_patience: 2
       sigma_warmup_epochs: 5
-      augmentation:                  # data/transform/augment_3d_ostia.py — applicata alle patch dopo il crop
+      augmentation:                  # data/transform/augment_3d_ostia.py — applied to patches after cropping
         enabled: true
-        max_rotation_deg: 15.0       # rotazione casuale per asse in [-15°, +15°] (niente flip / rot90: RAS informativo per R vs L)
+        max_rotation_deg: 15.0       # random per-axis rotation in [-15°, +15°] (no flip / rot90: RAS is informative for R vs L)
         zoom_range: [0.9, 1.1]
-        elastic_max_voxels: 2.0      # spostamento elastico massimo (voxel; 2 vox = 1 mm a 0.5 mm)
-        elastic_grid_points: 5       # nodi per asse del campo elastico grossolano (più nodi = deformazione meno liscia)
-        noise_std_hu: 40.0           # std del rumore ~ |N(0, 40)| HU
-        shift_std_hu: 5.0            # shift globale ~ N(0, 5) HU
-        p_affine: 0.8                # probabilità per campione: rotazione + zoom
+        elastic_max_voxels: 2.0      # maximum elastic displacement (voxels; 2 vox = 1 mm at 0.5 mm spacing)
+        elastic_grid_points: 5       # nodes per axis of the coarse elastic field (more nodes = less smooth deformation)
+        noise_std_hu: 40.0           # noise std ~ |N(0, 40)| HU
+        shift_std_hu: 5.0            # global shift ~ N(0, 5) HU
+        p_affine: 0.8                # per-sample probability: rotation + zoom
         p_elastic: 0.3
         p_noise: 0.5
         p_shift: 0.5
@@ -996,29 +996,29 @@ experiments:
       out_channels: 3
       architecture_type: "b"
       kernel_size: 3
-      final_activation: "none"       # obbligatorio per DSNTJSDLoss
+      final_activation: "none"       # mandatory for DSNTJSDLoss
 
     loss:
       name: "dsnt_jsd"
-      lambda_jsd: 1.0                # peso del termine JSD
-      sigma_jsd_R: 2.0               # sigma canale R (voxel) — deve coincidere con sigma_start
-      sigma_jsd_L: 2.0               # sigma canale L (voxel) — più grande per variabilità LMCA
-      lambda_bg: 0.8                 # peso BCE background (soppressione rumore di fondo)
-      temperature: 0.3               # temperatura spatial softmax (< 1.0 = più nitida)
-      weight_R: 0.5                  # peso canale R nella loss totale
-      weight_L: 0.5                  # peso canale L (anatomicamente più difficile)
-      weight_switch_epoch: null      # Disattivato: subentra sinh_plateau in modo dinamico
-      min_heatmap_sum: 0.001         # soglia abbassata per includere gaussiane troncate ai bordi
+      lambda_jsd: 1.0                # JSD term weight
+      sigma_jsd_R: 2.0               # R channel sigma (voxels) — must match sigma_start
+      sigma_jsd_L: 2.0               # L channel sigma (voxels) — larger for LMCA variability
+      lambda_bg: 0.8                 # background BCE weight (background noise suppression)
+      temperature: 0.3               # spatial softmax temperature (< 1.0 = sharper)
+      weight_R: 0.5                  # R channel weight in total loss
+      weight_L: 0.5                  # L channel weight (anatomically harder)
+      weight_switch_epoch: null      # Disabled: replaced by sinh_plateau dynamically
+      min_heatmap_sum: 0.001         # lowered threshold to include Gaussians truncated at borders
       sinh_plateau:
         enabled: true
-        patience: 3                  # Epoche di stallo prima di confermare il plateau
-        min_delta_mm: 0.1            # Miglioramento minimo globale
-        warmup_epochs: 15            # Attende 15 epoche di convergenza prima di monitorare
-        activation_delay_epochs: 3   # Attende 3 epoche dalla rilevazione prima di iniziare a muovere i pesi
+        patience: 3                  # Stall epochs before confirming the plateau
+        min_delta_mm: 0.1            # Minimum global improvement
+        warmup_epochs: 15            # Waits 15 convergence epochs before monitoring
+        activation_delay_epochs: 3   # Waits 3 epochs from detection before starting to move weights
         a_min: 0.1
         a_max: 1.5
-        max_weight: 0.75             # Limiti rigidi: pesi confinati in [0.25, 0.75]
-        smoothing: 0.5               # Step intermedio: (w_corrente + w_target) / 2
+        max_weight: 0.75             # Hard limits: weights confined in [0.25, 0.75]
+        smoothing: 0.5               # Intermediate step: (w_current + w_target) / 2
 
     train:
       epochs: 200
@@ -1040,15 +1040,15 @@ experiments:
       sigma_min_improvement: 0.05
       sigma_patience: 2
       sigma_warmup_epochs: 5
-      augmentation:                  # data/transform/augment_3d_ostia.py — applicata alle patch dopo il crop
+      augmentation:                  # data/transform/augment_3d_ostia.py — applied to patches after cropping
         enabled: true
-        max_rotation_deg: 15.0       # rotazione casuale per asse in [-15°, +15°] (niente flip / rot90: RAS informativo per R vs L)
+        max_rotation_deg: 15.0       # random per-axis rotation in [-15°, +15°] (no flip / rot90: RAS is informative for R vs L)
         zoom_range: [0.9, 1.1]
-        elastic_max_voxels: 2.0      # spostamento elastico massimo (voxel; 2 vox = 1 mm a 0.5 mm)
-        elastic_grid_points: 5       # nodi per asse del campo elastico grossolano (più nodi = deformazione meno liscia)
-        noise_std_hu: 40.0           # std del rumore ~ |N(0, 40)| HU
-        shift_std_hu: 5.0            # shift globale ~ N(0, 5) HU
-        p_affine: 0.8                # probabilità per campione: rotazione + zoom
+        elastic_max_voxels: 2.0      # maximum elastic displacement (voxels; 2 vox = 1 mm at 0.5 mm spacing)
+        elastic_grid_points: 5       # nodes per axis of the coarse elastic field (more nodes = less smooth deformation)
+        noise_std_hu: 40.0           # noise std ~ |N(0, 40)| HU
+        shift_std_hu: 5.0            # global shift ~ N(0, 5) HU
+        p_affine: 0.8                # per-sample probability: rotation + zoom
         p_elastic: 0.3
         p_noise: 0.5
         p_shift: 0.5
@@ -1072,29 +1072,29 @@ experiments:
       out_channels: 3
       architecture_type: "m"
       kernel_size: 3
-      final_activation: "none"       # obbligatorio per DSNTJSDLoss
+      final_activation: "none"       # mandatory for DSNTJSDLoss
 
     loss:
       name: "dsnt_jsd"
-      lambda_jsd: 1.0                # peso del termine JSD
-      sigma_jsd_R: 2.0               # sigma canale R (voxel) — deve coincidere con sigma_start
-      sigma_jsd_L: 2.0               # sigma canale L (voxel) — più grande per variabilità LMCA
-      lambda_bg: 0.8                 # peso BCE background (soppressione rumore di fondo)
-      temperature: 0.3               # temperatura spatial softmax (< 1.0 = più nitida)
-      weight_R: 0.5                  # peso canale R nella loss totale
-      weight_L: 0.5                  # peso canale L (anatomicamente più difficile)
-      weight_switch_epoch: null      # Disattivato: subentra sinh_plateau in modo dinamico
-      min_heatmap_sum: 0.001         # soglia abbassata per includere gaussiane troncate ai bordi
+      lambda_jsd: 1.0                # JSD term weight
+      sigma_jsd_R: 2.0               # R channel sigma (voxels) — must match sigma_start
+      sigma_jsd_L: 2.0               # L channel sigma (voxels) — larger for LMCA variability
+      lambda_bg: 0.8                 # background BCE weight (background noise suppression)
+      temperature: 0.3               # spatial softmax temperature (< 1.0 = sharper)
+      weight_R: 0.5                  # R channel weight in total loss
+      weight_L: 0.5                  # L channel weight (anatomically harder)
+      weight_switch_epoch: null      # Disabled: replaced by sinh_plateau dynamically
+      min_heatmap_sum: 0.001         # lowered threshold to include Gaussians truncated at borders
       sinh_plateau:
         enabled: true
-        patience: 3                  # Epoche di stallo prima di confermare il plateau
-        min_delta_mm: 0.1            # Miglioramento minimo globale
-        warmup_epochs: 15            # Attende 15 epoche di convergenza prima di monitorare
-        activation_delay_epochs: 3   # Attende 3 epoche dalla rilevazione prima di iniziare a muovere i pesi
+        patience: 3                  # Stall epochs before confirming the plateau
+        min_delta_mm: 0.1            # Minimum global improvement
+        warmup_epochs: 15            # Waits 15 convergence epochs before monitoring
+        activation_delay_epochs: 3   # Waits 3 epochs from detection before starting to move weights
         a_min: 0.1
         a_max: 1.5
-        max_weight: 0.75             # Limiti rigidi: pesi confinati in [0.25, 0.75]
-        smoothing: 0.5               # Step intermedio: (w_corrente + w_target) / 2
+        max_weight: 0.75             # Hard limits: weights confined in [0.25, 0.75]
+        smoothing: 0.5               # Intermediate step: (w_current + w_target) / 2
 
     train:
       epochs: 200
@@ -1116,15 +1116,15 @@ experiments:
       sigma_min_improvement: 0.05
       sigma_patience: 2
       sigma_warmup_epochs: 5
-      augmentation:                  # data/transform/augment_3d_ostia.py — applicata alle patch dopo il crop
+      augmentation:                  # data/transform/augment_3d_ostia.py — applied to patches after cropping
         enabled: true
-        max_rotation_deg: 15.0       # rotazione casuale per asse in [-15°, +15°] (niente flip / rot90: RAS informativo per R vs L)
+        max_rotation_deg: 15.0       # random per-axis rotation in [-15°, +15°] (no flip / rot90: RAS is informative for R vs L)
         zoom_range: [0.9, 1.1]
-        elastic_max_voxels: 2.0      # spostamento elastico massimo (voxel; 2 vox = 1 mm a 0.5 mm)
-        elastic_grid_points: 5       # nodi per asse del campo elastico grossolano (più nodi = deformazione meno liscia)
-        noise_std_hu: 40.0           # std del rumore ~ |N(0, 40)| HU
-        shift_std_hu: 5.0            # shift globale ~ N(0, 5) HU
-        p_affine: 0.8                # probabilità per campione: rotazione + zoom
+        elastic_max_voxels: 2.0      # maximum elastic displacement (voxels; 2 vox = 1 mm at 0.5 mm spacing)
+        elastic_grid_points: 5       # nodes per axis of the coarse elastic field (more nodes = less smooth deformation)
+        noise_std_hu: 40.0           # noise std ~ |N(0, 40)| HU
+        shift_std_hu: 5.0            # global shift ~ N(0, 5) HU
+        p_affine: 0.8                # per-sample probability: rotation + zoom
         p_elastic: 0.3
         p_noise: 0.5
         p_shift: 0.5

@@ -4,7 +4,7 @@ from functools import partial
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
-# Importiamo sia resnet50 che resnet101 da MONAI
+# Import both resnet50 and resnet101 from MONAI
 from monai.networks.nets import SwinUNETR, DynUNet, resnet50, resnet101
 
 # MedNeXt: installed as a real package (pip name "mednextv1", importable as "nnunet_mednext"),
@@ -12,8 +12,8 @@ from monai.networks.nets import SwinUNETR, DynUNet, resnet50, resnet101
 try:
     from nnunet_mednext.network_architecture.mednextv1.create_mednext_v1 import create_mednext_v1
 except ImportError:
-    # Non installato: placeholder per evitare crash all'avvio, l'errore vero arriva al momento
-    # di selezionare model.name == "mednext" (vedi messaggio nel branch corrispondente).
+    # Not installed: placeholder to avoid crash at startup, actual error occurs when
+    # selecting model.name == "mednext" (see message in corresponding branch).
     create_mednext_v1 = None
 
 try:
@@ -47,13 +47,13 @@ def get_kernels_strides(img_size, filters=(16, 32, 64, 128, 256)):
 
 class ResNetHeatmap(nn.Module):
     """
-    Wrapper generico per encoder 3D ResNet (50 o 101) con testa di regressione per Heatmap.
+    Generic wrapper for 3D ResNet encoder (50 or 101) with regression head for Heatmap.
     """
     def __init__(self, model_type="resnet50", in_channels=1, out_channels=3, decoder_channels=64):
         super().__init__()
         norm_groups = 8 if decoder_channels % 8 == 0 else 1
         
-        # Scegliamo dinamicamente l'encoder richiesto dallo YAML
+        # Dynamically choose encoder requested by YAML
         if model_type == "resnet101":
             self.encoder = resnet101(
                 spatial_dims=3, n_input_channels=in_channels, num_classes=out_channels, feed_forward=False
@@ -130,8 +130,8 @@ def get_model(cfg):
     elif model_name in ["nnunet_residualunet", "nnunet_residual_unet", "residualunet"]:
         if ResidualUNet is None:
             raise ImportError(
-                "Impossibile caricare nnU-Net ResidualUNet. "
-                "Installa le dipendenze con 'pip install nnunetv2'."
+                "Cannot load nnU-Net ResidualUNet. "
+                "Install dependencies with 'pip install nnunetv2'."
             )
 
         from omegaconf import OmegaConf
@@ -180,8 +180,8 @@ def get_model(cfg):
         # cloning it and running 'pip install -e .' from inside, same result.)
         if create_mednext_v1 is None:
             raise ImportError(
-                "Impossibile caricare MedNeXt (nnunet_mednext non installato). "
-                "Installa con: pip install git+https://github.com/MIC-DKFZ/MedNeXt.git"
+                "Cannot load MedNeXt (nnunet_mednext not installed). "
+                "Install with: pip install git+https://github.com/MIC-DKFZ/MedNeXt.git"
             )
 
         arch_type = {"mednext_b": "B", "mednext_m": "M"}.get(model_name) or cfg.model.get("architecture_type", "b").upper()  # 'S' | 'B' | 'M' | 'L'
@@ -204,7 +204,7 @@ def get_model(cfg):
             "'dynunet', 'nnunet_residualunet', 'resnet50', 'resnet101', 'mednext', 'mednext_b', 'mednext_m'."
         )
 
-    # Gestione attivazione finale
+    # Final activation handling
     if final_activation == "sigmoid":
         return nn.Sequential(model, nn.Sigmoid())
     elif final_activation == "softmax":

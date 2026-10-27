@@ -13,7 +13,7 @@ import sys
 os.environ['KMP_DUPLICATE_LIB_OK']='True'
 
 # ==============================================================================
-# 0. CONFIGURAZIONE PERCORSI 
+# 0. PATH CONFIGURATION 
 # ==============================================================================
 current_dir = os.path.abspath(os.getcwd())
 while current_dir != os.path.dirname(current_dir):
@@ -23,18 +23,18 @@ while current_dir != os.path.dirname(current_dir):
         break
     current_dir = os.path.dirname(current_dir)
 
-# Importiamo solo le trasformazioni 3D e la configurazione della Heatmap
+# Import only 3D transformations and Heatmap configuration
 from hcatostialocalization.data.transform.transformations_3d_PROVA import augment_3d
 from hcatostialocalization.data.dataset.Heatmap_Config import HeatmapParams
 from hcatostialocalization.io.io import asoca_raw_point_to_ras, asoca_header_from_json, load_image_ras
 
 # ==============================================================================
-# 1. CLASSE BASE PER I SINGOLI DATASET (es. ImageCAS, ASOCA, CAT08)
+# 1. BASE CLASS FOR INDIVIDUAL DATASETS (e.g. ImageCAS, ASOCA, CAT08)
 # ==============================================================================
 
 class LabeledDataset(torch.utils.data.Dataset, ABC):
 
-    labels: dict[int, str] = {} # Mappatura indice -> nome
+    labels: dict[int, str] = {} # Mapping index -> name
 
     def __init__(
             self, 
@@ -53,7 +53,7 @@ class LabeledDataset(torch.utils.data.Dataset, ABC):
         super().__init__()
         self.nsdim = int(nsdim) 
         if self.nsdim != 3:
-            raise ValueError("Questa classe è ottimizzata solo per dati 3D (nsdim=3).")
+            raise ValueError("This class is optimized only for 3D data (nsdim=3).")
             
         self.sample_sdim = sample_sdim if isinstance(sample_sdim, tuple) else tuple([sample_sdim]*self.nsdim) 
         self.sample_sdim = tuple([int(d) for d in self.sample_sdim])
@@ -62,14 +62,14 @@ class LabeledDataset(torch.utils.data.Dataset, ABC):
         self.minibatch_size = int(max(minibatch_size, 1))
         self.split = split
         if self.split not in ['train', 'val', 'test']:
-            raise ValueError(f"'split' deve essere 'train', 'val' o 'test', ricevuto: {self.split}") 
+            raise ValueError(f"'split' must be 'train', 'val' or 'test', received: {self.split}") 
             
         self.new_spacing = new_spacing 
         self._label_transform_fn = label_transform_fn
         self.rng: np.random.Generator = np.random.default_rng(seed=42)
         self._kwargs = kwargs if kwargs else {}
         
-        # Inizializzazione Dati
+        # Data Initialization
         self.data_pool: list[tuple[str, str]] = self._init_data_pool() 
 
         if self.split == "train":
@@ -84,9 +84,9 @@ class LabeledDataset(torch.utils.data.Dataset, ABC):
             self.current_patient = self.data_pool[0]
 
         if not self.labels or 'background' not in self.labels.values():
-            raise ValueError("Le 'labels' devono essere definite e contenere la mappatura 'background'.")
+            raise ValueError("'labels' must be defined and contain the 'background' mapping.")
             
-        logger.info(f"Caricato {self.__class__.__name__}")
+        logger.info(f"Loaded {self.__class__.__name__}")
         
     @abstractmethod
     def _init_data_pool(self) -> list[tuple[str, str]]:
@@ -131,7 +131,7 @@ class LabeledDataset(torch.utils.data.Dataset, ABC):
 
         yaml_path = config.dataset[dataset_name].yaml_path
         if not os.path.exists(yaml_path):
-            raise FileNotFoundError(f"[!] Split YAML non trovato: {yaml_path}")
+            raise FileNotFoundError(f"[!] Split YAML not found: {yaml_path}")
         with open(yaml_path, 'r') as f:
             entries = (yaml.safe_load(f)[dataset_name]['split'] or {}).get(self.split) or []
 
@@ -147,47 +147,47 @@ class LabeledDataset(torch.utils.data.Dataset, ABC):
             else:
                 data_pool.append((im_f, lb_f))
 
-        print(f"[INFO] {dataset_name} - split '{self.split}': {len(data_pool)}/{len(entries)} casi pronti ({yaml_path})")
+        print(f"[INFO] {dataset_name} - split '{self.split}': {len(data_pool)}/{len(entries)} cases ready ({yaml_path})")
         for m in missing:
-            print(f"[!] {dataset_name} '{self.split}' escluso: {m}")
+            print(f"[!] {dataset_name} '{self.split}' excluded: {m}")
         return data_pool
 
     # --------------------------------------------------------------------------
-    # CARICAMENTO VOLUMI (MONAI, orientamento RAS)
+    # VOLUME LOADING (MONAI, RAS orientation)
     # --------------------------------------------------------------------------
-    # Tutti i volumi vengono caricati con MONAI e riorientati in RAS.
-    # Layout del tensore restituito: (1, 1, R, A, S), cioè assi (i, j, k) con
-    #   i -> Right, j -> Anterior, k -> Superior (l'ultimo asse indicizza le slice assiali).
-    # Spacing e coordinate degli osti seguono lo stesso ordine (R, A, S).
-    # 'affine' è la matrice 4x4 IJK -> RAS world (mm) della griglia restituita:
-    # è l'unico riferimento da usare per convertire coordinate mondo <-> voxel.
+    # All volumes are loaded with MONAI and reoriented to RAS.
+    # Layout of returned tensor: (1, 1, R, A, S), i.e. axes (i, j, k) with
+    #   i -> Right, j -> Anterior, k -> Superior (the last axis indexes axial slices).
+    # Spacing and ostia coordinates follow the same order (R, A, S).
+    # 'affine' is the 4x4 IJK -> RAS world (mm) matrix of the returned grid:
+    # it is the only reference to use to convert world <-> voxel coordinates.
 
     def _load_volume(self, f) -> dict:
         """
-        Legge il file dal disco con MONAI (LoadImage + EnsureChannelFirst + Orientation RAS)
-        tramite io.load_image_ras, che ricade su SimpleITK se il reader MONAI fallisce
-        (es. alcuni .nrrd) producendo esattamente la stessa griglia RAS e la stessa affine.
+        Reads the file from disk with MONAI (LoadImage + EnsureChannelFirst + Orientation RAS)
+        via io.load_image_ras, which falls back to SimpleITK if the MONAI reader fails
+        (e.g. some .nrrd), producing the exact same RAS grid and affine.
         """
         try:
             monai_img = load_image_ras(f)  # MetaTensor (1, R, A, S)
         except Exception as e:
-            raise RuntimeError(f"Errore nel caricamento del volume {f}: {type(e).__name__}: {e}")
+            raise RuntimeError(f"Error loading volume {f}: {type(e).__name__}: {e}")
         spacing_orig = tuple(float(s) for s in monai_img.pixdim)  # (sR, sA, sS)
         return {"image": monai_img, "spacing_orig": spacing_orig}
 
     # --------------------------------------------------------------------------
-    # CACHE DEI VOLUMI CT RICAMPIONATI (opzionale: config.active_paths.cache_dir)
+    # CACHE OF RESAMPLED CT VOLUMES (optional: config.active_paths.cache_dir)
     # --------------------------------------------------------------------------
-    # <cache_dir>/ct_ras_resampled_<sR>_<sA>_<sS>_mm/<path originale con '/'->'+', ' '->'_'>.npy|.json
-    # .npy = volume RAS ricampionato (R, A, S) in float16 (il train lo porta comunque in float16);
-    # .json = affine IJK -> RAS (float64), shape, spacing, spacing_orig, file sorgente.
-    # Solo immagini ricampionate: le label (gaussiane) dipendono da sigma e vengono ricostruite a ogni load.
-    # Qualsiasi errore di lettura/scrittura della cache ricade sul caricamento dal file originale.
-    _cache_write_disabled: bool = False  # per processo: True dopo disco pieno / quota / sola lettura / permessi
+    # <cache_dir>/ct_ras_resampled_<sR>_<sA>_<sS>_mm/<original path with '/'->'+', ' '->'_'>.npy|.json
+    # .npy = resampled RAS volume (R, A, S) in float16 (training casts it to float16 anyway);
+    # .json = affine IJK -> RAS (float64), shape, spacing, spacing_orig, source file.
+    # Resampled images only: labels (gaussians) depend on sigma and are reconstructed on each load.
+    # Any cache read/write error falls back to loading from the original file.
+    _cache_write_disabled: bool = False  # per-process: True after disk full / quota / read-only / permission error
 
     @staticmethod
     def _cache_paths(f, spacing: tuple) -> tuple[str, str] | None:
-        """(npy, json) della cache per il file f ricampionato a 'spacing', None se la cache non è configurata"""
+        """(npy, json) of the cache for file f resampled to 'spacing', None if cache is not configured"""
         try:
             from hcatostialocalization.config.config import config
             cache_dir = config.active_paths.get("cache_dir")
@@ -201,7 +201,7 @@ class LabeledDataset(torch.utils.data.Dataset, ABC):
 
     @staticmethod
     def _read_cache(npy_f: str, json_f: str) -> dict | None:
-        """Legge una voce di cache; None (con warning) se manca, è corrotta o incoerente"""
+        """Reads a cache entry; None (with warning) if missing, corrupted or inconsistent"""
         if not (os.path.exists(npy_f) and os.path.exists(json_f)):
             return None
         try:
@@ -217,12 +217,12 @@ class LabeledDataset(torch.utils.data.Dataset, ABC):
                 'affine': torch.tensor(meta["affine"], dtype=torch.float64),
             }
         except Exception as e:
-            logger.warning(f"Cache illeggibile, carico dal file originale ({npy_f}): {type(e).__name__}: {e}")
+            logger.warning(f"Unreadable cache, loading from original file ({npy_f}): {type(e).__name__}: {e}")
             return None
 
     @staticmethod
     def _write_cache(npy_f: str, json_f: str, source_f, out: dict) -> None:
-        """Scrive una voce di cache in modo atomico (tmp + os.replace, il .json per ultimo); mai bloccante"""
+        """Writes a cache entry atomically (tmp + os.replace, .json last); never blocking"""
         if LabeledDataset._cache_write_disabled:
             return
         tmp_npy, tmp_json = f"{npy_f}.tmp-{os.getpid()}.npy", f"{json_f}.tmp-{os.getpid()}"
@@ -242,12 +242,12 @@ class LabeledDataset(torch.utils.data.Dataset, ABC):
                 json.dump(meta, fh)
             os.replace(tmp_json, json_f)
         except Exception as e:
-            # Disco pieno / quota / sola lettura / permessi: inutile riprovare per ogni caso
+            # Disk full / quota / read-only / permissions: pointless to retry for each case
             if isinstance(e, OSError) and e.errno in (errno.ENOSPC, errno.EDQUOT, errno.EROFS, errno.EACCES):
                 LabeledDataset._cache_write_disabled = True
-            logger.warning(f"Scrittura cache fallita ({npy_f}): {type(e).__name__}: {e}. "
-                           f"Volume usato senza cache"
-                           + (", questo processo non scriverà più in cache." if LabeledDataset._cache_write_disabled else "."))
+            logger.warning(f"Writing cache failed ({npy_f}): {type(e).__name__}: {e}. "
+                           f"Volume used without cache"
+                           + (", this process will no longer write to cache." if LabeledDataset._cache_write_disabled else "."))
             for t in (tmp_npy, tmp_json):
                 try:
                     os.remove(t)
@@ -256,8 +256,8 @@ class LabeledDataset(torch.utils.data.Dataset, ABC):
 
     def _load_volume_resize(self, f, which: Literal['image', 'label'], new_spacing: float|tuple|None = None) -> dict:
         """
-        Carica il volume in RAS e, se richiesto, lo ricampiona con monai Spacingd.
-        Le immagini ricampionate passano dalla cache se config.active_paths.cache_dir è definito.
+        Loads the volume in RAS and, if requested, resamples it with monai Spacingd.
+        Resampled images use cache if config.active_paths.cache_dir is defined.
         """
         cache = None
         if new_spacing is not None:
@@ -284,11 +284,11 @@ class LabeledDataset(torch.utils.data.Dataset, ABC):
                 pixdim=spacing,
                 mode="bilinear" if which == 'image' else "nearest",
                 padding_mode="border",
-                dtype=torch.float32,  # default float64: raddoppia la RAM del ricampionamento
+                dtype=torch.float32,  # default float64: doubles resampling RAM
             )
             monai_img = resampler({"image": monai_img})["image"]
 
-        affine = monai_img.affine.to(torch.float64).clone()  # IJK -> RAS della griglia finale
+        affine = monai_img.affine.to(torch.float64).clone()  # IJK -> RAS of the final grid
         img = monai_img.as_tensor().float().unsqueeze(0)       # (1, 1, R, A, S)
         del monai_img
 
@@ -303,22 +303,22 @@ class LabeledDataset(torch.utils.data.Dataset, ABC):
         return out
 
     # --------------------------------------------------------------------------
-    # LABEL DEGLI OSTI (JSON -> heatmap gaussiane a 3 canali)
+    # OSTIA LABELS (JSON -> 3-channel Gaussian heatmaps)
     # --------------------------------------------------------------------------
     @staticmethod
     def _read_ostia_ras(json_f: str) -> dict[str, np.ndarray]:
         """
-        Legge il JSON degli osti e restituisce {side: coordinate RAS world (mm)}.
+        Reads the ostia JSON and returns {side: RAS world coordinates (mm)}.
 
-        - Formato standard '.ostium.json' (blueprint): 'pos' -> side -> 'ras'.
-        - Formato vecchio ('ostia'):
-          - se 'coordinate_ras' è presente e non vuoto (ImageCAS, CAT08) viene usato così com'è;
-          - altrimenti (ASOCA, 'coordinate_ras' vuoto) il punto grezzo ASOCA in
-            'world_mm_original_lps' viene convertito con io.asoca_raw_point_to_ras, usando
-            l'header copiato nel JSON ('origin', 'spacing', 'orientation'). Il punto grezzo
-            NON è né LPS né RAS: vedi la docstring di quella funzione.
-        'coordinate_ijk' NON viene usato: è riferito alla griglia nativa del file
-        (non riorientata né ricampionata) ed è troncato all'intero.
+        - Standard format '.ostium.json' (blueprint): 'pos' -> side -> 'ras'.
+        - Old format ('ostia'):
+          - if 'coordinate_ras' is present and not empty (ImageCAS, CAT08), it is used as is;
+          - otherwise (ASOCA, 'coordinate_ras' empty) the raw ASOCA point in
+            'world_mm_original_lps' is converted via io.asoca_raw_point_to_ras, using
+            the header copied into the JSON ('origin', 'spacing', 'orientation'). The raw point
+            is NEITHER LPS NOR RAS: see the docstring of that function.
+        'coordinate_ijk' is NOT used: it refers to the file's native grid
+        (neither reoriented nor resampled) and is truncated to integer.
         """
         with open(json_f, 'r') as fh:
             data = json.load(fh)
@@ -345,16 +345,16 @@ class LabeledDataset(torch.utils.data.Dataset, ABC):
 
     @staticmethod
     def _ras_to_ijk(ras: np.ndarray, affine: torch.Tensor) -> np.ndarray:
-        """RAS world (mm) -> indice voxel continuo (i, j, k) sulla griglia descritta da 'affine'"""
+        """RAS world (mm) -> continuous voxel index (i, j, k) on the grid described by 'affine'"""
         ras_to_ijk = np.linalg.inv(np.asarray(affine, dtype=np.float64))
         return (ras_to_ijk @ np.append(ras, 1.0))[:3]
 
     def _build_ostia_target(self, json_f: str, dict_img: dict) -> dict:
         """
-        Costruisce il target multi-canale [3, R, A, S] e le coordinate GT continue.
-        Canale 0 = Sfondo, Canale 1 = Ostio Destro (R), Canale 2 = Ostio Sinistro (L).
-        Le coordinate GT sono indici voxel continui (i, j, k) nella griglia RAS
-        (eventualmente ricampionata) dell'immagine; [-1, -1, -1] se l'ostio è assente.
+        Constructs multi-channel target [3, R, A, S] and continuous GT coordinates.
+        Channel 0 = Background, Channel 1 = Right Ostium (R), Channel 2 = Left Ostium (L).
+        GT coordinates are continuous voxel indices (i, j, k) in the RAS grid
+        (optionally resampled) of the image; [-1, -1, -1] if the ostium is absent.
         """
         shape = tuple(dict_img['tensor'].shape[-3:])
         label_tensor = torch.zeros((3, *shape), dtype=torch.float)
@@ -366,7 +366,7 @@ class LabeledDataset(torch.utils.data.Dataset, ABC):
             for side, ras in self._read_ostia_ras(json_f).items():
                 ijk = self._ras_to_ijk(ras, dict_img['affine'])
                 if not all(-0.5 <= c <= s - 0.5 for c, s in zip(ijk, shape)):
-                    logger.warning(f"Ostio {side} fuori dal volume ({json_f}): ijk={ijk.round(2).tolist()}, shape={shape}")
+                    logger.warning(f"Ostium {side} outside volume ({json_f}): ijk={ijk.round(2).tolist()}, shape={shape}")
                 class_idx = 1 if side == "R" else 2
                 self._draw_3d_gaussian(label_tensor[class_idx], center=tuple(ijk), sigma=getattr(self, "sigma", HeatmapParams.sigma))
                 coords[side] = torch.tensor(ijk, dtype=torch.float32)
@@ -376,7 +376,7 @@ class LabeledDataset(torch.utils.data.Dataset, ABC):
         return {'label': label_tensor, 'ostia_coords_R': coords["R"], 'ostia_coords_L': coords["L"]}
 
     def _load_ostia_data(self, image_label_f: tuple[str, str], new_spacing: float|tuple|None = None) -> dict:
-        """_load_data condiviso dai dataset degli osti (immagine RAS + target gaussiano)"""
+        """_load_data shared by ostia datasets (RAS image + Gaussian target)"""
         img_f, json_f = image_label_f
         dict_img = self._load_volume_resize(img_f, which='image', new_spacing=new_spacing)
         target = self._build_ostia_target(json_f, dict_img)
@@ -400,7 +400,7 @@ class LabeledDataset(torch.utils.data.Dataset, ABC):
 
     @staticmethod
     def _draw_3d_gaussian(heatmap_tensor: torch.Tensor, center: tuple[float, float, float], sigma: float):
-        """Disegna (con torch.maximum) una gaussiana isotropa di std 'sigma' voxel, troncata a 3 sigma"""
+        """Draws (with torch.maximum) an isotropic Gaussian of std 'sigma' voxels, truncated at 3 sigma"""
         c0, c1, c2 = center
         D0, D1, D2 = heatmap_tensor.shape
 
@@ -429,7 +429,7 @@ class LabeledDataset(torch.utils.data.Dataset, ABC):
         heatmap_tensor[a0:b0, a1:b1, a2:b2] = torch.maximum(heatmap_tensor[a0:b0, a1:b1, a2:b2], gaussian)
     
     def _load_data(self, image_label_f: tuple[str, str], new_spacing: float|tuple|None = None) -> dict:
-        """Versione Snellita per compatibilità. NEI TUOI DATASET SOVRASCRIVERAI QUESTO METODO!"""
+        """Streamlined version for compatibility. IN YOUR DATASETS YOU WILL OVERWRITE THIS METHOD!"""
         dict_img = self._load_volume_resize(image_label_f[0], which='image', new_spacing=new_spacing)
         
         reduce_volume = False
@@ -476,7 +476,7 @@ class LabeledDataset(torch.utils.data.Dataset, ABC):
         return self.get()
     
     def get(self, minibatch_size: int|None = None):
-        """Smista la richiesta in base allo split (Train vs Val/Test)"""
+        """Dispatches request based on split (Train vs Val/Test)"""
         if minibatch_size is None:
             minibatch_size = self.minibatch_size
         minibatch_size = int(max(minibatch_size, 1))
@@ -502,7 +502,7 @@ class LabeledDataset(torch.utils.data.Dataset, ABC):
         return tensor
 
     def _get_train(self, minibatch_size: int):
-        """Estrae i patch 3D dall'immagine caricata in memoria"""
+        """Extracts 3D patches from the image loaded in memory"""
         self.loaded['image'] = self._pad_tensor(self.loaded['image'])
         if self.loaded['label'] is not None:
             self.loaded['label'] = self._pad_tensor(self.loaded['label'])
@@ -548,7 +548,7 @@ class LabeledDataset(torch.utils.data.Dataset, ABC):
                 img_patch = self.loaded['image'][(slice(None), slice(None), *s_idx)]
                 lab_patch = self.loaded['label'][(slice(None), slice(None), *s_idx)]
                 
-                # Data Augmentation corretta e sicura
+                # Correct and safe data augmentation
                 img_patch, lab_patch = augment_3d(img_patch, lab_patch)
                 
                 img_minibatch[b:b+1] = img_patch
@@ -563,7 +563,7 @@ class LabeledDataset(torch.utils.data.Dataset, ABC):
         return (img_minibatch, lab_minibatch)
 
     def _get_val_test(self) -> dict:
-        """Restituisce il volume 3D intero senza ritagli"""
+        """Returns the entire 3D volume without cropping"""
         data = self._load_data_and_transform_label(self.current_patient, self.new_spacing)
         out_id = self._get_patient_id(self.current_patient)
         
@@ -576,11 +576,11 @@ class LabeledDataset(torch.utils.data.Dataset, ABC):
 
 
 # ==============================================================================
-# 2. CLASSE COLLECTION (Mix di Dataset: ImageCAS + ASOCA + CAT08)
+# 2. COLLECTION CLASS (Mix of Datasets: ImageCAS + ASOCA + CAT08)
 # ==============================================================================
 
 class LabeledDatasetsCollection(torch.utils.data.Dataset):
-    """Permette di allenare il modello pescando da più Dataset contemporaneamente"""
+    """Allows training the model by sampling from multiple Datasets simultaneously"""
     
     def __init__(
             self, 
@@ -591,26 +591,26 @@ class LabeledDatasetsCollection(torch.utils.data.Dataset):
             minibatch_size: int = 1,
             draws_proportion: list[float] | None = None,
         ):    
-        super().__init__()
-        self.datasets = datasets
-        self.split = split
-        self.minibatch_size = int(max(minibatch_size, 1))
-        self.rng = np.random.default_rng(seed=42)
-        
-        self.datasets_lenghts = [len(d.data_pool) for d in self.datasets]
-        
-        # Gestione delle proporzioni passate in input
-        if draws_proportion is None:
-            draws_proportion = [1.0/len(self.datasets) for _ in self.datasets]
-        _t = sum(draws_proportion)
-        # Normalizza le probabilità (per sicurezza matematica che sommino a 1.0)
-        self.draws_proportion = [p/_t for p in draws_proportion]
+            super().__init__()
+            self.datasets = datasets
+            self.split = split
+            self.minibatch_size = int(max(minibatch_size, 1))
+            self.rng = np.random.default_rng(seed=42)
+            
+            self.datasets_lenghts = [len(d.data_pool) for d in self.datasets]
+            
+            # Handling of proportions passed as input
+            if draws_proportion is None:
+                draws_proportion = [1.0/len(self.datasets) for _ in self.datasets]
+            _t = sum(draws_proportion)
+            # Normalize probabilities (for mathematical guarantee that they sum to 1.0)
+            self.draws_proportion = [p/_t for p in draws_proportion]
 
-        if self.split in ['val', 'test']:
-            self._val_test_counter = 0
-            self._dataset_to_draw_from = [] 
-            for d in self.datasets:
-                self._dataset_to_draw_from.extend([d] * len(d.data_pool))
+            if self.split in ['val', 'test']:
+                self._val_test_counter = 0
+                self._dataset_to_draw_from = [] 
+                for d in self.datasets:
+                    self._dataset_to_draw_from.extend([d] * len(d.data_pool))
 
     def __len__(self):
         return sum(self.datasets_lenghts)
@@ -625,7 +625,7 @@ class LabeledDatasetsCollection(torch.utils.data.Dataset):
         if self.split == "train":
             img_list, lab_list = [], []
             for _ in range(minibatch_size):
-                # Il "cuore" del Mix: Pesca random basato su draws_proportion!
+                # The "core" of Mix: Random draw based on draws_proportion!
                 dataset_idx = self.rng.choice(len(self.datasets), p=self.draws_proportion)
                 im, lb = self.datasets[dataset_idx].get(minibatch_size=1)
                 
@@ -640,13 +640,13 @@ class LabeledDatasetsCollection(torch.utils.data.Dataset):
 
 
 # ==============================================================================
-# ESEMPIO PRATICO DI UTILIZZO (Da usare nel tuo script principale di allenamento)
+# PRACTICAL USAGE EXAMPLE (To use in your main training script)
 # ==============================================================================
 if __name__ == "__main__":
-    # Quando creerai lo script "Train.py", farai esattamente questo:
+    # When you create the "Train.py" script, you will do exactly this:
     
     """
-    # 1. Inizializzi i tre dataset singolarmente (assumendo che hai creato i file .py per ciascuno)
+    # 1. Initialize the three datasets individually (assuming you created .py files for each)
     from hcatostialocalization.data.dataset.Dataset_ImageCAS_Ostia import Dataset_ImageCAS_Ostia
     from hcatostialocalization.data.dataset.Dataset_ASOCA_Ostia import Dataset_ASOCA_Ostia
     from hcatostialocalization.data.dataset.Dataset_CAT08_Ostia import Dataset_CAT08_Ostia
@@ -655,24 +655,24 @@ if __name__ == "__main__":
     dataset_asoca = Dataset_ASOCA_Ostia(split='train', nsdim=3, sample_sdim=64)
     dataset_cat08 = Dataset_CAT08_Ostia(split='train', nsdim=3, sample_sdim=64)
     
-    # 2. Li unisci nella Collection con le proporzioni richieste: 0.4, 0.3, 0.3
+    # 2. Combine them into the Collection with requested proportions: 0.4, 0.3, 0.3
     dataset_misto = LabeledDatasetsCollection(
         datasets=[dataset_cas, dataset_asoca, dataset_cat08],
         split='train',
         nsdim=3,
-        minibatch_size=4, # Esempio: prendi 4 cuori alla volta per allenare la rete
+        minibatch_size=4, # Example: take 4 hearts at a time to train the network
         draws_proportion=[0.4, 0.3, 0.3] 
     )
     
-    # 3. Metti tutto nel DataLoader di PyTorch
+    # 3. Put everything in PyTorch DataLoader
     from torch.utils.data import DataLoader
     
-    # batch_size=None perché gestiamo i batch noi dentro la classe get()
+    # batch_size=None because we handle batches inside the get() class
     dataloader = DataLoader(dataset_misto, batch_size=None, num_workers=0) 
     
     for batch_img, batch_lab in dataloader:
-        print(f"Batch immagini mixato! Forma: {batch_img.shape}")
-        # Allenamento rete neurale qui...
+        print(f"Mixed image batch! Shape: {batch_img.shape}")
+        # Neural network training here...
         break
     """
-    print("[*] Base_Classes_Prova.py compilato con successo!")
+    print("[*] Base_Classes_Dataset.py compiled successfully!")

@@ -238,21 +238,21 @@ def select_fixed_viz_samples(train_dataset, val_dataset, patch_shape, seed: int 
             crop = torch.nn.functional.pad(crop, pad)
         return crop, torch.tensor([gz - z0, gy - y0, gx - x0], dtype=torch.float32)
 
-    # --- INIZIO FIX: RICERCA INTELLIGENTE ---
+    # --- FIX START: SMART SEARCH ---
     def _pick_one(dataset, ds_name):
-        """Cerca nel dataset finché non trova un paziente del dataset richiesto con osti validi."""
+        """Iterates the dataset until a sample from the requested dataset with valid ostia is found."""
         all_indices = list(range(len(dataset)))
-        rng.shuffle(all_indices) # Mescoliamo per pescare a caso
+        rng.shuffle(all_indices)  # Shuffle for random selection
         
         for idx in all_indices:
             sample = dataset[idx]
             sample_id = sample.get('id', '')
             
-            # 1. Controlla se il nome del dataset è contenuto nell'ID del campione
+            # 1. Check if the dataset name is contained in the sample ID
             if ds_name.lower() not in sample_id.lower():
                 continue
                 
-            # 2. Controlla che le coordinate siano valide
+            # 2. Check that the coordinates are valid
             if float(sample['ostia_coords_R'][0]) < 0:
                 continue
             if float(sample['ostia_coords_L'][0]) < 0:
@@ -305,7 +305,7 @@ def select_fixed_viz_samples(train_dataset, val_dataset, patch_shape, seed: int 
         if v is not None:
             val_samples.append(v)
             print(f"    [val]   {ds_name}: {v['sample_id']}")
-    # --- FINE FIX ---
+    # --- FIX END ---
 
     return train_samples, val_samples
 
@@ -431,8 +431,8 @@ def probabilistic_crop(images, targets, patch_shape, probs=(0.32, 0.34, 0.34), i
 # ==============================================================================
 def extract_local_centroid(heatmap, window_size=11):
     """
-    Trova il picco massimo della heatmap e calcola il centroide 
-    solo in una piccola finestra locale per precisione sub-pixel.
+    Finds the maximum peak of the heatmap and computes the centroid
+    only within a small local window for sub-pixel precision.
     """
     max_idx = torch.argmax(heatmap)
     D, H, W = heatmap.shape
@@ -448,8 +448,8 @@ def extract_local_centroid(heatmap, window_size=11):
     
     local_window = heatmap[z_min:z_max, y_min:y_max, x_min:x_max]
     
-    # Sottraiamo il minimo della finestrella per azzerare il baseline noise
-    # e garantire pesi sempre non-negativi e ben sagomati sul picco.
+    # Subtract the local window minimum to zero out the baseline noise
+    # and ensure non-negative weights well-shaped around the peak.
     local_window = local_window - local_window.min()
     
     sum_weights = torch.sum(local_window) + 1e-6
@@ -500,8 +500,8 @@ def get_scheduler(optimizer, cfg, total_steps=None):
     if scheduler_name == "cosine_warm_restarts":
         return torch.optim.lr_scheduler.CosineAnnealingWarmRestarts(
             optimizer,
-            T_0=scheduler_cfg.get("t_0", 10),       # Epoche prima del primo riavvio
-            T_mult=scheduler_cfg.get("t_mult", 2),  # Moltiplicatore per allungare i cicli successivi
+            T_0=scheduler_cfg.get("t_0", 10),       # Epochs before the first restart
+            T_mult=scheduler_cfg.get("t_mult", 2),  # Multiplier to lengthen subsequent cycles
             eta_min=scheduler_cfg.get("min_lr", 0.0)
         )
 
@@ -596,38 +596,38 @@ def infer_dataset_name(sample_id: str) -> str:
 
 def apply_threshold_weight_schedule(criterion, cfg, err_R, err_L, threshold_mm=2.0, focus_weight=0.75):
     """
-    Parte con i pesi base definiti nel config. Se l'errore di un ostio scende 
-    sotto threshold_mm e l'altro no, sbilancia il peso a favore di quello con l'errore maggiore.
+    Starts with the base weights defined in the config. If the error of one ostium drops
+    below threshold_mm while the other does not, shifts weight toward the one with the larger error.
     """
     if not hasattr(criterion, "weight_R") or not hasattr(criterion, "weight_L"):
         return None
 
     loss_cfg = cfg.get("loss", {})
-    # 1. Recupera i pesi base dal file yaml
+    # 1. Retrieve base weights from the yaml file
     base_R = float(loss_cfg.get("weight_R", 0.5))
     base_L = float(loss_cfg.get("weight_L", 0.5))
 
-    # 2. Condizione iniziale (prima validazione non ancora avvenuta)
+    # 2. Initial condition (first validation not yet performed)
     if err_R == 0.0 and err_L == 0.0:
         target_R, target_L = base_R, base_L
     else:
-        # 3. Logica a soglia
+        # 3. Threshold logic
         if err_R < threshold_mm and err_L >= threshold_mm:
-            # L'ostio destro è sotto la soglia (es. 1.5mm), il sinistro sta ancora faticando.
-            # Sbilanciamo a favore del sinistro.
-            target_R = 1.0 - focus_weight  # es. 0.15
-            target_L = focus_weight        # es. 0.85
+            # Right ostium is below the threshold (e.g. 1.5mm), left is still struggling.
+            # Shift weight toward the left.
+            target_R = 1.0 - focus_weight  # e.g. 0.15
+            target_L = focus_weight        # e.g. 0.85
         elif err_L < threshold_mm and err_R >= threshold_mm:
-            # L'ostio sinistro è sotto la soglia, sbilanciamo a favore del destro.
-            target_R = focus_weight        # es. 0.85
-            target_L = 1.0 - focus_weight  # es. 0.15
+            # Left ostium is below the threshold, shift weight toward the right.
+            target_R = focus_weight        # e.g. 0.85
+            target_L = 1.0 - focus_weight  # e.g. 0.15
         else:
-            # Se entrambi sono sotto la soglia (o entrambi sopra), usiamo i pesi di default
+            # If both are below (or above) the threshold, use the default weights
             target_R, target_L = base_R, base_L
 
-    # 4. Applica e logga il cambio solo se c'è stata una variazione
+    # 4. Apply and log the change only if there was a variation
     if abs(criterion.weight_R - target_R) > 1e-12 or abs(criterion.weight_L - target_L) > 1e-12:
-        print(f"[*] Cambio pesi Loss: R={target_R:.2f}, L={target_L:.2f} (Err R: {err_R:.1f}mm, Err L: {err_L:.1f}mm)")
+        print(f"[*] Loss weight change: R={target_R:.2f}, L={target_L:.2f} (Err R: {err_R:.1f}mm, Err L: {err_L:.1f}mm)")
         criterion.weight_R = target_R
         criterion.weight_L = target_L
 
@@ -638,9 +638,9 @@ def apply_sinh_weight_schedule(
     a_min=0.1, a_max=1.5, max_weight=0.75, smoothing=0.5,
 ):
     """
-    Aggiorna i pesi della loss function in modo continuo e smorzato:
-    - Limiti rigidi: proporzioni confinate nell'intervallo [1 - max_weight, max_weight] (es. [0.25, 0.75]).
-    - Step intermedio: applica (w_corrente + w_target) / 2 per evitare transizioni brusche.
+    Updates loss function weights continuously and with damping:
+    - Hard limits: proportions confined to the interval [1 - max_weight, max_weight] (e.g. [0.25, 0.75]).
+    - Intermediate step: applies (w_current + w_target) / 2 to avoid abrupt transitions.
     """
     if not hasattr(criterion, "weight_R") or not hasattr(criterion, "weight_L"):
         return None
@@ -649,19 +649,19 @@ def apply_sinh_weight_schedule(
 
     min_weight = 1.0 - max_weight
 
-    # 1. Condizione iniziale: partenza bilanciata a 0.5 / 0.5
+    # 1. Initial condition: balanced start at 0.5 / 0.5
     if (err_R == 0.0 and err_L == 0.0) or epoch <= 1:
         target_R, target_L = 0.5, 0.5
         criterion.weight_R = target_R
         criterion.weight_L = target_L
         return (target_R, target_L)
 
-    # 2. Parametro A (Curriculum): progressione lineare da a_min ad a_max
+    # 2. Parameter A (Curriculum): linear progression from a_min to a_max
     progress = (epoch - 1) / max(1, max_epochs - 1)
     progress = max(0.0, min(1.0, progress))
     A = a_min + progress * (a_max - a_min)
 
-    # 3. Calcolo target asintotico tramite sinh e sigmoide
+    # 3. Asymptotic target computation via sinh and sigmoid
     mean_err = (err_R + err_L) / 2.0
     diff_L = err_L - mean_err
     diff_L = max(-50.0, min(50.0, diff_L))
@@ -670,20 +670,20 @@ def apply_sinh_weight_schedule(
     x = max(-100.0, min(100.0, x))
     ideal_L = 1.0 / (1.0 + math.exp(-x))
 
-    # 4. Limitazione del target tra min_weight e max_weight
+    # 4. Clamp target between min_weight and max_weight
     ideal_L = max(min_weight, min(max_weight, ideal_L))
 
-    # 5. Step intermedio: (w_attuale + w_target) / 2 tramite smoothing=0.5
+    # 5. Intermediate step: (w_current + w_target) / 2 via smoothing=0.5
     curr_L = float(criterion.weight_L)
     applied_L = (1.0 - smoothing) * curr_L + smoothing * ideal_L
     applied_L = max(min_weight, min(max_weight, applied_L))
     applied_R = 1.0 - applied_L
 
-    # 6. Aggiornamento se variazione significativa
+    # 6. Update only if the change is significant
     if abs(criterion.weight_R - applied_R) > 1e-4 or abs(criterion.weight_L - applied_L) > 1e-4:
         print(
-            f"[*] Cambio pesi Loss (sinh smooth): R={applied_R:.4f}, L={applied_L:.4f} "
-            f"| Target Ideale L={ideal_L:.4f} | A={A:.3f} | (Err R: {err_R:.1f}mm, Err L: {err_L:.1f}mm)"
+            f"[*] Loss weight change (sinh smooth): R={applied_R:.4f}, L={applied_L:.4f} "
+            f"| Ideal Target L={ideal_L:.4f} | A={A:.3f} | (Err R: {err_R:.1f}mm, Err L: {err_L:.1f}mm)"
         )
         criterion.weight_R = applied_R
         criterion.weight_L = applied_L
@@ -811,14 +811,14 @@ def main():
         start_epoch, best_val_loss, resume_dir, mlflow_run_id, epoch_history, training_state = load_training_state(
             resume_checkpoint, model, optimizer, scheduler, device
         )
-        # --- INIZIO FIX RESUME ---
-        # Sblocchiamo la configurazione per permettere l'aggiunta di nuove variabili
+        # --- RESUME FIX START ---
+        # Unlock the config to allow adding new variables
         OmegaConf.set_struct(experiment_config, False)
         
-        # Aggiungiamo solo i dati testuali in modo sicuro
+        # Safely add only the text data
         experiment_config.logger.resume_dir = resume_dir
         experiment_config.logger.mlflow_run_id = mlflow_run_id
-        # --- FINE FIX ---
+        # --- FIX END ---
     else:
         best_val_loss = float("inf")
         training_state = {}
@@ -826,22 +826,22 @@ def main():
     logger = ExperimentLogger(experiment_config)
     logger.best_val_loss = best_val_loss
 
-    # --- AGGIUNGI QUESTA RIGA SOTTO ---
+    # --- ADD THIS LINE BELOW ---
     if resume_checkpoint:
         logger.epoch_history = epoch_history
 
     # =================================================================
-    # --- INIZIO NUOVO: LOGGING ARTEFATTI E TAGS MLFLOW ---
+    # --- NEW: MLFLOW ARTIFACT AND TAG LOGGING ---
     # =================================================================
     if mlflow.active_run():
-        print("[*] Loggando parametri, tags e script su MLflow...")
+        print("[*] Logging parameters, tags and script to MLflow...")
         
-        # 1. Aggiunta dei Tag per filtri intelligenti nella UI
+        # 1. Add tags for smart filtering in the UI
         mlflow.set_tags({
-            "Modello": experiment_config.model.get("name", "Sconosciuto"),
-            "Scheduler": experiment_config.scheduler.get("name", "Sconosciuto"),
-            "Loss": experiment_config.loss.get("name", "Sconosciuto"),
-            "FOV_Size": str(experiment_config.model.get("img_size", "Sconosciuto"))
+            "Model": experiment_config.model.get("name", "Unknown"),
+            "Scheduler": experiment_config.scheduler.get("name", "Unknown"),
+            "Loss": experiment_config.loss.get("name", "Unknown"),
+            "FOV_Size": str(experiment_config.model.get("img_size", "Unknown"))
         })
 
         mlflow.set_tags({
@@ -849,10 +849,10 @@ def main():
             "training_spacing_mm": f"{args.spacing_iso:.2f}",
         })
 
-        # 2. Log dello script di training corrente
+        # 2. Log the current training script
         mlflow.log_artifact(os.path.abspath(__file__), artifact_path="scripts_backup")
         
-        # 3. Log del file di configurazione
+        # 3. Log the configuration file
         config_path = resolve_project_path("hcatostialocalization/config/model.yaml")
         if os.path.exists(config_path):
             mlflow.log_artifact(config_path, artifact_path="config_backup")
@@ -867,8 +867,8 @@ def main():
     patch_z, patch_y, patch_x = [int(s) for s in experiment_config.model.img_size]
     patch_shape = (patch_z, patch_y, patch_x)
     crop_probs  = experiment_config.train.get("crop_probs", [0.32, 0.34, 0.34])
-    # Data augmentation sulle patch di training (vedi data/transform/augment_3d_ostia.py).
-    # Blocco opzionale train.augmentation nello YAML: 'enabled' + kwargs di augment_3d_ostia.
+    # Data augmentation on training patches (see data/transform/augment_3d_ostia.py).
+    # Optional train.augmentation block in the YAML: 'enabled' + kwargs of augment_3d_ostia.
     augmentation_kwargs = experiment_config.train.get("augmentation", None)
     augmentation_kwargs = OmegaConf.to_container(augmentation_kwargs, resolve=True) if augmentation_kwargs is not None else {}
     augmentation_enabled = bool(augmentation_kwargs.pop("enabled", True))
@@ -988,7 +988,7 @@ def main():
         train_time_sec = time.perf_counter() - train_start_time
 
         # ------------------------------------------------------------------
-        # Validation phase — Distanza Euclidea (mm) su Volume Intero
+        # Validation phase — Euclidean Distance (mm) on Full Volume
         # ------------------------------------------------------------------
         val_start_time = time.perf_counter()
         
@@ -1014,18 +1014,18 @@ def main():
                 for batch in val_pbar:
                     images = fix_tensor_shape(batch['image'].to(device).float())
                     
-                    # Estraiamo coordinate vere e spacing
+                    # Extract ground-truth coordinates and spacing
                     gt_R = batch['ostia_coords_R'][0] # [z, y, x]
                     gt_L = batch['ostia_coords_L'][0] # [z, y, x]
-                    spacing = batch['spacing'][0].flatten()  # [sp_z, sp_y, sp_x] — garantisce shape (3,)
+                    spacing = batch['spacing'][0].flatten()  # [sp_z, sp_y, sp_x] — ensures shape (3,)
                     
-                    # Inferenza a Sliding Window sul volume
+                    # Sliding Window inference on the volume
                     with torch.autocast(device_type=device.type, dtype=torch.float16, enabled=use_mixed_precision):
                         images = preprocessor(images)
                         preds = sliding_window_inference(
                             inputs=images,
                             roi_size=patch_shape,
-                            sw_batch_size=4, # Aumenta a 8 o scendi a 2 in base alla VRAM
+                            sw_batch_size=4, # Increase to 8 or reduce to 2 depending on VRAM
                             predictor=model,
                             overlap=0.5,
                             mode="gaussian"
@@ -1037,11 +1037,11 @@ def main():
                     heatmap_R = preds[0, 1] 
                     heatmap_L = preds[0, 2]
                     
-                    # Estrazione centroidi locali
+                    # Local centroid extraction
                     pred_coords_R = extract_local_centroid(heatmap_R)
                     pred_coords_L = extract_local_centroid(heatmap_L)
                     
-                    # Calcolo distanza euclidea in millimetri
+                    # Compute Euclidean distance in millimetres
                     diff_R = pred_coords_R.cpu() - gt_R.cpu()
                     diff_L = pred_coords_L.cpu() - gt_L.cpu()
                     dist_R_mm = torch.sqrt(torch.sum((diff_R * spacing)**2)).item()
@@ -1052,8 +1052,8 @@ def main():
                     dataset_name = infer_dataset_name(sample_id)
                     if dist_R_mm > outlier_threshold_mm or dist_L_mm > outlier_threshold_mm:
                         print(
-                            f"\n[OUTLIER] Paziente ID: {sample_id} | "
-                            f"Errore DX: {dist_R_mm:.1f} mm | Errore SX: {dist_L_mm:.1f} mm"
+                            f"\n[OUTLIER] Patient ID: {sample_id} | "
+                            f"Error R: {dist_R_mm:.1f} mm | Error L: {dist_L_mm:.1f} mm"
                         )
                     if dist_R_mm > outlier_threshold_mm:
                         logger.log_outlier(
@@ -1090,20 +1090,20 @@ def main():
                     
                     val_pbar.set_postfix({"Dist_R (mm)": f"{dist_R_mm:.2f}", "Dist_L (mm)": f"{dist_L_mm:.2f}"})
 
-            # Medie, Mediane e 75° Percentile
+            # Means, Medians and 75th Percentile
             avg_dist_R = dist_R_accum / max(valid_samples, 1)
             avg_dist_L = dist_L_accum / max(valid_samples, 1)
-            avg_val_loss = (avg_dist_R + avg_dist_L) / 2.0  # Errore medio globale
+            avg_val_loss = (avg_dist_R + avg_dist_L) / 2.0  # Global mean error
 
             med_dist_R = float(np.median(all_dists_R)) if all_dists_R else 0.0
             med_dist_L = float(np.median(all_dists_L)) if all_dists_L else 0.0
-            med_val_loss = (med_dist_R + med_dist_L) / 2.0  # Errore mediano globale
+            med_val_loss = (med_dist_R + med_dist_L) / 2.0  # Global median error
 
             p75_dist_R = float(np.percentile(all_dists_R, 75)) if all_dists_R else 0.0
             p75_dist_L = float(np.percentile(all_dists_L, 75)) if all_dists_L else 0.0
-            p75_val_loss = (p75_dist_R + p75_dist_L) / 2.0  # Errore globale al 75° percentile
+            p75_val_loss = (p75_dist_R + p75_dist_L) / 2.0  # Global 75th-percentile error
 
-            # I pesi dinamici tra R ed L e il plateau monitorano il 75° percentile:
+            # Dynamic R/L weights and the plateau monitor the 75th percentile:
             prev_dist_R = p75_dist_R
             prev_dist_L = p75_dist_L
 
@@ -1119,14 +1119,14 @@ def main():
                     sinh_active = True
                     sinh_activation_epoch = epoch + sinh_activation_delay_epochs
                     print(
-                        f"[*] Plateau rilevato all'epoca {epoch} (p75={p75_val_loss:.2f}mm): "
-                        f"sinh sara attivata dall'epoca {sinh_activation_epoch}."
+                        f"[*] Plateau detected at epoch {epoch} (p75={p75_val_loss:.2f}mm): "
+                        f"sinh will be activated from epoch {sinh_activation_epoch}."
                     )
 
         val_time_sec = time.perf_counter() - val_start_time
 
         # ------------------------------------------------------------------
-        # Fixed visualization (Per le immagini e GIF su MLflow)
+        # Fixed visualization (for images and GIFs on MLflow)
         # ------------------------------------------------------------------
         model.eval()
         with torch.inference_mode():
@@ -1191,7 +1191,7 @@ def main():
                 f"          Val Mean:   R={avg_dist_R:.2f}mm, L={avg_dist_L:.2f}mm | Global Mean: {avg_val_loss:.2f}mm"
             )
             
-            # --- INIZIO NUOVO: LOG METRICHE SU MLFLOW ---
+            # --- NEW: LOG METRICS TO MLFLOW ---
             mlflow.log_metric("Val_Error_Global_Median_mm", med_val_loss, step=epoch)
             mlflow.log_metric("Val_Distance_Right_Median_mm", med_dist_R, step=epoch)
             mlflow.log_metric("Val_Distance_Left_Median_mm", med_dist_L, step=epoch)
@@ -1219,7 +1219,7 @@ def main():
                 "val_dist_L_mean": avg_dist_L,
                 "val_global_mean": avg_val_loss,
             })
-            # --- FINE NUOVO ---
+            # --- END NEW ---
             
         print(f"          Time: {epoch_time_sec:.1f}s | train {train_time_sec:.1f}s")
 
@@ -1227,7 +1227,7 @@ def main():
             epoch, avg_train,
             get_current_learning_rate(optimizer),
             timing_metrics={**timing_metrics, "sigma": sigma_sched.sigma},
-            # Aggiungiamo anche la val loss se il logger è predisposto
+            # Also pass val loss if the logger supports it
         )
 
         if scheduler is not None and experiment_config.scheduler.name.lower() != "custom_warmup":
@@ -1236,8 +1236,8 @@ def main():
             else:
                 scheduler.step()
 
-        # Curriculum sigma annealing basato sull'ERRORE IN MILLIMETRI!
-        # La gaussiana si stringe solo se la distanza migliora.
+        # Curriculum sigma annealing based on the ERROR IN MILLIMETRES!
+        # The Gaussian narrows only if the distance improves.
         if run_validation:
             new_sigma = sigma_sched.step(p75_val_loss)
             train_loader.dataset.set_sigma(new_sigma)
@@ -1247,15 +1247,15 @@ def main():
             print(f"           Sigma: {new_sigma:.4f}")
 
         if save_checkpoints:
-            # Durante il warmup il best_model.pth è bloccato: passiamo float('inf')
-            # così is_best=False e last_model.pth viene comunque aggiornato.
-            # val_loss_for_best si basa sul 75° percentile per salvare il modello veramente migliore.
+            # During warmup best_model.pth is locked: we pass float('inf')
+            # so is_best=False and last_model.pth is still updated.
+            # val_loss_for_best is based on the 75th percentile to save the truly best model.
             in_warmup = best_warmup_epochs > 0 and epoch <= best_warmup_epochs
             val_loss_for_best = float('inf') if in_warmup else p75_val_loss
             if in_warmup:
-                print(f"    [best locked] Warmup attivo: best_model.pth bloccato fino all'epoch {best_warmup_epochs}.")
+                print(f"    [best locked] Warmup active: best_model.pth locked until epoch {best_warmup_epochs}.")
             elif best_warmup_epochs > 0 and epoch == best_warmup_epochs + 1:
-                print(f"    [best unlocked] Warmup terminato: best_model.pth ora aggiornabile.")
+                print(f"    [best unlocked] Warmup finished: best_model.pth is now updatable.")
             plateau_state = {
                 "plateau_best_error": plateau_best_error,
                 "plateau_counter": plateau_counter,

@@ -10,7 +10,7 @@ import random
 os.environ['KMP_DUPLICATE_LIB_OK']='True'
 
 # ==============================================================================
-# 0. CONFIGURAZIONE PERCORSI 
+# 0. PATH CONFIGURATION 
 # ==============================================================================
 current_dir = os.path.abspath(os.getcwd())
 while current_dir != os.path.dirname(current_dir):
@@ -25,13 +25,13 @@ from hcatostialocalization.data.dataset.Base_Classes_Dataset import LabeledDatas
 from hcatostialocalization.data.dataset.Heatmap_Config import HeatmapParams
 
 # ==============================================================================
-# 1. CLASSE DATASET MULTI-CLASSE (3 CANALI GAUSSIANI)
+# 1. MULTI-CLASS DATASET CLASS (3 GAUSSIAN CHANNELS)
 # ==============================================================================
 class Dataset_ASOCA_Ostia_Multi(LabeledDataset):
     """
-    Versione Multi-Classe a Canali Multipli per ASOCA.
-    Genera un tensore [3, R, A, S] (volume in orientamento RAS).
-    Canale 0 = Sfondo, Canale 1 = Ostio Destro (R), Canale 2 = Ostio Sinistro (L).
+    Multi-Class Multi-Channel version for ASOCA.
+    Generates a [3, R, A, S] tensor (volume in RAS orientation).
+    Channel 0 = Background, Channel 1 = Right Ostium (R), Channel 2 = Left Ostium (L).
     """
     labels: dict[int, str] = {
         0: "background",
@@ -44,8 +44,8 @@ class Dataset_ASOCA_Ostia_Multi(LabeledDataset):
         self.sigma: float = HeatmapParams.sigma
 
     def _init_data_pool(self) -> list[tuple[str, str]]:
-        # Coppie (immagine, label) esplicite, definite nello split YAML
-        # (asoca_config.yaml, percorso in config/dataset.yaml -> dataset.ASOCA.yaml_path)
+        # Explicit (image, label) pairs defined in the YAML split
+        # (asoca_config.yaml, path in config/dataset.yaml -> dataset.ASOCA.yaml_path)
         return self._data_pool_from_split_yaml("ASOCA")
 
     def _get_patient_id(self, current_patient: tuple[str, str]) -> str:
@@ -53,35 +53,35 @@ class Dataset_ASOCA_Ostia_Multi(LabeledDataset):
         return f"{self.split}-ASOCA-Multi-{id}"
 
     def _load_data(self, image_label_f: tuple[str, str], new_spacing: float|tuple|None = None) -> dict:
-        # Immagine caricata in RAS (1, 1, R, A, S) con MONAI; target [3, R, A, S] costruito
-        # dalle coordinate RAS world del JSON (vedi LabeledDataset._build_ostia_target).
+        # Image loaded in RAS (1, 1, R, A, S) with MONAI; target [3, R, A, S] constructed
+        # from the JSON RAS world coordinates (see LabeledDataset._build_ostia_target).
         return self._load_ostia_data(image_label_f, new_spacing=new_spacing)
 
     def __len__(self):
         return len(self.data_pool)
     
 # ==============================================================================
-# 2. LOGICA DI TEST CASUALE (Visualizzazione Multi-Slice L & R)
+# 2. RANDOM TEST LOGIC (Multi-Slice L & R Visualization)
 # ==============================================================================
 def run_random_test():
-    print("[*] Inizializzazione test visivo Multi-Classe...")
+    print("[*] Initializing Multi-Class visual test...")
     
     ds = Dataset_ASOCA_Ostia_Multi(split='val', nsdim=3)
     if not ds.data_pool: 
-        print("[!] Dataset vuoto.")
+        print("[!] Empty dataset.")
         return
 
     img_f, json_f = random.choice(ds.data_pool)
     patient_id = ds._get_patient_id((img_f, json_f))
-    print(f"[*] --- ESTRAZIONE CASUALE: {patient_id} ---")
+    print(f"[*] --- RANDOM EXTRACTION: {patient_id} ---")
 
 
-    print("[*] Caricamento del volume 3D. Potrebbe volerci qualche secondo...")
+    print("[*] Loading 3D volume. This may take a few seconds...")
     sample = ds._load_data((img_f, json_f))
     if float(sample['ostia_coords_R'][0]) < 0 or float(sample['ostia_coords_L'][0]) < 0:
-        print('[!] Ostio R o L mancante nella label. Salto.')
+        print('[!] Missing R or L ostium in label. Skipping.')
         return
-    # Indice della slice assiale = asse S (k) della griglia RAS caricata
+    # Axial slice index = S axis (k) of the loaded RAS grid
     ostium_z_R = int(round(float(sample["ostia_coords_R"][2])))
     ostium_z_L = int(round(float(sample["ostia_coords_L"][2])))
     
@@ -89,25 +89,25 @@ def run_random_test():
     label_tensor = sample['label'].numpy()            # [3, R, A, S]
     
     img_slice_R = image_tensor[:, :, ostium_z_R].T
-    heat_slice_R = label_tensor[1, :, :, ostium_z_R].T # Canale 1: Destro
+    heat_slice_R = label_tensor[1, :, :, ostium_z_R].T # Channel 1: Right
 
     img_slice_L = image_tensor[:, :, ostium_z_L].T
-    heat_slice_L = label_tensor[2, :, :, ostium_z_L].T # Canale 2: Sinistro
+    heat_slice_L = label_tensor[2, :, :, ostium_z_L].T # Channel 2: Left
     
-    print(f"[*] Apertura grafico...")
+    print("[*] Opening plot...")
     fig, axes = plt.subplots(1, 2, figsize=(14, 6))
-    fig.suptitle(f"Controllo Paziente ASOCA: {patient_id}", fontsize=16)
+    fig.suptitle(f"ASOCA Patient Check: {patient_id}", fontsize=16)
 
-    # 1. Ostio Destro (Canale 1 -> Verde)
+    # 1. Right Ostium (Channel 1 -> Green)
     axes[0].imshow(img_slice_R, cmap='gray', vmin=-500, vmax=800, origin='lower')
     axes[0].imshow(np.ma.masked_where(heat_slice_R < 0.05, heat_slice_R), cmap='Greens', alpha=0.7, origin='lower')
-    axes[0].set_title(f"Ostio DESTRO (Slice S: {ostium_z_R})")
+    axes[0].set_title(f"RIGHT Ostium (Slice S: {ostium_z_R})")
     axes[0].axis('off')
     
-    # 2. Ostio Sinistro (Canale 2 -> Rosso)
+    # 2. Left Ostium (Channel 2 -> Red)
     axes[1].imshow(img_slice_L, cmap='gray', vmin=-500, vmax=800, origin='lower')
     axes[1].imshow(np.ma.masked_where(heat_slice_L < 0.05, heat_slice_L), cmap='Reds', alpha=0.7, origin='lower')
-    axes[1].set_title(f"Ostio SINISTRO (Slice S: {ostium_z_L})")
+    axes[1].set_title(f"LEFT Ostium (Slice S: {ostium_z_L})")
     axes[1].axis('off')
 
 

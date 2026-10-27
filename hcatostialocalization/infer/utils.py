@@ -16,8 +16,8 @@ from hcatostialocalization.logger.stdout import log, debug, error
 
 def get_location_from_probability_one_channel(heatmap, method: Literal['centroid', 'dsnt']='centroid', window_size=11) -> torch.Tensor:
     """
-    Trova il picco massimo della heatmap e calcola il centroide 
-    solo in una piccola finestra locale per precisione sub-pixel.
+    Finds maximum peak of the heatmap and calculates centroid 
+    only in a small local window for sub-pixel precision.
 
     Input:
     heatmap: torch.Tensor|monai MetaTensor of shape (R, A, S) only space axes.
@@ -41,8 +41,8 @@ def get_location_from_probability_one_channel(heatmap, method: Literal['centroid
             
             local_window = heatmap[z_min:z_max, y_min:y_max, x_min:x_max]
             
-            # Sottraiamo il minimo della finestrella per azzerare il baseline noise
-            # e garantire pesi sempre non-negativi e ben sagomati sul picco.
+            # Subtract minimum of the local window to zero out baseline noise
+            # and guarantee always non-negative weights well-shaped around the peak.
             local_window = local_window - local_window.min()
             
             sum_weights = torch.sum(local_window) + 1e-6

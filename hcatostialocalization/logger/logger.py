@@ -86,18 +86,18 @@ class ExperimentLogger:
         print(f"[*] MLflow run started: '{self.run_name}' (experiment: {self.exp_name})")
 
         # =================================================================
-        # --- INIZIO MODIFICA: LOGGING PULITO E TABELLARE SU MLFLOW ---
+        # --- CLEAN AND TABULAR LOGGING ON MLFLOW ---
         # =================================================================
         from omegaconf import OmegaConf
         
-        # 1. Salviamo il file YAML testuale pulito e leggibile (senza tag !!python)
+        # 1. Save clean and readable YAML text file (without !!python tags)
         clean_yaml_str = OmegaConf.to_yaml(config, resolve=True)
         mlflow.log_text(clean_yaml_str, "clean_config.yaml")
         
-        # 2. Estraiamo i parametri per la tabella principale di MLflow
+        # 2. Extract parameters for main MLflow table
         primitive_config = OmegaConf.to_container(config, resolve=True)
         
-        # Funzione interna per "appiattire" il dizionario (es. da dict annidato a "loss.ce_weight")
+        # Internal function to "flatten" dictionary (e.g. from nested dict to "loss.ce_weight")
         def flatten_dict(d, parent_key='', sep='.'):
             items = []
             for k, v in d.items():
@@ -110,10 +110,10 @@ class ExperimentLogger:
             
         flat_params = flatten_dict(primitive_config)
         
-        # Loggiamo tutti i parametri uno per uno nell'interfaccia grafica
+        # Log all parameters one by one in the graphical interface
         for key, value in flat_params.items():
             try:
-                # MLflow accetta stringhe, numeri o booleani per i parametri
+                # MLflow accepts strings, numbers or booleans for parameters
                 mlflow.log_param(key, str(value) if isinstance(value, list) else value)
             except Exception:
                 pass
@@ -287,7 +287,7 @@ class ExperimentLogger:
 
     @staticmethod
     def _set_orientation_labels(ax, xlabel: str, ylabel: str):
-        """Nasconde i tick ma mostra la direzione anatomica di ciascun asse (es. 'L → R')"""
+        """Hides ticks but shows anatomical direction of each axis (e.g. 'L → R')"""
         ax.set_xticks([])
         ax.set_yticks([])
         ax.set_xlabel(xlabel, fontsize=8)
@@ -339,7 +339,7 @@ class ExperimentLogger:
         gt = gt_zyx - np.array([z0, y0, x0], dtype=np.float32)
         pred = pred_zyx - np.array([z0, y0, x0], dtype=np.float32)
         center_local = np.clip((gt + pred) / 2.0, 0, np.array(patch.shape) - 1)
-        ic, jc, kc = [int(round(v)) for v in center_local]  # indici (R, A, S)
+        ic, jc, kc = [int(round(v)) for v in center_local]  # (R, A, S) indices
 
         finite = patch[np.isfinite(patch)]
         vmin, vmax = (np.percentile(finite, [1, 99]) if finite.size else (0.0, 1.0))
@@ -353,7 +353,7 @@ class ExperimentLogger:
             fontsize=9,
         )
 
-        # (titolo, slice 2D trasposta -> righe = asse verticale, punto (x, y), etichette assi)
+        # (title, transposed 2D slice -> rows = vertical axis, point (x, y), axis labels)
         views = [
             ("Axial",    patch[:, :, kc].T, (gt[0], gt[1]), (pred[0], pred[1]), "L → R", "P → A"),
             ("Coronal",  patch[:, jc, :].T, (gt[0], gt[2]), (pred[0], pred[2]), "L → R", "I → S"),
@@ -512,7 +512,7 @@ class ExperimentLogger:
         x axis L -> R, y axis (bottom -> top) P -> A.
         """
         k = max(0, min(int(round(gt_z)), pred_vol.shape[2] - 1))
-        pred_slice = pred_vol[:, :, k].T  # (A, R), stesso orientamento di img_slice
+        pred_slice = pred_vol[:, :, k].T  # (A, R), same orientation as img_slice
         cmap       = 'Greens' if side == 'R' else 'Reds'
         side_label = 'Right'  if side == 'R' else 'Left'
 
@@ -528,7 +528,7 @@ class ExperimentLogger:
             fontsize=9,
         )
 
-        # Panel 1: CT + GT crosshair (Sottile).
+        # Panel 1: CT + GT crosshair (Thin).
         axes[0].imshow(img_slice, cmap='gray', vmin=vmin, vmax=vmax, origin='lower')
         axes[0].plot(gt_x, gt_y, 'r+', markersize=10, markeredgewidth=1, label="GT")
         axes[0].legend(loc="upper right", fontsize=8)
@@ -546,7 +546,7 @@ class ExperimentLogger:
         self._set_orientation_labels(axes[1], 'L → R', 'P → A')
 
         # Panel 3: CT + prediction heatmap + GT crosshair + PRED DOT.
-        # Estraiamo le coordinate esatte del picco della predizione per disegnare il dot
+        # Extract exact peak coordinates of prediction to draw the dot
         pred_y, pred_x = np.unravel_index(np.argmax(pred_slice), pred_slice.shape)
         
         axes[2].imshow(img_slice, cmap='gray', vmin=vmin, vmax=vmax, origin='lower')
@@ -554,10 +554,10 @@ class ExperimentLogger:
             np.ma.masked_where(pred_slice < 0.1, pred_slice),
             cmap=cmap, alpha=0.6, vmin=0.0, vmax=1.0, origin='lower',
         )
-        # Croce per la GT
+        # Cross for GT
         axes[2].plot(gt_x, gt_y, 'r+', markersize=10, markeredgewidth=1, label="GT")
         
-        # Dot per la Predizione (Uso il Ciano per farlo risaltare bene sulla TAC grigia e sulle heatmap rosse/verdi)
+        # Dot for Prediction (Use Cyan to make it stand out against gray CT and red/green heatmaps)
         axes[2].plot(pred_x, pred_y, marker='o', color='cyan', markersize=4, label="Pred")
         axes[2].legend(loc="upper right", fontsize=8)
         
@@ -585,7 +585,7 @@ class ExperimentLogger:
         self,
         img_vol:        np.ndarray,    # (R, A, S) — crop or full volume
         pred_vol:       np.ndarray,    # (R, A, S)
-        gt_zyx:         torch.Tensor,  # [i, j, k] = indici lungo (R, A, S)
+        gt_zyx:         torch.Tensor,  # [i, j, k] = indices along (R, A, S)
         side:           str,
         sigma:          float,
         epoch:          int,
@@ -599,9 +599,9 @@ class ExperimentLogger:
         When save_gif_frame=True the prediction panel (panel 3) is also cropped
         and saved to disk as a frame for end-of-training GIF compilation.
         """
-        # Volumi in RAS (R, A, S): gt_zyx[0/1/2] = indice lungo R / A / S.
-        # Slice assiale lungo S, trasposta in (A, R) per mostrarla con origin='lower'
-        # (x: L -> R, y dal basso verso l'alto: P -> A).
+        # Volumes in RAS (R, A, S): gt_zyx[0/1/2] = index along R / A / S.
+        # Axial slice along S, transposed to (A, R) to display with origin='lower'
+        # (x: L -> R, y from bottom to top: P -> A).
         gt_x = float(gt_zyx[0])  # R
         gt_y = float(gt_zyx[1])  # A
         gt_z = float(gt_zyx[2])  # S

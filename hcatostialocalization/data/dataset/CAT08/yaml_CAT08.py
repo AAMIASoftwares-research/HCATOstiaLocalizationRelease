@@ -4,43 +4,43 @@ import yaml
 import re
 
 def prepare_cat08_dataset_no_copy(data_path, annotations_path, output_yaml_path):
-    # --- 1. LETTURA DEGLI ID ANNOTATI ---
-    print(f"[*] Scansione annotazioni in: {annotations_path}")
+    # --- 1. READING ANNOTATED IDS ---
+    print(f"[*] Scanning annotations in: {annotations_path}")
     annotated_ids = set()
     
     if not os.path.exists(annotations_path):
-        print(f"[!] ERRORE: Cartella annotazioni non trovata: {annotations_path}")
+        print(f"[!] ERROR: Annotations directory not found: {annotations_path}")
         return
         
     for json_file in os.listdir(annotations_path):
         if json_file.endswith('.json'):
-            # Regex per estrarre 'datasetXX'
+            # Regex to extract 'datasetXX'
             match = re.search(r'(dataset\d+)', json_file)
             if match:
                 annotated_ids.add(match.group(1))
                 
-    print(f"    -> Trovate {len(annotated_ids)} annotazioni JSON.\n")
+    print(f"    -> Found {len(annotated_ids)} JSON annotations.\n")
 
-    # --- 2. VERIFICA ESISTENZA IMMAGINI  ---
+    # --- 2. CHECKING IMAGE EXISTENCE ---
     all_samples = []
-    print("[*] Verifica corrispondenza cartelle immagini...")
+    print("[*] Checking image folder matches...")
 
     for item in os.listdir(data_path):
         full_path = os.path.join(data_path, item)
         
-        # Verifichiamo se l'ID è tra quelli annotati e se la cartella esiste
+        # Check if ID is among annotated and if folder exists
         if os.path.isdir(full_path) and item.startswith('dataset'):
             if item in annotated_ids:
-                # Controllo rapido: esiste almeno il file .mhd dentro?
+                # Quick check: does at least one .mhd file exist inside?
                 has_mhd = any(f.endswith('.mhd') for f in os.listdir(full_path))
                 if has_mhd:
                     all_samples.append(item)
                 else:
-                    print(f"    [!] Avviso: Cartella {item} trovata ma manca il file .mhd")
+                    print(f"    [!] Warning: Folder {item} found but .mhd file is missing")
 
-    print(f"[+] Verifica completata. {len(all_samples)} volumi pronti per lo split.")
+    print(f"[+] Verification completed. {len(all_samples)} volumes ready for splitting.")
 
-    # --- 3. CREAZIONE DELLO SPLIT ---
+    # --- 3. CREATING SPLIT ---
     random.seed(42) 
     random.shuffle(all_samples)
 
@@ -49,7 +49,7 @@ def prepare_cat08_dataset_no_copy(data_path, annotations_path, output_yaml_path)
     train_end = int(total * train_perc)
     val_end = train_end + int(total * val_perc)
 
-    # Nota: image_path ora punta alla cartella principale CAT08
+    # Note: image_path now points to the main CAT08 directory
     config_data = {
         'dataset': {
             'CAT08': {
@@ -67,19 +67,19 @@ def prepare_cat08_dataset_no_copy(data_path, annotations_path, output_yaml_path)
         }
     }
 
-    # --- 4. SALVATAGGIO YAML ---
+    # --- 4. SAVING YAML ---
     os.makedirs(os.path.dirname(output_yaml_path), exist_ok=True)
     with open(output_yaml_path, 'w') as f:
         yaml.dump(config_data, f, sort_keys=False)
     
-    print(f"\n[+] File YAML creato con successo in: {output_yaml_path}")
+    print(f"\n[+] YAML file successfully created in: {output_yaml_path}")
     print(f"    -> Split: {len(config_data['CAT08']['split']['train'])} Train | "
           f"{len(config_data['CAT08']['split']['val'])} Val | "
           f"{len(config_data['CAT08']['split']['test'])} Test")
 
 
 if __name__ == "__main__":
-    # --- PERCORSI ---
+    # --- PATHS ---
     data_root = "/path/to/data"
     output_dir = "/path/to/data"
 

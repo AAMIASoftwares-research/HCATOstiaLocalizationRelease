@@ -444,35 +444,35 @@ INDEX_HTML = """<!doctype html>
     <header>
       <div>
         <h1>HCAT Analysis Viewer</h1>
-        <p>Seleziona caso e ostio; i volumi vengono letti on demand dal server locale.</p>
+        <p>Select case and ostium; volumes are loaded on demand from the local server.</p>
       </div>
-      <label class="toggle"><input id="outliersOnly" type="checkbox"> solo outlier</label>
+      <label class="toggle"><input id="outliersOnly" type="checkbox"> outliers only</label>
     </header>
     <section class="controls">
-      <label>Caso <select id="caseSelect"></select></label>
-      <label>Ostio <select id="sideSelect"></select></label>
-      <label>Soglia heatmap 3D <input id="threshold" type="range" min="0.05" max="0.9" step="0.05" value="0.2"></label>
+      <label>Case <select id="caseSelect"></select></label>
+      <label>Ostium <select id="sideSelect"></select></label>
+      <label>3D heatmap threshold <input id="threshold" type="range" min="0.05" max="0.9" step="0.05" value="0.2"></label>
       <div id="metrics" class="metrics"></div>
     </section>
     <section class="views">
       <div class="panel">
-        <div class="view-title"><span>Assiale Z</span><span id="zValue"></span></div>
+        <div class="view-title"><span>Axial Z</span><span id="zValue"></span></div>
         <input id="zSlider" type="range" min="0" value="0">
         <canvas id="axial"></canvas>
       </div>
       <div class="panel">
-        <div class="view-title"><span>Coronale Y</span><span id="yValue"></span></div>
+        <div class="view-title"><span>Coronal Y</span><span id="yValue"></span></div>
         <input id="ySlider" type="range" min="0" value="0">
         <canvas id="coronal"></canvas>
       </div>
       <div class="panel">
-        <div class="view-title"><span>Sagittale X</span><span id="xValue"></span></div>
+        <div class="view-title"><span>Sagittal X</span><span id="xValue"></span></div>
         <input id="xSlider" type="range" min="0" value="0">
         <canvas id="sagittal"></canvas>
       </div>
     </section>
     <section class="panel">
-      <div class="view-title"><span>Spazio 3D</span><span>verde: label, rosso: prediction, arancio: heatmap selezionata</span></div>
+      <div class="view-title"><span>3D Space</span><span>green: label, red: prediction, orange: selected heatmap</span></div>
       <div id="plot3d"></div>
     </section>
   </main>
@@ -978,8 +978,8 @@ function renderMetrics() {
   const r = currentRecord();
   const warnings = outsideWarnings(c);
   els.metrics.innerHTML = `
-    <strong>${c.case_id}</strong> · lato <strong>${r.side || '-'}</strong>
-    · errore <strong>${formatMetric(r.distance_to_label_mm, ' mm')}</strong><br>
+    <strong>${c.case_id}</strong> · side <strong>${r.side || '-'}</strong>
+    · error <strong>${formatMetric(r.distance_to_label_mm, ' mm')}</strong><br>
     entropy norm ${formatMetric(r.heatmap_entropy_norm)}
     · spread ${formatMetric(r.heatmap_spread_mm, ' mm')}
     · prominence p95 ${formatMetric(r.heatmap_peak_prominence_p95)}

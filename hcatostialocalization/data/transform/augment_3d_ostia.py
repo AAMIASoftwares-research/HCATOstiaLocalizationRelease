@@ -1,21 +1,21 @@
-# Data augmentation 3D per la localizzazione degli osti coronarici.
+# 3D Data augmentation for coronary ostia localization.
 #
-# Pensata per essere chiamata nel trainer SUBITO DOPO probabilistic_crop, sulla patch
-# di training (prima di PreprocessorCT, quindi l'immagine è ancora in HU):
+# Designed to be called in the trainer RIGHT AFTER probabilistic_crop, on the training
+# patch (before PreprocessorCT, so the image is still in HU):
 #   img: (B, 1, R, A, S) float  — HU
-#   lab: (B, 3, R, A, S) float  — heatmap [sfondo, ostio R, ostio L]
-# Gira sul device della patch (GPU), con parametri casuali indipendenti per ogni campione
-# del batch, estratti dal generatore globale di torch (quindi seedabile dal trainer).
+#   lab: (B, 3, R, A, S) float  — heatmap [background, ostium R, ostium L]
+# Runs on the patch device (GPU), with independent random parameters for each sample
+# of the batch, drawn from the global torch generator (hence seedable by the trainer).
 #
-# Scelte di design:
-# - NESSUN flip e NESSUNA rotazione di 90°: i volumi sono tutti in orientamento RAS, e la
-#   posizione anatomica standard è un'informazione utile per distinguere l'ostio destro
-#   dal sinistro. Le label seguono sempre la struttura anatomica (nessuno scambio R <-> L).
-# - Rotazione piccola (±15° per asse) + zoom + deformazione elastica morbida vengono
-#   composte in UNA sola griglia di campionamento -> una sola interpolazione.
-# - Le heatmap degli osti vengono deformate con la stessa griglia dell'immagine; il canale
-#   di sfondo viene ricalcolato come 1 - max(R, L).
-# - Rumore gaussiano e shift di intensità agiscono solo sull'immagine.
+# Design choices:
+# - NO flips and NO 90° rotations: volumes are all in RAS orientation, and standard
+#   anatomical position is useful information to distinguish the right ostium
+#   from the left. Labels always follow anatomical structure (no R <-> L swap).
+# - Small rotation (±15° per axis) + zoom + soft elastic deformation are
+#   composed into ONE sampling grid -> a single interpolation.
+# - Ostia heatmaps are deformed with the same grid as the image; the background
+#   channel is recomputed as 1 - max(R, L).
+# - Gaussian noise and intensity shift act only on the image.
 
 import math
 import torch
@@ -23,7 +23,7 @@ import torch.nn.functional as F
 
 
 def _rotation_matrices(angles: torch.Tensor) -> torch.Tensor:
-    """angles (B, 3) in radianti -> matrici di rotazione (B, 3, 3)"""
+    """angles (B, 3) in radians -> rotation matrices (B, 3, 3)"""
     c0, c1, c2 = torch.cos(angles).unbind(-1)
     s0, s1, s2 = torch.sin(angles).unbind(-1)
     one, zero = torch.ones_like(c0), torch.zeros_like(c0)
@@ -44,13 +44,13 @@ def spatial_augment(
         p_elastic: float = 0.3,
     ) -> tuple[torch.Tensor, torch.Tensor]:
     """
-    Rotazione (±max_rotation_deg su ciascun asse) + zoom isotropo + deformazione elastica
-    morbida, attorno al centro della patch.
+    Rotation (±max_rotation_deg on each axis) + isotropic zoom + soft elastic
+    deformation, around patch center.
 
-    Deformazione elastica: campo di spostamento casuale uniforme in [-elastic_max_voxels,
-    +elastic_max_voxels] su una griglia grossolana di elastic_grid_points^3 nodi,
-    interpolato trilinearmente sulla patch. Con 5 nodi su 128 voxel (~32 voxel tra nodi)
-    e 2 voxel di ampiezza massima il campo è liscio e non può ripiegarsi su se stesso.
+    Elastic deformation: uniform random displacement field in [-elastic_max_voxels,
+    +elastic_max_voxels] on a coarse grid of elastic_grid_points^3 nodes,
+    trilinearly interpolated on the patch. With 5 nodes on 128 voxels (~32 voxels between nodes)
+    and 2 voxels max amplitude, the field is smooth and cannot fold on itself.
     """
     B = img.shape[0]
     spatial = tuple(img.shape[2:])
@@ -61,18 +61,18 @@ def spatial_augment(
     if not (do_affine.any() or (elastic_max_voxels > 0 and do_elastic.any())):
         return img, lab
 
-    # F.affine_grid / grid_sample: l'ultima dimensione della griglia è (x, y, z),
-    # con x -> ultimo asse del tensore (S), y -> A, z -> R.
-    half = torch.tensor(spatial[::-1], dtype=torch.float32, device=dev) / 2.0  # (3,) in ordine (x, y, z)
+    # F.affine_grid / grid_sample: grid's last dimension is (x, y, z),
+    # with x -> last tensor axis (S), y -> A, z -> R.
+    half = torch.tensor(spatial[::-1], dtype=torch.float32, device=dev) / 2.0  # (3,) in order (x, y, z)
 
-    # Parte lineare in voxel: campiona l'input in q = Rot @ p / zoom (p relativo al centro).
+    # Linear part in voxels: samples input at q = Rot @ p / zoom (p relative to center).
     angles = (torch.rand(B, 3, device=dev) * 2 - 1) * math.radians(max_rotation_deg)
     angles = angles * do_affine[:, None]
     zoom = zoom_range[0] + torch.rand(B, device=dev) * (zoom_range[1] - zoom_range[0])
     zoom = torch.where(do_affine, zoom, torch.ones_like(zoom))
     lin = _rotation_matrices(angles) / zoom[:, None, None]
-    # Coordinate normalizzate [-1, 1]: theta = diag(1/half) @ lin @ diag(half)
-    # (rotazione "vera" anche se la patch non fosse cubica)
+    # Normalized coordinates [-1, 1]: theta = diag(1/half) @ lin @ diag(half)
+    # ("true" rotation even if the patch were not cubic)
     lin = lin * half[None, None, :] / half[None, :, None]
     theta = torch.cat([lin, torch.zeros(B, 3, 1, device=dev)], dim=2)
     grid = F.affine_grid(theta, size=(B, 1, *spatial), align_corners=False)  # (B, R, A, S, 3)
@@ -81,8 +81,8 @@ def spatial_augment(
         g = int(elastic_grid_points)
         coarse = (torch.rand(B, 3, g, g, g, device=dev) * 2 - 1) * elastic_max_voxels
         coarse = coarse * do_elastic[:, None, None, None, None]
-        disp = F.interpolate(coarse, size=spatial, mode="trilinear", align_corners=True)  # voxel, canali (x, y, z)
-        grid = grid + disp.permute(0, 2, 3, 4, 1) / half  # voxel -> coordinate normalizzate
+        disp = F.interpolate(coarse, size=spatial, mode="trilinear", align_corners=True)  # voxels, channels (x, y, z)
+        grid = grid + disp.permute(0, 2, 3, 4, 1) / half  # voxels -> normalized coordinates
 
     grid = grid.to(img.dtype)
     img = F.grid_sample(img, grid, mode="bilinear", padding_mode="border", align_corners=False)
@@ -100,8 +100,8 @@ def intensity_augment(
         p_shift: float = 0.5,
     ) -> torch.Tensor:
     """
-    Rumore gaussiano con std ~ |N(0, noise_std_hu)| HU e shift globale ~ N(0, shift_std_hu) HU
-    (stessi valori della vecchia augment_3d), ciascuno applicato con la sua probabilità.
+    Gaussian noise with std ~ |N(0, noise_std_hu)| HU and global shift ~ N(0, shift_std_hu) HU
+    (same values as old augment_3d), each applied with its probability.
     """
     B = img.shape[0]
     dev = img.device
@@ -130,7 +130,7 @@ def augment_3d_ostia(
         p_noise: float = 0.5,
         p_shift: float = 0.5,
     ) -> tuple[torch.Tensor, torch.Tensor]:
-    """Master function: prima le trasformazioni geometriche, poi quelle di intensità"""
+    """Master function: first geometric transformations, then intensity ones"""
     img, lab = spatial_augment(
         img, lab,
         max_rotation_deg=max_rotation_deg,
