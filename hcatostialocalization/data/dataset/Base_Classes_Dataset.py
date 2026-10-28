@@ -1,4 +1,3 @@
-# PyTorch Datasets Base class for 3D datasets
 from typing import Literal, Callable
 import os
 import errno
@@ -13,7 +12,7 @@ import sys
 os.environ['KMP_DUPLICATE_LIB_OK']='True'
 
 # ==============================================================================
-# 0. PATH CONFIGURATION 
+# PATH CONFIGURATION 
 # ==============================================================================
 current_dir = os.path.abspath(os.getcwd())
 while current_dir != os.path.dirname(current_dir):
@@ -23,13 +22,12 @@ while current_dir != os.path.dirname(current_dir):
         break
     current_dir = os.path.dirname(current_dir)
 
-# Import only 3D transformations and Heatmap configuration
 from hcatostialocalization.data.transform.transformations_3d_PROVA import augment_3d
 from hcatostialocalization.data.dataset.Heatmap_Config import HeatmapParams
 from hcatostialocalization.io.io import asoca_raw_point_to_ras, asoca_header_from_json, load_image_ras
 
 # ==============================================================================
-# 1. BASE CLASS FOR INDIVIDUAL DATASETS (e.g. ImageCAS, ASOCA, CAT08)
+# BASE CLASS FOR INDIVIDUAL DATASETS (e.g. ImageCAS, ASOCA, CAT08)
 # ==============================================================================
 
 class LabeledDataset(torch.utils.data.Dataset, ABC):
@@ -576,7 +574,7 @@ class LabeledDataset(torch.utils.data.Dataset, ABC):
 
 
 # ==============================================================================
-# 2. COLLECTION CLASS (Mix of Datasets: ImageCAS + ASOCA + CAT08)
+# COLLECTION CLASS (Mix of Datasets: ImageCAS + ASOCA + CAT08)
 # ==============================================================================
 
 class LabeledDatasetsCollection(torch.utils.data.Dataset):
@@ -639,40 +637,6 @@ class LabeledDatasetsCollection(torch.utils.data.Dataset):
             return data
 
 
-# ==============================================================================
-# PRACTICAL USAGE EXAMPLE (To use in your main training script)
-# ==============================================================================
+
 if __name__ == "__main__":
-    # When you create the "Train.py" script, you will do exactly this:
-    
-    """
-    # 1. Initialize the three datasets individually (assuming you created .py files for each)
-    from hcatostialocalization.data.dataset.Dataset_ImageCAS_Ostia import Dataset_ImageCAS_Ostia
-    from hcatostialocalization.data.dataset.Dataset_ASOCA_Ostia import Dataset_ASOCA_Ostia
-    from hcatostialocalization.data.dataset.Dataset_CAT08_Ostia import Dataset_CAT08_Ostia
-    
-    dataset_cas = Dataset_ImageCAS_Ostia(split='train', nsdim=3, sample_sdim=64)
-    dataset_asoca = Dataset_ASOCA_Ostia(split='train', nsdim=3, sample_sdim=64)
-    dataset_cat08 = Dataset_CAT08_Ostia(split='train', nsdim=3, sample_sdim=64)
-    
-    # 2. Combine them into the Collection with requested proportions: 0.4, 0.3, 0.3
-    dataset_misto = LabeledDatasetsCollection(
-        datasets=[dataset_cas, dataset_asoca, dataset_cat08],
-        split='train',
-        nsdim=3,
-        minibatch_size=4, # Example: take 4 hearts at a time to train the network
-        draws_proportion=[0.4, 0.3, 0.3] 
-    )
-    
-    # 3. Put everything in PyTorch DataLoader
-    from torch.utils.data import DataLoader
-    
-    # batch_size=None because we handle batches inside the get() class
-    dataloader = DataLoader(dataset_misto, batch_size=None, num_workers=0) 
-    
-    for batch_img, batch_lab in dataloader:
-        print(f"Mixed image batch! Shape: {batch_img.shape}")
-        # Neural network training here...
-        break
-    """
     print("[*] Base_Classes_Dataset.py compiled successfully!")

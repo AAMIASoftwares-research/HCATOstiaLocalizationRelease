@@ -9,7 +9,7 @@ import psutil
 import random
 
 # ==============================================================================
-# 0. PATH CONFIGURATION 
+# PATH CONFIGURATION 
 # ==============================================================================
 current_dir = os.path.abspath(os.getcwd())
 while current_dir != os.path.dirname(current_dir):
@@ -24,7 +24,7 @@ from hcatostialocalization.data.dataset.Base_Classes_Dataset import LabeledDatas
 from hcatostialocalization.data.dataset.Heatmap_Config import HeatmapParams
 
 # ==============================================================================
-# 1. MULTI-CLASS DATASET CLASS (3 GAUSSIAN CHANNELS)
+# MULTI-CLASS DATASET CLASS (3 GAUSSIAN CHANNELS)
 # ==============================================================================
 class Dataset_CAT08_Ostia_Multi(LabeledDataset):
     labels: dict[int, str] = {
@@ -76,7 +76,7 @@ class Dataset_CAT08_Ostia_Multi(LabeledDataset):
         return len(self.data_pool)
 
 # ==============================================================================
-# 2. RANDOM TEST LOGIC (5 Patients Visualization)
+# RANDOM TEST LOGIC (5 Patients Visualization)
 # ==============================================================================
 def run_random_test():
     print(f"[*] RAM Monitoring: {psutil.virtual_memory().percent}%")

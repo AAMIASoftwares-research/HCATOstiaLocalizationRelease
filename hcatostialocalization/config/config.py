@@ -11,10 +11,10 @@ os.environ.setdefault("HOSTNAME", raw_hostname.split('.')[0])
 # Get the directory where this script is located
 _this_dir = os.path.dirname(os.path.abspath(__file__))
 
-# 1. Initialize an empty OmegaConf object
+# Initialize an empty OmegaConf object
 config = OmegaConf.create()
 
-# 2. Find all .yaml files recursively from _this_dir downwards
+# Find all .yaml files recursively from _this_dir downwards
 # The recursive=True flag is essential here
 search_pattern = os.path.join(_this_dir, "**", "*.yaml")
 all_yaml_files = sorted(glob.glob(search_pattern, recursive=True))
@@ -25,7 +25,7 @@ for path in all_yaml_files:
     # Merge it into the main config object
     config = OmegaConf.merge(config, cfg)
 
-# 2b. Experiment inheritance: an experiment with `extends: <other experiment>` starts from a
+# Experiment inheritance: an experiment with `extends: <other experiment>` starts from a
 # deep copy of the parent and overrides only the fields it defines (dicts are merged key by
 # key, lists and scalars are replaced). Chains (A extends B extends C) are supported.
 def _resolve_experiment_inheritance(cfg):
@@ -58,10 +58,10 @@ def _resolve_experiment_inheritance(cfg):
 
 config = _resolve_experiment_inheritance(config)
 
-# 3. Resolve interpolations (like ${some.key})
+# Resolve interpolations (like ${some.key})
 OmegaConf.resolve(config)
 
-# 4. Convert to a standard Python dictionary
+# Convert to a standard Python dictionary
 configd = OmegaConf.to_container(
     config, 
     resolve=True, 

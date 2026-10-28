@@ -9,7 +9,7 @@ import matplotlib.pyplot as plt
 import random
 
 # ==============================================================================
-# 0. PATH CONFIGURATION 
+# PATH CONFIGURATION 
 # ==============================================================================
 current_dir = os.path.abspath(os.getcwd())
 while current_dir != os.path.dirname(current_dir):
@@ -24,7 +24,7 @@ from hcatostialocalization.data.dataset.Base_Classes_Dataset import LabeledDatas
 from hcatostialocalization.data.dataset.Heatmap_Config import HeatmapParams
 
 # ==============================================================================
-# 1. MULTI-CLASS DATASET CLASS (3 GAUSSIAN CHANNELS)
+# MULTI-CLASS DATASET CLASS (3 GAUSSIAN CHANNELS)
 # ==============================================================================
 class Dataset_ImageCAS_Ostia_Multi(LabeledDataset):
     """
@@ -61,7 +61,7 @@ class Dataset_ImageCAS_Ostia_Multi(LabeledDataset):
         return len(self.data_pool)
 
 # ==============================================================================
-# 2. RANDOM TEST LOGIC (Multi-Slice L & R Visualization)
+# RANDOM TEST LOGIC (Multi-Slice L & R Visualization)
 # ==============================================================================
 def run_random_test():
     print("[*] Initializing Multi-Class visual test...")
@@ -100,13 +100,13 @@ def run_random_test():
     fig, axes = plt.subplots(1, 2, figsize=(14, 6))
     fig.suptitle(f"ImageCAS Patient Check: {patient_id}", fontsize=16)
     
-    # 1. Right Ostium (Channel 1 -> Green)
+    # Right Ostium (Channel 1 -> Green)
     axes[0].imshow(img_slice_R, cmap='gray', vmin=-500, vmax=800, origin='lower')
     axes[0].imshow(np.ma.masked_where(heat_slice_R < 0.05, heat_slice_R), cmap='Greens', alpha=0.7, origin='lower')
     axes[0].set_title(f"RIGHT Ostium (Slice S: {ostium_z_R})")
     axes[0].axis('off')
 
-    # 2. Left Ostium (Channel 2 -> Red)
+    # Left Ostium (Channel 2 -> Red)
     axes[1].imshow(img_slice_L, cmap='gray', vmin=-500, vmax=800, origin='lower')
     axes[1].imshow(np.ma.masked_where(heat_slice_L < 0.05, heat_slice_L), cmap='Reds', alpha=0.7, origin='lower')
     axes[1].set_title(f"LEFT Ostium (Slice S: {ostium_z_L})")

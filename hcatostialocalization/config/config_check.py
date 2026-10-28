@@ -3,7 +3,7 @@ import socket
 from omegaconf import OmegaConf
 
 def check_environment():
-    # 1. Detect System Info
+    # Detect System Info
     hostname = socket.gethostname()
     env_hostname = os.environ.get("HOSTNAME")
     env_computername = os.environ.get("COMPUTERNAME")
@@ -16,7 +16,7 @@ def check_environment():
     print(f"Env 'COMPUTERNAME':    {env_computername}")
     print("-" * 50)
 
-    # 2. Try to load and resolve the machine config
+    # Try to load and resolve the machine config
     try:
         # Find machine.yaml in the current directory
         base_path = os.path.dirname(os.path.abspath(__file__))
@@ -38,7 +38,7 @@ def check_environment():
             print("\n  WARNING: Using 'default_user' fallback.")
             print(f"   To fix this, add an entry for '{hostname}' in machine.yaml.")
         else:
-            print(f"\n🚀 Welcome, {detected_host}!")
+            print(f"\nWelcome, {detected_host}!")
             print(f"   Data Root:  {cfg.active_paths.data_root}")
             print(f"   Output Dir: {cfg.active_paths.output_dir}")
 

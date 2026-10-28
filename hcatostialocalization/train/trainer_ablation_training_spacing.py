@@ -16,7 +16,7 @@ import math
 
 
 # ==============================================================================
-# 0. PROJECT ROOT RESOLUTION
+# PROJECT ROOT RESOLUTION
 # ==============================================================================
 current_dir = os.path.abspath(os.getcwd())
 root_path = None
@@ -59,7 +59,7 @@ from hcatostialocalization.train.sigma_scheduler import SigmaScheduler
 
 
 # ==============================================================================
-# 1. CONFIGURATION UTILITIES
+# CONFIGURATION UTILITIES
 # ==============================================================================
 DEFAULT_SPACING_ISO = 0.5  # mm, used when `train.spacing_iso` is absent from the experiment config
 
@@ -142,7 +142,7 @@ def apply_cli_overrides(experiment_config, args):
 
 
 # ==============================================================================
-# 2. DATA LOADING AND FIXED VISUALIZATION SAMPLE SELECTION
+# DATA LOADING AND FIXED VISUALIZATION SAMPLE SELECTION
 # ==============================================================================
 def get_unified_dataloaders(cfg):
     """
@@ -238,7 +238,6 @@ def select_fixed_viz_samples(train_dataset, val_dataset, patch_shape, seed: int 
             crop = torch.nn.functional.pad(crop, pad)
         return crop, torch.tensor([gz - z0, gy - y0, gx - x0], dtype=torch.float32)
 
-    # --- FIX START: SMART SEARCH ---
     def _pick_one(dataset, ds_name):
         """Iterates the dataset until a sample from the requested dataset with valid ostia is found."""
         all_indices = list(range(len(dataset)))
@@ -305,13 +304,12 @@ def select_fixed_viz_samples(train_dataset, val_dataset, patch_shape, seed: int 
         if v is not None:
             val_samples.append(v)
             print(f"    [val]   {ds_name}: {v['sample_id']}")
-    # --- FIX END ---
 
     return train_samples, val_samples
 
 
 # ==============================================================================
-# 3. PATCH SAMPLING
+# PATCH SAMPLING
 # ==============================================================================
 def fix_tensor_shape(tensor, is_target=False):
     """Ensures the tensor is exactly 5D (B, C, D, H, W), collapsing any spurious inner dims."""
@@ -427,7 +425,7 @@ def probabilistic_crop(images, targets, patch_shape, probs=(0.32, 0.34, 0.34), i
 
 
 # ==============================================================================
-# 4. VALIDATION METRIC: Local Centroid Extraction
+# VALIDATION METRIC: Local Centroid Extraction
 # ==============================================================================
 def extract_local_centroid(heatmap, window_size=11):
     """
@@ -471,7 +469,7 @@ def extract_local_centroid(heatmap, window_size=11):
     return torch.tensor([final_z, final_y, final_x], dtype=torch.float32)
 
 # ==============================================================================
-# 5. OPTIMIZER AND SCHEDULER FACTORIES  (section 5 of 7)
+# OPTIMIZER AND SCHEDULER FACTORIES
 # ==============================================================================
 def get_scheduler(optimizer, cfg, total_steps=None):
     """
@@ -603,15 +601,15 @@ def apply_threshold_weight_schedule(criterion, cfg, err_R, err_L, threshold_mm=2
         return None
 
     loss_cfg = cfg.get("loss", {})
-    # 1. Retrieve base weights from the yaml file
+    # Retrieve base weights from the yaml file
     base_R = float(loss_cfg.get("weight_R", 0.5))
     base_L = float(loss_cfg.get("weight_L", 0.5))
 
-    # 2. Initial condition (first validation not yet performed)
+    # Initial condition (first validation not yet performed)
     if err_R == 0.0 and err_L == 0.0:
         target_R, target_L = base_R, base_L
     else:
-        # 3. Threshold logic
+        # Threshold logic
         if err_R < threshold_mm and err_L >= threshold_mm:
             # Right ostium is below the threshold (e.g. 1.5mm), left is still struggling.
             # Shift weight toward the left.
@@ -625,7 +623,7 @@ def apply_threshold_weight_schedule(criterion, cfg, err_R, err_L, threshold_mm=2
             # If both are below (or above) the threshold, use the default weights
             target_R, target_L = base_R, base_L
 
-    # 4. Apply and log the change only if there was a variation
+    # Apply and log the change only if there was a variation
     if abs(criterion.weight_R - target_R) > 1e-12 or abs(criterion.weight_L - target_L) > 1e-12:
         print(f"[*] Loss weight change: R={target_R:.2f}, L={target_L:.2f} (Err R: {err_R:.1f}mm, Err L: {err_L:.1f}mm)")
         criterion.weight_R = target_R
@@ -649,19 +647,19 @@ def apply_sinh_weight_schedule(
 
     min_weight = 1.0 - max_weight
 
-    # 1. Initial condition: balanced start at 0.5 / 0.5
+    # Initial condition: balanced start at 0.5 / 0.5
     if (err_R == 0.0 and err_L == 0.0) or epoch <= 1:
         target_R, target_L = 0.5, 0.5
         criterion.weight_R = target_R
         criterion.weight_L = target_L
         return (target_R, target_L)
 
-    # 2. Parameter A (Curriculum): linear progression from a_min to a_max
+    # Parameter A (Curriculum): linear progression from a_min to a_max
     progress = (epoch - 1) / max(1, max_epochs - 1)
     progress = max(0.0, min(1.0, progress))
     A = a_min + progress * (a_max - a_min)
 
-    # 3. Asymptotic target computation via sinh and sigmoid
+    # Asymptotic target computation via sinh and sigmoid
     mean_err = (err_R + err_L) / 2.0
     diff_L = err_L - mean_err
     diff_L = max(-50.0, min(50.0, diff_L))
@@ -670,16 +668,16 @@ def apply_sinh_weight_schedule(
     x = max(-100.0, min(100.0, x))
     ideal_L = 1.0 / (1.0 + math.exp(-x))
 
-    # 4. Clamp target between min_weight and max_weight
+    # Clamp target between min_weight and max_weight
     ideal_L = max(min_weight, min(max_weight, ideal_L))
 
-    # 5. Intermediate step: (w_current + w_target) / 2 via smoothing=0.5
+    # Intermediate step: (w_current + w_target) / 2 via smoothing=0.5
     curr_L = float(criterion.weight_L)
     applied_L = (1.0 - smoothing) * curr_L + smoothing * ideal_L
     applied_L = max(min_weight, min(max_weight, applied_L))
     applied_R = 1.0 - applied_L
 
-    # 6. Update only if the change is significant
+    # Update only if the change is significant
     if abs(criterion.weight_R - applied_R) > 1e-4 or abs(criterion.weight_L - applied_L) > 1e-4:
         print(
             f"[*] Loss weight change (sinh smooth): R={applied_R:.4f}, L={applied_L:.4f} "
@@ -691,7 +689,7 @@ def apply_sinh_weight_schedule(
     return (criterion.weight_R, criterion.weight_L)
 
 # ==============================================================================
-# 6. CHECKPOINT RESUME UTILITIES
+# CHECKPOINT RESUME UTILITIES
 # ==============================================================================
 def resolve_resume_checkpoint(cfg):
     """
@@ -752,7 +750,7 @@ def load_training_state(checkpoint_path, model, optimizer, scheduler, device):
 
 
 # ==============================================================================
-# 7. TRAINING ENGINE
+# TRAINING ENGINE
 # ==============================================================================
 def main():
     args = parse_args()
@@ -811,14 +809,12 @@ def main():
         start_epoch, best_val_loss, resume_dir, mlflow_run_id, epoch_history, training_state = load_training_state(
             resume_checkpoint, model, optimizer, scheduler, device
         )
-        # --- RESUME FIX START ---
         # Unlock the config to allow adding new variables
         OmegaConf.set_struct(experiment_config, False)
         
         # Safely add only the text data
         experiment_config.logger.resume_dir = resume_dir
         experiment_config.logger.mlflow_run_id = mlflow_run_id
-        # --- FIX END ---
     else:
         best_val_loss = float("inf")
         training_state = {}
@@ -826,17 +822,16 @@ def main():
     logger = ExperimentLogger(experiment_config)
     logger.best_val_loss = best_val_loss
 
-    # --- ADD THIS LINE BELOW ---
     if resume_checkpoint:
         logger.epoch_history = epoch_history
 
     # =================================================================
-    # --- NEW: MLFLOW ARTIFACT AND TAG LOGGING ---
+    # --- MLFLOW ARTIFACT AND TAG LOGGING ---
     # =================================================================
     if mlflow.active_run():
         print("[*] Logging parameters, tags and script to MLflow...")
         
-        # 1. Add tags for smart filtering in the UI
+        # Add tags for smart filtering in the UI
         mlflow.set_tags({
             "Model": experiment_config.model.get("name", "Unknown"),
             "Scheduler": experiment_config.scheduler.get("name", "Unknown"),
@@ -849,10 +844,10 @@ def main():
             "training_spacing_mm": f"{args.spacing_iso:.2f}",
         })
 
-        # 2. Log the current training script
+        # Log the current training script
         mlflow.log_artifact(os.path.abspath(__file__), artifact_path="scripts_backup")
         
-        # 3. Log the configuration file
+        # Log the configuration file
         config_path = resolve_project_path("hcatostialocalization/config/model.yaml")
         if os.path.exists(config_path):
             mlflow.log_artifact(config_path, artifact_path="config_backup")
@@ -1191,7 +1186,7 @@ def main():
                 f"          Val Mean:   R={avg_dist_R:.2f}mm, L={avg_dist_L:.2f}mm | Global Mean: {avg_val_loss:.2f}mm"
             )
             
-            # --- NEW: LOG METRICS TO MLFLOW ---
+            # --- LOG METRICS TO MLFLOW ---
             mlflow.log_metric("Val_Error_Global_Median_mm", med_val_loss, step=epoch)
             mlflow.log_metric("Val_Distance_Right_Median_mm", med_dist_R, step=epoch)
             mlflow.log_metric("Val_Distance_Left_Median_mm", med_dist_L, step=epoch)
@@ -1219,7 +1214,7 @@ def main():
                 "val_dist_L_mean": avg_dist_L,
                 "val_global_mean": avg_val_loss,
             })
-            # --- END NEW ---
+            
             
         print(f"          Time: {epoch_time_sec:.1f}s | train {train_time_sec:.1f}s")
 

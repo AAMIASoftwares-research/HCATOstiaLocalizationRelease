@@ -84,7 +84,7 @@ def main():
             print(f"Warning: {side} ostium not found in JSON.")
             continue
         
-        # 1. MONAI-RAS (Row 0)
+        # MONAI-RAS (Row 0)
         ijk_monai = pos_data[side]["ijk"]["monai-ras"]
         x_m, y_m, z_m = [int(round(c)) for c in ijk_monai]
         
@@ -99,7 +99,7 @@ def main():
         ax_monai.set_title(f"MONAI (RAS) - {titles[col]}\nSlice Z={z_m}")
         ax_monai.axis('off')
 
-        # 2. SimpleITK (Row 1)
+        # SimpleITK (Row 1)
         ijk_sitk = pos_data[side]["ijk"]["sitk"]
         x_s, y_s, z_s = [int(round(c)) for c in ijk_sitk]
         

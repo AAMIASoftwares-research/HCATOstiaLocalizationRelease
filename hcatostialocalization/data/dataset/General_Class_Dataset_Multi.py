@@ -10,7 +10,7 @@ import matplotlib.pyplot as plt
 os.environ['KMP_DUPLICATE_LIB_OK']='True'
 
 # ==============================================================================
-# 0. PATH CONFIGURATION 
+# PATH CONFIGURATION 
 # ==============================================================================
 current_dir = os.path.abspath(os.getcwd())
 while current_dir != os.path.dirname(current_dir):
@@ -23,12 +23,10 @@ while current_dir != os.path.dirname(current_dir):
 from hcatostialocalization.data.dataset.ASOCA.Multi_Dataset_ASOCA import Dataset_ASOCA_Ostia_Multi
 from hcatostialocalization.data.dataset.CAT08.Multi_Dataset_CAT08 import Dataset_CAT08_Ostia_Multi
 from hcatostialocalization.data.dataset.ImageCAS.Multi_Dataset_ImageCAS import Dataset_ImageCAS_Ostia_Multi
-
-# ---> IMPORT COLLECTION CLASS FROM BASE CLASSES! <---
 from hcatostialocalization.data.dataset.Base_Classes_Dataset import LabeledDatasetsCollection
 
 # ==============================================================================
-# 1. PATCH GETITEM METHOD OF INDIVIDUAL DATASETS
+# PATCH GETITEM METHOD OF INDIVIDUAL DATASETS
 # ==============================================================================
 def patched_getitem_multi(self, idx):
     image_label_f = self.data_pool[idx]
@@ -46,7 +44,7 @@ Dataset_CAT08_Ostia_Multi.__getitem__ = patched_getitem_multi
 Dataset_ImageCAS_Ostia_Multi.__getitem__ = patched_getitem_multi
 
 # ==============================================================================
-# 2. PATCH FOR "LabeledDatasetsCollection"
+# PATCH FOR "LabeledDatasetsCollection"
 # ==============================================================================
 def patched_collection_getitem(self, index):
     """
@@ -73,7 +71,7 @@ def patched_collection_getitem(self, index):
 LabeledDatasetsCollection.__getitem__ = patched_collection_getitem
 
 # ==============================================================================
-# 3. UNIFIED MULTI-CLASS DATASET
+# UNIFIED MULTI-CLASS DATASET
 # ==============================================================================
 class UnifiedOstiaDatasetMulti:
     def __init__(self, split='train', nsdim=3, transform=None, new_spacing=None):
@@ -93,7 +91,7 @@ class UnifiedOstiaDatasetMulti:
                 split=split,
                 nsdim=nsdim,
                 minibatch_size=1,
-                draws_proportion=[0.33, 0.33, 0.34]  # <-- Proportions!
+                draws_proportion=[0.33, 0.33, 0.34]  
             )
             print(f"[+] Applied PROPORTIONAL sampling [0.33, 0.33, 0.34] via LabeledDatasetsCollection")
         else:
@@ -124,7 +122,7 @@ class UnifiedOstiaDatasetMulti:
         )
 
 # ==============================================================================
-# 4. UNIFIED VISUALIZATION TEST
+# UNIFIED VISUALIZATION TEST
 # ==============================================================================
 if __name__ == "__main__":
     def visualizza_campione(sample, titolo_split):

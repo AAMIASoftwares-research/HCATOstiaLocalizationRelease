@@ -115,7 +115,7 @@ def imagecas_cases(data):
 DATASETS = {"ASOCA": asoca_cases, "CAT08": cat08_cases, "ImageCAS": imagecas_cases}
 
 
-# ----------------------------------------------------------------------------- ImageCAS consensus
+# ImageCAS consensus
 
 def _markup_points(path):
     """{'R': [ras, ...], 'L': [...]} from one annotator's Slicer file. A label counts for a
@@ -209,7 +209,7 @@ def public_notes(qc, fix_swapped: bool):
     return notes
 
 
-# ----------------------------------------------------------------------------- main
+# Main
 
 def _ras(path):
     if not path or not os.path.exists(path):

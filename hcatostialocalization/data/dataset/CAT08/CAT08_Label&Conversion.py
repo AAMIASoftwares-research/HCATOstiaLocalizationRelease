@@ -5,7 +5,7 @@ from pathlib import Path
 import SimpleITK as sitk
 
 # ==============================================================================
-# 0. PROJECT PATH RESOLUTION (To import config)
+# PROJECT PATH RESOLUTION (To import config)
 # ==============================================================================
 current_dir = os.path.abspath(os.getcwd())
 while current_dir != os.path.dirname(current_dir):
@@ -19,7 +19,7 @@ while current_dir != os.path.dirname(current_dir):
 from hcatostialocalization.config.config import config
 
 # ==============================================================================
-# 1. DYNAMIC PATH CONFIGURATION (Via machine.yaml)
+# DYNAMIC PATH CONFIGURATION (Via machine.yaml)
 # ==============================================================================
 # Instead of a fixed path, use the data_root specific to the machine running the code
 DATA_ROOT = Path(config.active_paths.data_root)
@@ -61,14 +61,14 @@ def main():
         nifti_path = OUTPUT_IMG_DIR / f"{patient_id}_volume.nii.gz"
         json_path = OUTPUT_JSON_DIR / f"{patient_id}_labels.json"
         
-        # --- PHASE 1: IMAGE CONVERSION TO RAS (.nii.gz) ---
+        # --- IMAGE CONVERSION TO RAS (.nii.gz) ---
         print(f" -> Processing {patient_id}...")
         img = sitk.ReadImage(str(mhd_path))
         img_ras = sitk.DICOMOrient(img, 'RAS')
         img_ras = sitk.Cast(img_ras, sitk.sitkInt16)
         sitk.WriteImage(img_ras, str(nifti_path), useCompression=True)
         
-        # --- PHASE 2: COORDINATE EXTRACTION AND JSON CREATION ---
+        # --- COORDINATE EXTRACTION AND JSON CREATION ---
         patient_labels = {
             "id_immagine": patient_id,
             "spacing": list(img_ras.GetSpacing()),
@@ -92,13 +92,13 @@ def main():
                         lines = f.readlines()
                         if lines and lines[0].strip():
                             try:
-                                # 1. Raw original coordinates (LPS space)
+                                # Raw original coordinates (LPS space)
                                 lps_coords = [float(c) for c in lines[0].strip().split()[:3]]
                                 
-                                # 2. Mathematical transformation to RAS space
+                                # Mathematical transformation to RAS space
                                 ras_coords = [-lps_coords[0], -lps_coords[1], lps_coords[2]]
                                 
-                                # 3. Voxel (IJK) extraction on the newly oriented image!
+                                # Voxel (IJK) extraction on the newly oriented image!
                                 voxel_idx = img_ras.TransformPhysicalPointToIndex(lps_coords)
                                 
                                 patient_labels["ostia"][side] = {

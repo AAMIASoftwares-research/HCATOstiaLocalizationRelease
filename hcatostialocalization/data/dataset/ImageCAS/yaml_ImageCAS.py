@@ -6,7 +6,7 @@ import re
 import argparse
 
 def prepare_imagecas_dataset(data_path, annotations_path, output_yaml_path):
-    # --- 1. READING ANNOTATED IDS ---
+    # --- READING ANNOTATED IDS ---
     print(f"[*] Reading annotations directory: {annotations_path}")
     annotated_ids = set()
     
@@ -23,7 +23,7 @@ def prepare_imagecas_dataset(data_path, annotations_path, output_yaml_path):
                 
     print(f"    -> Found {len(annotated_ids)} patients with valid annotations.\n")
 
-    # --- 2. PREPARING OUTPUT DIRECTORY ---
+    # --- PREPARING OUTPUT DIRECTORY ---
     base_dir = os.path.dirname(data_path)
     extracted_dir = os.path.join(base_dir, "Extracted_Images")
     os.makedirs(extracted_dir, exist_ok=True)
@@ -33,7 +33,7 @@ def prepare_imagecas_dataset(data_path, annotations_path, output_yaml_path):
     
     all_samples = []
 
-    # --- 3. SCANNING DATA (with Label and ID filters) ---
+    # --- SCANNING DATA (with Label and ID filters) ---
     for item in os.listdir(data_path):
         full_path = os.path.join(data_path, item)
         
@@ -84,7 +84,7 @@ def prepare_imagecas_dataset(data_path, annotations_path, output_yaml_path):
         print("\n[!] WARNING: 0 images copied. Check that JSON and image file names start with the same ID.")
         return
 
-    # --- 4. CREATING SPLIT AND OMEGACONF CONFIGURATION ---
+    # --- CREATING SPLIT AND OMEGACONF CONFIGURATION ---
     random.seed(42) 
     random.shuffle(all_samples)
 
@@ -93,7 +93,7 @@ def prepare_imagecas_dataset(data_path, annotations_path, output_yaml_path):
     train_end = int(total * train_perc)
     val_end = train_end + int(total * val_perc)
 
-    # NEW DICTIONARY FORMAT (with OmegaConf variables)
+    # DICTIONARY FORMAT
     config_data = {
         'dataset': {
             'ImageCAS': {
@@ -111,7 +111,7 @@ def prepare_imagecas_dataset(data_path, annotations_path, output_yaml_path):
         }
     }
 
-    # --- 5. SAVING YAML ---
+    # --- SAVING YAML ---
     with open(output_yaml_path, 'w') as f:
         # sort_keys=False prevents yaml from sorting keys alphabetically, 
         # keeping 'dataset' before 'ImageCAS'

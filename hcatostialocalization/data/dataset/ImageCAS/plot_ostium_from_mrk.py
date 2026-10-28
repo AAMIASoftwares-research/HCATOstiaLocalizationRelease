@@ -25,7 +25,7 @@ import matplotlib.patches as mpatches
 import sys
 
 # ==============================================================================
-# 0. PATH CONFIGURATION 
+# PATH CONFIGURATION 
 # ==============================================================================
 current_dir = os.path.abspath(os.getcwd())
 while current_dir != os.path.dirname(current_dir):
@@ -117,11 +117,11 @@ def plot_ostium_from_annotators(
         print(f"[!] Image not found: {image_path}")
         return
 
-    # --- 1. Load image ---
+    # --- Load image ---
     img = sitk.ReadImage(image_path)
     img_array = sitk.GetArrayFromImage(img)  # shape: (Z, Y, X) = (K, J, I)
 
-    # --- 2. Collect points from all annotators ---
+    # --- Collect points from all annotators ---
     annotator_colors = ["#FF6B6B", "#FFD93D", "#6BCB77"]  # red, yellow, green
     annotator_labels = [f"Annotator {i+1}" for i in range(len(mrk_files))]
 
@@ -135,7 +135,7 @@ def plot_ostium_from_annotators(
             else:
                 print(f"[!] Side {s} not found in: {os.path.basename(mrk_f)}")
 
-    # --- 3. Compute consensus centroids (mean = equivalent to 1-cluster K-means) ---
+    # --- Compute consensus centroids (mean = equivalent to 1-cluster K-means) ---
     consensus = {}
     ijk_consensus = {}
     for s in ["R", "L"]:
@@ -151,7 +151,7 @@ def plot_ostium_from_annotators(
             print(f"    → IJK: {ijk_consensus[s]}")
             print(f"    → Annotator points ({len(points_per_side[s])}): OK")
 
-    # --- 4. Determine sides to plot ---
+    # --- Determine sides to plot ---
     sides_to_plot = []
     if side == "both":
         sides_to_plot = [s for s in ["R", "L"] if ijk_consensus[s] is not None]
@@ -224,7 +224,7 @@ def plot_ostium_from_annotators(
 
 
 # ==============================================================================
-# EXECUTION — MODIFY PATHS HERE
+# EXECUTION
 # ==============================================================================
 if __name__ == "__main__":
     from hcatostialocalization.config.config import config

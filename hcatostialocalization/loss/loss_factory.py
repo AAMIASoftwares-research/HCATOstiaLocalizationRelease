@@ -259,8 +259,7 @@ class DSNTJSDLoss(nn.Module):
         # 3. GT coordinates extracted from normalized target heatmap
         t_sum = heatmap_sum.clamp(min=1e-8).view(B, 1, 1, 1)
         prob_target = target_c / t_sum
-        # FIXED BUG: prob_target is already a probability!
-        # If we use self.dsnt_layer(...) we apply a SECOND softmax, flattening GT.
+        # prob_target is already a probability, if we use self.dsnt_layer(...) we apply a SECOND softmax, flattening GT.
         # We use get_coords_from_probs to calculate correct expectation.
         gt_coords = self.dsnt_layer.get_coords_from_probs(prob_target.unsqueeze(1))
         gt_coords = gt_coords.squeeze(1)                          # (B, 3)

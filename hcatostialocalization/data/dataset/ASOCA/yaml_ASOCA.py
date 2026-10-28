@@ -20,7 +20,7 @@ except Exception as e:
 
 ## DATASET SPLIT CODE
 def prepare_asoca_normal_dataset(data_path, annotations_path_normal, annotations_path_diseased, output_yaml_path, data_root_placeholder):
-    # --- 1. READING ANNOTATED IDS ---
+    # --- READING ANNOTATED IDS ---
     print(f"[*] Reading annotations directory: {annotations_path_normal}")
     annotated_ids = set()
     
@@ -46,13 +46,13 @@ def prepare_asoca_normal_dataset(data_path, annotations_path_normal, annotations
                 
     print(f"    -> Found {len(annotated_ids)} ASOCA cases with annotations.\n")
 
-    # --- 2. PREPARING OUTPUT DIRECTORY ---
+    # --- PREPARING OUTPUT DIRECTORY ---
     # Create a specific directory for extracted ASOCA Normal
     extracted_dir = output_yaml_path
     
     all_samples = []
 
-    # --- 3. SCANNING ASOCA DATA (Normal and Diseased) ---
+    # --- SCANNING ASOCA DATA (Normal and Diseased) ---
     # Assume data_path is the root containing subfolders
     # or iterate over both paths.
     
@@ -92,7 +92,7 @@ def prepare_asoca_normal_dataset(data_path, annotations_path_normal, annotations
         print("[!] WARNING: No .nrrd files found or no match with annotations.")
         return
 
-    # --- 4. CREATING SPLIT ---
+    # --- CREATING SPLIT ---
     random.seed(42)
     random.shuffle(all_samples)
     
@@ -118,7 +118,7 @@ def prepare_asoca_normal_dataset(data_path, annotations_path_normal, annotations
         }
     }
 
-    # --- 5. SAVING ---
+    # --- SAVING ---
     with open(f"{output_yaml_path}/asoca_config.yaml", 'w') as f:
         yaml.dump(config_data, f, sort_keys=False)
     

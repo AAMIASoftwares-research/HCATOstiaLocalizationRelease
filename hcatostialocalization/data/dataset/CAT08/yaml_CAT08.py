@@ -4,7 +4,7 @@ import yaml
 import re
 
 def prepare_cat08_dataset_no_copy(data_path, annotations_path, output_yaml_path):
-    # --- 1. READING ANNOTATED IDS ---
+    # --- READING ANNOTATED IDS ---
     print(f"[*] Scanning annotations in: {annotations_path}")
     annotated_ids = set()
     
@@ -21,7 +21,7 @@ def prepare_cat08_dataset_no_copy(data_path, annotations_path, output_yaml_path)
                 
     print(f"    -> Found {len(annotated_ids)} JSON annotations.\n")
 
-    # --- 2. CHECKING IMAGE EXISTENCE ---
+    # --- CHECKING IMAGE EXISTENCE ---
     all_samples = []
     print("[*] Checking image folder matches...")
 
@@ -40,7 +40,7 @@ def prepare_cat08_dataset_no_copy(data_path, annotations_path, output_yaml_path)
 
     print(f"[+] Verification completed. {len(all_samples)} volumes ready for splitting.")
 
-    # --- 3. CREATING SPLIT ---
+    # --- CREATING SPLIT ---
     random.seed(42) 
     random.shuffle(all_samples)
 
@@ -67,7 +67,7 @@ def prepare_cat08_dataset_no_copy(data_path, annotations_path, output_yaml_path)
         }
     }
 
-    # --- 4. SAVING YAML ---
+    # --- SAVING YAML ---
     os.makedirs(os.path.dirname(output_yaml_path), exist_ok=True)
     with open(output_yaml_path, 'w') as f:
         yaml.dump(config_data, f, sort_keys=False)
@@ -79,7 +79,7 @@ def prepare_cat08_dataset_no_copy(data_path, annotations_path, output_yaml_path)
 
 
 if __name__ == "__main__":
-    # --- PATHS ---
+    
     data_root = "/path/to/data"
     output_dir = "/path/to/data"
 

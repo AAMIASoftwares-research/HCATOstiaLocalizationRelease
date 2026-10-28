@@ -78,14 +78,14 @@ def process_dataset(images_txt, ostia_txt, output_dir, dataset_name):
         
         print(f"Processing: {image_id}")
         
-        # 1. Extract RAS Coordinates (Auto-detects format; the image header is needed for ASOCA)
+        # Extract RAS Coordinates (Auto-detects format; the image header is needed for ASOCA)
         simple_pos = extract_simplified_ras(ost_path, image_path=img_path)
         if simple_pos is None or not simple_pos.get('R', {}).get('ras') or not simple_pos.get('L', {}).get('ras'):
             print(f"    [-] Failed to extract RAS coordinates (R and L) from {ost_path}")
             error_count += 1
             continue
 
-        # 2. Open images and compute IJK & Affines
+        # Open images and compute IJK & Affines
         try:
             full_pos, affine_ijk_to_ras, affine_ras_to_ijk = compute_image_metadata(img_path, simple_pos)
         except Exception as e:
@@ -96,7 +96,7 @@ def process_dataset(images_txt, ostia_txt, output_dir, dataset_name):
             error_count += 1
             continue
 
-        # 2b. Sanity check: both ostia must fall inside the image, otherwise the source
+        # Sanity check: both ostia must fall inside the image, otherwise the source
         #     coordinate frame was misread. The file is still written, but flagged.
         size = read_image_header_lps(img_path)[3]
         for side in ['R', 'L']:
@@ -105,7 +105,7 @@ def process_dataset(images_txt, ostia_txt, output_dir, dataset_name):
                 warning_ids.append(f"{image_id} ({side})")
                 print(f"    [!] WARNING: ostium {side} is outside the image: ijk={[round(c, 1) for c in ijk]}, size={size.tolist()}")
 
-        # 3. Save the final Blueprint JSON
+        # Save the final Blueprint JSON
         comment = f"Automatically generated blueprint for {dataset_name}"
         result = save_blueprint_json(
             filepath=out_filepath,
