@@ -5,16 +5,16 @@ from hcatostialocalization.logger.stdout import error
 
 def assert_last_n_dimensions_multiple_of(last_n_dims: int, multiple_of: int, object_to_check: torch.Tensor | numpy.ndarray) -> None:
     """
-    Check wether each of the `last_n_dims` (int) are a clean multiple of `multiple_of` (int).
+    Check whether each of the `last_n_dims` (int) is a clean multiple of `multiple_of` (int).
     """
     interested_shape = object_to_check.shape[-last_n_dims:]
     for axis_dim in interested_shape:
         if axis_dim % multiple_of != 0:
-            err_message = error(f"Object last {last_n_dims} dimensions should be multiple of {multiple_of}, but got {interested_shape}", out=True)
+            err_message = error(f"Object last {last_n_dims} dimensions should be multiples of {multiple_of}, but got {interested_shape}", out=True)
             raise ValueError(err_message)
 
 class PreprocessorCT(torch.nn.Module):
-    # Preprocessed a 2d or 3d CT image
+    # Preprocesses a 2D or 3D CT image
     # No learnable parameters
     def __init__(self, min_hu: int=-200, max_hu: int=800, check_multiple_of: int | None = None):
         super().__init__()

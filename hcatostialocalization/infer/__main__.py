@@ -83,7 +83,7 @@ def _collect_input_paths(items: List[str], are_labels:bool = False) -> List[str]
                             p = os.path.abspath(os.path.expanduser(line))
                             collected.append(p)
                         else:
-                            # labels can be also empty lines,
+                            # labels can also be empty lines,
                             # meaning that no label is present for the corresponding image
                             if line.startswith('#'):
                                 continue
@@ -101,7 +101,7 @@ def _collect_input_paths(items: List[str], are_labels:bool = False) -> List[str]
             collected.append(os.path.abspath(it))
 
     # deduplicate while preserving order
-    # fix: deduplication does not work as it cause inconsistencies between images and labels
+    # fix: deduplication does not work as it causes inconsistencies between images and labels
     # ordering in case of missing labels. Also, missing labels are all counted as just one empty label file.
     #
     #seen = set()
@@ -987,7 +987,7 @@ def main(
 
 
     # ############### #
-    # MIAN LOOP START #
+    # MAIN LOOP START #
     # ############### #
 
     t0 = time.time()

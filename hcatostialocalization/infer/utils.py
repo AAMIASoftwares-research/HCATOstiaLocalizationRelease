@@ -97,17 +97,17 @@ def predict_minibatches_inplace(
     Memory-efficient sliding-window inference with optional TTA.
     
     Allows saving and returning arbitrary intermediate features from the model,
-    provided that ther model has the required hooks set up:
+    provided that the model has the required hooks set up:
     
     ````
     features:   model.<feature_name>
     flag:       model.save_<feature_name>
     ````
 
-    If flag is true, hook must save features inside model.<features_name> as tensors
+    If the flag is true, the hook must save features inside model.<features_name> as tensors
     with same ndim and batch dimension as input tensor (of course channel and spatial dimensions can vary).
     A list of <feature_name>s can be passed via the `model_features_to_save: list[str]` argument, and this
-    function will assume the behaviur above.
+    function will assume the behavior above.
 
     ATTENTION: you have to set model.save_<feature_name> to True before passing the model to this method.
     After the method, remember to set it to False again if need be.
@@ -678,7 +678,7 @@ def predict_minibatches(
     - minibatch_size: size of the minibatches to use for inference. Recommended: 32 or lower (16 or lower if `augmentation=True`)
     - model_features_to_save: list of attributes of the model to save as features as strings.
     - augment: (bool, default: False) whether to apply test-time augmentation such as flips and rotations
-               to compose the final logits as the median of the ensamble of predictions. Slice-by-slice only.
+               to compose the final logits as the median of the ensemble of predictions. Slice-by-slice only.
     - ensure_sdims_shape_multiple_of: (int|tuple[int]|None, default: None) ensures that the spatial dimensions 
                of the input images are multiples of the specified value(s) by padding them before inference.
     - output_logits_dtype: (torch.dtype, default: torch.float32) the data type of the output logits tensor.
@@ -735,11 +735,11 @@ def predict_minibatches(
         raise KeyError(f"Model has no attribute(s) {_unknown_attr}")
     
     features = {
-        # initialize the feaures tesor of the batch
+        # initialize the features tensor of the batch
         # After the dummy run, if the model is set to save features,
         # there should already be a tensor in the required features, and not be empty (None).
         # If it is None (empty, non-tensor), then we initialize it as None, and it will be ignored
-        # in the followig logic
+        # in the following logic
         k: torch.zeros(
             [images.shape[0]]+[getattr(model, k).shape[_s] for _s in range(1, getattr(model, k).ndim)],
             dtype=output_logits_dtype,
@@ -760,7 +760,7 @@ def predict_minibatches(
         if i == max_i:
             # this works because i:i+1 returns a tensor with one element
             max_i += 1
-        # save logits for evaluation outside the scope of this fucntion
+        # save logits for evaluation outside the scope of this function
         if not augment:
             logits_val[i:max_i] += inference_model(images[i:max_i]).to(storage_device)
         else:
