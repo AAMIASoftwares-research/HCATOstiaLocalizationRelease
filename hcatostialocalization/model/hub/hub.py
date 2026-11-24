@@ -33,6 +33,22 @@ def _spatial_softmax(x: torch.Tensor) -> torch.Tensor:
     # trained with dsnt loss that has spatial softmax inside: one distribution over all voxels of each channel
     return torch.softmax(x.flatten(start_dim=2), dim=-1).view(x.shape)
 
+def _resolve_checkpoint_path(filename: str) -> str:
+    # 1. Path configured via config / machine.yaml
+    path = os.path.join(config.active_paths.root_repo, "checkpoints", filename)
+    if os.path.isfile(path):
+        return path
+    # 2. Path relative to repo root (three levels up from hub.py)
+    repo_root = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", ".."))
+    repo_path = os.path.join(repo_root, "checkpoints", filename)
+    if os.path.isfile(repo_path):
+        return repo_path
+    # 3. Path in parent directory checkpoints (e.g. desktop level)
+    parent_path = os.path.join(repo_root, "..", "checkpoints", filename)
+    if os.path.isfile(parent_path):
+        return parent_path
+    return path
+
 def _load_swinunetr_v2(load_weights: str) -> torch.nn.Module:
     # SwinUNETR v2, 1 input channel, 3 output channels (background, right ostium, left ostium), 128^3 patches
     from monai.networks.nets import SwinUNETR
@@ -59,10 +75,7 @@ def SwinUNETRv2_DSNT(load_weights:str = 'best') -> torch.nn.Module:
     # SwinUNETR v2 trained with images loaded and oriented to RAS, resampled to 0.5 mm isotropic,
     # HU clipped to [-200, 800] and rescaled to [-1, 1] (PreprocessorCT), DSNT loss (spatial softmax prediction).
     if load_weights == 'best':
-        load_weights = os.path.join(
-            config.active_paths.root_repo,
-            "checkpoints/SwinUNETRv2_DSNT.pth",
-        )
+        load_weights = _resolve_checkpoint_path("SwinUNETRv2_DSNT.pth")
     model = _load_swinunetr_v2(load_weights)
 
     model.infer_classes = ['background', 'right ostium', 'left ostium']
@@ -82,10 +95,7 @@ def ResNet50_DSNT(load_weights:str = 'best') -> torch.nn.Module:
     # HU clipped to [-200, 800] and rescaled to [-1, 1] (PreprocessorCT), DSNT loss (spatial softmax prediction).
     from hcatostialocalization.model.model_factory import ResNetHeatmap
     if load_weights == 'best':
-        load_weights = os.path.join(
-            config.active_paths.root_repo,
-            "checkpoints/ResNet50_DSNT.pth",
-        )
+        load_weights = _resolve_checkpoint_path("ResNet50_DSNT.pth")
     checkpoint = torch.load(load_weights, map_location='cpu', weights_only=False)
     state_dict = checkpoint.get('model_state_dict', checkpoint)
     model = ResNetHeatmap(model_type="resnet50", in_channels=1, out_channels=3, decoder_channels=64)
@@ -108,10 +118,7 @@ def ResNet101_DSNT(load_weights:str = 'best') -> torch.nn.Module:
     # HU clipped to [-200, 800] and rescaled to [-1, 1] (PreprocessorCT), DSNT loss (spatial softmax prediction).
     from hcatostialocalization.model.model_factory import ResNetHeatmap
     if load_weights == 'best':
-        load_weights = os.path.join(
-            config.active_paths.root_repo,
-            "checkpoints/ResNet101_DSNT.pth",
-        )
+        load_weights = _resolve_checkpoint_path("ResNet101_DSNT.pth")
     checkpoint = torch.load(load_weights, map_location='cpu', weights_only=False)
     state_dict = checkpoint.get('model_state_dict', checkpoint)
     model = ResNetHeatmap(model_type="resnet101", in_channels=1, out_channels=3, decoder_channels=128)
@@ -136,10 +143,7 @@ def nnUNetResidualUNet_DSNT(load_weights:str = 'best') -> torch.nn.Module:
     from functools import partial
     from dynamic_network_architectures.architectures.unet import ResidualUNet
     if load_weights == 'best':
-        load_weights = os.path.join(
-            config.active_paths.root_repo,
-            "checkpoints/nnUNetResidualUNet_DSNT.pth",
-        )
+        load_weights = _resolve_checkpoint_path("nnUNetResidualUNet_DSNT.pth")
     checkpoint = torch.load(load_weights, map_location='cpu', weights_only=False)
     state_dict = checkpoint.get('model_state_dict', checkpoint)
     model = ResidualUNet(
@@ -173,10 +177,7 @@ def nnUNetResidualUNet_DSNT(load_weights:str = 'best') -> torch.nn.Module:
 def SwinUNETRv2_DSNT_ablation_training_spacing_1p0mm(load_weights:str = 'best') -> torch.nn.Module:
     # SwinUNETR v2 trained (and, by default, run) at 1.0 mm isotropic instead of 0.5 mm
     if load_weights == 'best':
-        load_weights = os.path.join(
-            config.active_paths.root_repo,
-            "checkpoints/SwinUNETRv2_DSNT_ablation_training_spacing_1.0mm.pth",
-        )
+        load_weights = _resolve_checkpoint_path("SwinUNETRv2_DSNT_ablation_training_spacing_1.0mm.pth")
     model = SwinUNETRv2_DSNT(load_weights)
     model.infer_target_spacing_mm_ras = (1.0, 1.0, 1.0)
     return model

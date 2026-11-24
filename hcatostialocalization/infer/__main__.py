@@ -930,7 +930,8 @@ def main(
     # what if i'm almost done with the computations and the results
     # and the program gets interrupted at the last moment?
     # Save results on the go in a simpler way in a log file:
-    logfile = os.path.join(output_path, f"_test_log {start_datetime}.txt")
+    safe_datetime = start_datetime.replace(":", ".")
+    logfile = os.path.join(output_path, f"_test_log {safe_datetime}.txt")
 
     # job id
     if len(job_id) > 0:
